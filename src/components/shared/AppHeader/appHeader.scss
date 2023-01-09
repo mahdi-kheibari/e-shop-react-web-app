@@ -1,0 +1,9 @@
+.header {
+    box-shadow: 0 7px 8px 0 rgb(0 0 0 / 4%) !important;
+    &-search{
+        input{
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    }
+  }

@@ -1,0 +1,98 @@
+@import './assets/scss/variable';
+
+@font-face {
+    font-family: "Vazir";
+    src: url("./assets/fonts/vazir/Vazir-Light-UI.eot") format("embedded-opentype"),
+        url("./assets/fonts/vazir/Vazir-Light-UI.ttf") format("truetype"),
+        url("./assets/fonts/vazir/Vazir-Light-UI.woff") format("woff"),
+        url("./assets/fonts/vazir/Vazir-Light-UI.woff2") format("woff2");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Vazir";
+    src: url("./assets/fonts/vazir/Vazir-Regular-UI.eot") format("embedded-opentype"),
+        url("./assets/fonts/vazir/Vazir-Regular-UI.ttf") format("truetype"),
+        url("./assets/fonts/vazir/Vazir-Regular-UI.woff") format("woff"),
+        url("./assets/fonts/vazir/Vazir-Regular-UI.woff2") format("woff2");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Vazir";
+    src: url("./assets/fonts/vazir/Vazir-Medium-UI.eot") format("embedded-opentype"),
+        url("./assets/fonts/vazir/Vazir-Medium-UI.ttf") format("truetype"),
+        url("./assets/fonts/vazir/Vazir-Medium-UI.woff") format("woff"),
+        url("./assets/fonts/vazir/Vazir-Medium-UI.woff2") format("woff2");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Vazir";
+    src: url("./assets/fonts/vazir/Vazir-Bold-UI.eot") format("embedded-opentype"),
+        url("./assets/fonts/vazir/Vazir-Bold-UI.ttf") format("truetype"),
+        url("./assets/fonts/vazir/Vazir-Bold-UI.woff") format("woff"),
+        url("./assets/fonts/vazir/Vazir-Bold-UI.woff2") format("woff2");
+    font-weight: 700;
+}
+
+$fonts: (12: .75rem,
+    14: .875rem,
+    16: 1rem,
+    18: 1.125rem,
+    20: 1.25rem,
+    24: 1.5rem,
+    32: 2rem);
+
+@each $pixel,
+$rem in $fonts {
+    .font-#{$pixel} {
+        font-size: $rem !important;
+    }
+}
+
+@each $bp-name,
+$bp-pixels in $grid-breakpoints {
+
+    //looping through xs, sm, md, lg, xl and their pixel values
+    @each $pixel,
+    $rem in $fonts {
+        @media (min-width: $bp-pixels) {
+
+            //only works if the screen is wider than this
+            .font-#{$bp-name}-#{$pixel} {
+                //names like w-md-40
+                font-size: $rem !important;
+            }
+        }
+    }
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    overflow-x: hidden !important;
+    font-family: 'Vazir', sans-serif !important;
+    background-color: $light;
+    height: 100%;
+    margin: 0;
+    [id="root"]{
+        height: 100%;
+    }
+}
+
+a {
+    color: $secondary !important;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.text-decoration-line-through {
+    text-decoration: line-through;
+}
