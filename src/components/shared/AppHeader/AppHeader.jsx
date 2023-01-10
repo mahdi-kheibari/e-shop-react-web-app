@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+//import { store } from './../../../store/Context'
 import {
   Box,
   AppBar,
@@ -8,7 +9,6 @@ import {
   Button,
   OutlinedInput,
   IconButton,
-  useTheme,
 } from "@mui/material";
 import "./appHeader.scss";
 import {
@@ -17,8 +17,8 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 const AppHeader = () => {
-  //   const { breakpoints } = useTheme();
-  //   console.log(breakpoints.up("lg"));
+    // const context = useContext(store);
+    // console.log(context);
   return (
     <>
       <AppBar position="sticky" color="white" className="header" sx={{ mb: 4 }}>
