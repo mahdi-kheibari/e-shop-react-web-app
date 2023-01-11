@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-//import { store } from './../../../store/Context'
+import React from "react";
 import {
   Box,
   AppBar,
@@ -17,8 +16,7 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 const AppHeader = () => {
-    // const context = useContext(store);
-    // console.log(context);
+    
   return (
     <>
       <AppBar position="sticky" color="white" className="header" sx={{ mb: 4 }}>
