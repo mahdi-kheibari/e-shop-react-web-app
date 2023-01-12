@@ -16,38 +16,26 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 const AppHeader = () => {
-    
   return (
     <>
       <AppBar position="sticky" color="white" className="header" sx={{ mb: 4 }}>
         <Toolbar
-          sx={({ breakpoints }) => ({
-            [breakpoints.up(breakpoints.values.xs)]: {
-              display: "flex",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              alignItems: "center",
-            },
-            [breakpoints.up(breakpoints.values.sm)]: {
-              px: 1,
-            },
-          })}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            alignItems: "center",
+            px: { sm: 1 },
+          }}
         >
           <Box
-            sx={({ breakpoints }) => ({
-              [breakpoints.up(breakpoints.values.xs)]: {
-                display: "flex",
-                order: 1,
-                ml: 0,
-                mt: 2.5,
-                width: "50%",
-              },
-              [breakpoints.up(breakpoints.values.sm)]: {
-                ml: 2,
-                mt: "initial",
-                width: "auto",
-              },
-            })}
+            sx={{
+              display: "flex",
+              order: 1,
+              ml: { xs: 0, sm: 2 },
+              mt: { xs: 2.5, sm: "initial" },
+              width: { xs: "50%", sm: "auto" },
+            }}
             className="header-brand"
           >
             <img src="/logo192.png" height="30px" alt="logo" />
@@ -66,29 +54,20 @@ const AppHeader = () => {
           </Box>
           <Box
             className="header-search"
-            sx={({ breakpoints }) => ({
-              [breakpoints.up(breakpoints.values.xs)]: {
-                px: 1,
-                width: "100%",
-                order: 3,
-                py: 2,
-              },
-              [breakpoints.up(breakpoints.values.sm)]: {
-                width: "50%",
-                order: 2,
-                py: 0,
-              },
-            })}
+            sx={{
+              px: 1,
+              width: { xs: "100%", sm: "50%" },
+              order: { xs: 3, sm: 2 },
+              py: { xs: 2, sm: 0 },
+            }}
           >
             <ButtonGroup
               variant="contained"
-              sx={({ breakpoints }) => ({
-                [breakpoints.up(breakpoints.values.xs)]: {
-                  boxShadow: "none",
-                  width: "100%",
-                  height: "calc(1.5em + 0.75rem + 2px)",
-                },
-              })}
+              sx={{
+                boxShadow: "none",
+                width: "100%",
+                height: "calc(1.5em + 0.75rem + 2px)",
+              }}
             >
               <OutlinedInput
                 placeholder="Search"
@@ -110,16 +89,11 @@ const AppHeader = () => {
           </Box>
           <Box
             className="header-other"
-            sx={({ breakpoints }) => ({
-              [breakpoints.up(breakpoints.values.xs)]: {
-                display: "flex",
-                order: 2,
-              },
-              [breakpoints.up(breakpoints.values.sm)]: {
-                width: "auto",
-                order: 3,
-              },
-            })}
+            sx={{
+              display: "flex",
+              order: { xs: 2, sm: 3 },
+              width: { sm: "auto" },
+            }}
           >
             <IconButton aria-label="account" size="large" sx={{ py: 0 }}>
               <PersonOutlineOutlined />

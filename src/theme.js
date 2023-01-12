@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme } from '@mui/material/styles';
 
 const allTypographyVariants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'button', 'caption', 'overline']
 const typographyVariants = {
@@ -10,8 +10,7 @@ const typographyVariants = {
 }
 allTypographyVariants.map((item) => { typographyVariants[item] = { fontFamily: "'Vazir','Roboto', 'Helvetica', 'Arial', sans-serif" } })
 
-let theme = createTheme({});
-theme = createTheme(theme, {
+const theme = createTheme({
     palette: {
         primary: { main: '#61DAFB' },
         primary_light: { main: '#88ECFC' },
@@ -27,34 +26,47 @@ theme = createTheme(theme, {
     },
     spacing: (factor) => `${0.25 * factor}rem`,
     breakpoints: {
+        keys:['xs','sm','md','lg','xl','xxl'],
         values: {
             xs: 0,
             sm: 576,
             md: 768,
             lg: 992,
             xl: 1200,
+            xxl:1400
         },
     },
     typography: { ...typographyVariants },
     components: {
         MuiContainer: {
             styleOverrides: {
-                root: {
-                    [theme.breakpoints.up('sm')]: {
+                maxWidthSm: {
+                    '&.MuiContainer-maxWidthSm': {
                         maxWidth: '540px',
                     },
-                    [theme.breakpoints.up('md')]: {
+                },
+                maxWidthMd: {
+                    '&.MuiContainer-maxWidthMd': {
                         maxWidth: '720px',
                     },
-                    [theme.breakpoints.up('lg')]: {
+                },
+                maxWidthLg: {
+                    '&.MuiContainer-maxWidthLg': {
                         maxWidth: '960px',
                     },
-                    [theme.breakpoints.up('xl')]: {
+                },
+                maxWidthXl: {
+                    '&.MuiContainer-maxWidthXl': {
                         maxWidth: '1140px',
+                    },
+                },
+                maxWidthXxl: {
+                    '&.MuiContainer-maxWidthXxl': {
+                        maxWidth: '1320px',
                     },
                 },
             }
         },
     },
-})
+});
 export default theme;
