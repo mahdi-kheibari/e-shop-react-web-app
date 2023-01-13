@@ -3,7 +3,6 @@ import theme from './theme'
 import { ThemeProvider } from '@mui/material/styles';
 import AppLayout from './layouts/AppLayout';
 import Context from './store/Context'
-import './App.scss'
 
 const App = () => {
     return (

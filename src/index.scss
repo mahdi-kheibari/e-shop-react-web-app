@@ -96,3 +96,23 @@ a {
 .text-decoration-line-through {
     text-decoration: line-through;
 }
+
+.rounded-pill {
+    border-radius: 50rem !important;
+}
+
+@mixin hoverCart {
+    color: $primary !important;
+    border: 1px solid $primary !important;
+    border-radius: 4px !important;
+}
+
+.discount-btn {
+    border: 1px solid $white !important;
+    padding: 0 8px !important;
+    transition: all 0.5s linear;
+
+    &:hover {
+        @include hoverCart;
+    }
+}

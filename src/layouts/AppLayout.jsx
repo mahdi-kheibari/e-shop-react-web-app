@@ -3,7 +3,7 @@ import React from "react";
 import AppFooter from "../components/shared/AppFooter";
 import AppHeader from "../components/shared/AppHeader/AppHeader";
 import {  Route, Routes } from 'react-router-dom'
-import Index from "../pages";
+import Index from "../pages/index/index";
 
 const AppLayout = () => {
   return (

@@ -12,12 +12,11 @@ const MainSwiper = (props) => {
     <Swiper
       modules={[Navigation, Pagination, Autoplay, EffectFade]}
       navigation
-      pagination={{clickable:true}}
+      pagination={props.pagination?{clickable:true}:false}
       effect={"fade"}
       autoplay={{delay:3500,disableOnInteraction:false}}
       loop
       className={`swiper-container ${props.rootStyle}`}
-      onSwiper={(swiper) => console.log(swiper)}
     >
       {props.children}
     </Swiper>

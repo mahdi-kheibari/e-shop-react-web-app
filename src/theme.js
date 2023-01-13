@@ -15,14 +15,15 @@ const theme = createTheme({
         primary: { main: '#61DAFB' },
         primary_light: { main: '#88ECFC' },
         secondary: { main: '#222' },
-        success: { main: '#8DDB20' },
-        info: { main: '#4F95FF' },
-        warning: { main: '#FCDE00' },
-        danger: { main: '#FF7449' },
+        success: { main: '#60FBB5' },
+        info: { main: '#6072FB' },
+        warning: { main: '#FBB560' },
+        danger: { main: '#FB6072' },
         gray: { main: '#ccc' },
         light: { main: '#edf2f7' },
         dark: { main: '#2c3e50' },
-        white: { main: '#fff' }
+        white: { main: '#fff' },
+        muted:{main:'#6c757d'}
     },
     spacing: (factor) => `${0.25 * factor}rem`,
     breakpoints: {
