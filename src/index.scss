@@ -71,10 +71,11 @@ $bp-pixels in $grid-breakpoints {
 html,
 body {
     height: 100%;
+    width: 100%;
+    overflow-x: hidden !important;
 }
 
 body {
-    overflow-x: hidden !important;
     font-family: 'Vazir', sans-serif !important;
     background-color: $light;
     height: 100%;
@@ -107,12 +108,9 @@ a {
     border-radius: 4px !important;
 }
 
-.discount-btn {
-    border: 1px solid $white !important;
-    padding: 0 8px !important;
-    transition: all 0.5s linear;
-
-    &:hover {
-        @include hoverCart;
-    }
+.mt-section{
+    margin-top: 2.3125rem !important;
+}
+.mt-related{
+    margin-top: 1rem !important;
 }

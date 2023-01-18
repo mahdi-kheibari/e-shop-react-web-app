@@ -10,6 +10,8 @@ import Link from "../../components/utils/Link";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
+import DiscountSwiper from "../../components/swiper/discountSwiper/DiscountSwiper";
+import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import "./index.scss";
 
 const Index = (props) => {
@@ -19,6 +21,7 @@ const Index = (props) => {
     <Container
       fixed={windowWidth >= 992 ? true : false}
       maxWidth={windowWidth >= 992 ? false : "lg"}
+      sx={{ mx: windowWidth >= 992 ? "auto" : "initial" }}
     >
       <Box component={"section"}>
         <Grid container spacing={4}>
@@ -138,40 +141,207 @@ const Index = (props) => {
                 <Button
                   variant="text"
                   color="primary"
-                  sx={{ mt: "auto", pb: 2,textTransform:"capitalize" }}
+                  sx={{ mt: "auto", pb: 2, textTransform: "capitalize" }}
                   component={RouterLink}
                   to={"#"}
                 >
-                    <Typography
-                      variant="body1"
-                      color="primary.main"
-                      component={"span"}
-                      sx={{
-                        mx: "auto",
-                      }}
-                      className="font-20"
-                    >
-                      See all
-                    </Typography>
+                  <Typography
+                    variant="body1"
+                    color="primary.main"
+                    component={"span"}
+                    sx={{
+                      mx: "auto",
+                    }}
+                    className="font-20"
+                  >
+                    See all
+                  </Typography>
                 </Button>
               </Box>
             </Grid>
           ) : (
-            <Grid item xs={12} sx={{ px: 0 }}>
-              content
+            <Grid
+              item
+              xs={12}
+              sx={{
+                px: 0,
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                overflow: "initial",
+                maxWidth:"unset !important"
+              }}
+              className="discounts-small mt-related"
+            >
+              <DiscountSwiper>
+                <SwiperSlide className="swiper-slide-small">
+                  <Link
+                    to={"#"}
+                    sx={{
+                      bgcolor: "transparent",
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                      color: "white",
+                      mt: "auto",
+                    }}
+                  >
+                    <Typography
+                      variant="h4"
+                      color="white.main"
+                      sx={{ textAlign: "center", fontWeight: "bold" }}
+                    >
+                      Special discounts
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      <Typography
+                        variant="body1"
+                        component={"span"}
+                        className="font-20"
+                        color="white.main"
+                        sx={{ alignSelf: "center" }}
+                      >
+                        see all
+                      </Typography>
+                    </Button>
+                  </Link>
+                </SwiperSlide>
+                {[1, 2, 3, 4].map((item) => (
+                  <SwiperSlide key={item} className="swiper-slide-small">
+                    <Link
+                      to={"#"}
+                      sx={{
+                        height: "100%",
+                        bgcolor: "white.main",
+                        display: "flex",
+                        justifyContent: "start",
+                        flexDirection: "column",
+                        p: 2,
+                      }}
+                    >
+                      <Box
+                        className="second-card-img-small"
+                        sx={{ mx: "auto" }}
+                      >
+                        <img
+                          src={context.discountSliderImg[0].address}
+                          alt={context.discountSliderImg[0].name}
+                        />
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          textAlign: "center",
+                          my: "auto",
+                        }}
+                        className="discounts-slider_caption"
+                      >
+                        <Typography
+                          variant="body1"
+                          color="initial"
+                          sx={{
+                            mx: 2,
+                            mb: 0,
+                            textAlign: "left",
+                          }}
+                          className="caption_nameOneLine font-14"
+                        >
+                          {context.discountSliderImg[0].name}
+                        </Typography>
+                        <Box sx={{ textAlign: "left", mt: 3 }}>
+                          <Typography
+                            variant="body1"
+                            component={"span"}
+                            color="white.main"
+                            sx={{
+                              bgcolor: "danger.main",
+                              px: 1,
+                              py: 0.5,
+                            }}
+                            className="font-14 rounded-pill"
+                          >
+                            {context.discountSliderImg[0].discountPercent}
+                          </Typography>
+                          <Typography
+                            variant="body1"
+                            color="muted.main"
+                            component={"span"}
+                            sx={{
+                              textDecoration: "line-through",
+                            }}
+                            className="font-12"
+                          >
+                            {context.discountSliderImg[0].price}
+                          </Typography>
+                          <Typography
+                            variant="body1"
+                            color="secondary.main"
+                            sx={{
+                              textAlign: "left",
+                              fontWeight: "bold",
+                            }}
+                            className="font-16"
+                          >
+                            {context.discountSliderImg[0].withDiscount}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Link>
+                  </SwiperSlide>
+                ))}
+                <SwiperSlide className="swiper-slide-small">
+                  <Link
+                    to={"#"}
+                    sx={{
+                      bgcolor: "white.main",
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: "white",
+                      mt: "auto",
+                    }}
+                  >
+                    <Box sx={{ color: "info.main" }}>
+                      <ArrowCircleRightOutlinedIcon
+                        color="info.main"
+                        sx={{ pb: 1 }}
+                      ></ArrowCircleRightOutlinedIcon>
+                    </Box>
+                    <Typography
+                      variant="body1"
+                      component={"span"}
+                      className="font-20"
+                      color="secondary.main"
+                      sx={{ alignSelf: "center" }}
+                    >
+                      See all
+                    </Typography>
+                  </Link>
+                </SwiperSlide>
+              </DiscountSwiper>
             </Grid>
           )}
         </Grid>
       </Box>
       <Box
         component={"section"}
-        className="bestSellers"
-        sx={{ bgcolor: "white.main", mt: 9.25 }}
+        className="bestSellers mt-section"
+        sx={{ bgcolor: "white.main" }}
       ></Box>
       <Box
         component={"section"}
-        className="brands"
-        sx={{ bgcolor: "white.main", mt: 9.25 }}
+        className="brands mt-section"
+        sx={{ bgcolor: "white.main" }}
       ></Box>
     </Container>
   );

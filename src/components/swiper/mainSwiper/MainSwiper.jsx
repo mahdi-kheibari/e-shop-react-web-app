@@ -16,7 +16,7 @@ const MainSwiper = (props) => {
       effect={"fade"}
       autoplay={{delay:3500,disableOnInteraction:false}}
       loop
-      className={`swiper-container ${props.rootStyle}`}
+      className={`swiper-container-1 ${props.rootStyle}`}
     >
       {props.children}
     </Swiper>
