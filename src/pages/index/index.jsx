@@ -356,8 +356,8 @@ const Index = (props) => {
             sx={{
               py: 2,
               display: "inline",
-              fontWeight:"bold",
-              mb:2
+              fontWeight: "bold",
+              mb: 2,
             }}
           >
             Recent bestsellers
@@ -365,31 +365,87 @@ const Index = (props) => {
         </Box>
         {windowWidth >= 992 ? (
           <SecondSwiper rootStyle="bestSellers-swiper">
-            {[1,2,3,4,5,6,7].map((item) => (
+            {[1, 2, 3, 4, 5, 6, 7].map((item) => (
               <SwiperSlide key={item}>
                 <Link to={"#"} className="bestSeller">
-                <SecondSwiperItem i={context.bestsellersSlider[0]} />
+                  <SecondSwiperItem i={context.bestsellersSlider[0]} />
                 </Link>
               </SwiperSlide>
             ))}
           </SecondSwiper>
-        ) : 
-        <SecondSwiperSm rootStyle="bestSellers-swiper">
-            {[1,2,3,4,5,6,7].map((item) => (
+        ) : (
+          <SecondSwiperSm rootStyle="bestSellers-swiper">
+            {[1, 2, 3, 4, 5, 6, 7].map((item) => (
               <SwiperSlide key={item}>
                 <Link to={"#"} className="swiper-slide-small">
-                <SecondSwiperItem i={context.bestsellersSlider[0]} />
+                  <SecondSwiperItem i={context.bestsellersSlider[0]} />
                 </Link>
               </SwiperSlide>
             ))}
-        </SecondSwiperSm>
-        }
+          </SecondSwiperSm>
+        )}
       </Box>
       <Box
         component={"section"}
         className="brands mt-section"
         sx={{ bgcolor: "white.main" }}
-      ></Box>
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+          }}
+          className="brands-header"
+        >
+          <Typography
+            variant="h4"
+            color="secondary.main"
+            className="brands-title font-20"
+            sx={{ display: "inline", py: 2 ,fontWeight:"bold"}}
+          >
+            Special brands
+          </Typography>
+          <Link to={"#"} sx={{ mr: 1,width:"initial !important" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ textTransform: "capitalize",color:"white.main" }}
+            >
+              see all
+            </Button>
+          </Link>
+        </Box>
+        {windowWidth >= 992 ? (
+          <SecondSwiper rootStyle="brands-swiper">
+            {context.SpecialBrandsSlider.map((item) => (
+              <SwiperSlide key={item.name}>
+                <Link to={"#"} sx={{ mt: 1, px: 2, mr: 0 }} className="brand">
+                  <Box className="brand-img" sx={{ mx: "auto" }}>
+                    <img src={item.address} alt={item.name} />
+                  </Box>
+                </Link>
+              </SwiperSlide>
+            ))}
+          </SecondSwiper>
+        ) : (
+          <SecondSwiperSm rootStyle="brands-swiper">
+            {context.SpecialBrandsSlider.map((item) => (
+              <SwiperSlide key={item.name}>
+                <Link
+                  to={"#"}
+                  sx={{ mt: 1, px: 2, mr: 0 }}
+                  className="swiper-slide-small"
+                >
+                  <Box className="second-card-img-small" sx={{ mx: "auto" }}>
+                    <img src={item.address} alt={item.name} />
+                  </Box>
+                </Link>
+              </SwiperSlide>
+            ))}
+          </SecondSwiperSm>
+        )}
+      </Box>
     </Container>
   );
 };

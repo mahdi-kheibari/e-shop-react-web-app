@@ -80,7 +80,8 @@
 .similars,
 .brands {
     box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
-    a{
+
+    a {
         width: 100%;
     }
 }
@@ -92,10 +93,12 @@
     &-slider {
         height: calc((100vw - 16px)/3 - 100px) !important;
         width: 100%;
-        .swiper-slide{
+
+        .swiper-slide {
             justify-content: start;
             align-items: flex-start;
         }
+
         &_caption {
             @media (min-width:1200px) {
                 justify-content: space-around !important;
@@ -105,6 +108,7 @@
 
     &-title {
         font-size: 32px !important;
+
         @media (max-width:1200px) {
             font-size: 24px !important;
         }
@@ -121,6 +125,7 @@
             font-size: 20px !important;
         }
     }
+
     overflow: hidden;
 }
 
@@ -138,7 +143,8 @@
     @media (max-width:768px) {
         height: calc((100vw - 16px)/2) !important;
     }
-    a{
+
+    a {
         width: 100%;
         height: 100%;
     }
@@ -196,6 +202,11 @@
             }
         }
     }
+}
+
+.brands-swiper {
+    width: 100%;
+    height: 163px;
 }
 
 .swiper-slide-small {
