@@ -13,6 +13,9 @@ import { Link as RouterLink } from "react-router-dom";
 import DiscountSwiper from "../../components/swiper/discountSwiper/DiscountSwiper";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import "./index.scss";
+import SecondSwiper from "../../components/swiper/secondSwiper/SecondSwiper";
+import SecondSwiperItem from "../../components/swiper/secondSwiper/secondSwiperItem/SecondSwiperItem";
+import SecondSwiperSm from "../../components/swiper/secondSwiper/secondSwiperSm/SecondSwiperSm";
 
 const Index = (props) => {
   const { windowWidth } = useWindowWidth();
@@ -169,7 +172,7 @@ const Index = (props) => {
                 display: "flex",
                 alignItems: "center",
                 overflow: "initial",
-                maxWidth:"unset !important"
+                maxWidth: "unset !important",
               }}
               className="discounts-small mt-related"
             >
@@ -337,7 +340,51 @@ const Index = (props) => {
         component={"section"}
         className="bestSellers mt-section"
         sx={{ bgcolor: "white.main" }}
-      ></Box>
+      >
+        <Box
+          className="bestSellers-header"
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+          }}
+        >
+          <Typography
+            variant="h4"
+            color="secondary"
+            className="bestSellers-title"
+            sx={{
+              py: 2,
+              display: "inline",
+              fontWeight:"bold",
+              mb:2
+            }}
+          >
+            Recent bestsellers
+          </Typography>
+        </Box>
+        {windowWidth >= 992 ? (
+          <SecondSwiper rootStyle="bestSellers-swiper">
+            {[1,2,3,4,5,6,7].map((item) => (
+              <SwiperSlide key={item}>
+                <Link to={"#"} className="bestSeller">
+                <SecondSwiperItem i={context.bestsellersSlider[0]} />
+                </Link>
+              </SwiperSlide>
+            ))}
+          </SecondSwiper>
+        ) : 
+        <SecondSwiperSm rootStyle="bestSellers-swiper">
+            {[1,2,3,4,5,6,7].map((item) => (
+              <SwiperSlide key={item}>
+                <Link to={"#"} className="swiper-slide-small">
+                <SecondSwiperItem i={context.bestsellersSlider[0]} />
+                </Link>
+              </SwiperSlide>
+            ))}
+        </SecondSwiperSm>
+        }
+      </Box>
       <Box
         component={"section"}
         className="brands mt-section"

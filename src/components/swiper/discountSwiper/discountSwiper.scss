@@ -1,6 +1,11 @@
 .swiper-container-3 {
     padding-left: 0 !important;
+
     .swiper-wrapper {
         height: 286px !important;
+
+        .swiper-slide:first-child {
+            background-color: transparent !important;
+        }
     }
 }

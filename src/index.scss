@@ -85,6 +85,12 @@ body {
     }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box; 
+}
+
 a {
     color: $secondary !important;
     text-decoration: none;
@@ -114,3 +120,61 @@ a {
 .mt-related{
     margin-top: 1rem !important;
 }
+/* start swiper */
+
+.swiper-container-2,.swiper-container-4{
+    padding: 6px 4px !important;
+    margin-bottom: 11px;
+}
+.swiper-container-4,.swiper-container-3,.swiper-container-2{
+    position: absolute;
+    overflow: hidden;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.swiper-container-2 .swiper-slide img,.swiper-container-3 .swiper-slide img,.swiper-container-4 .swiper-slide img{
+    object-fit: contain;
+}
+.swiper-button-next,swiper-button-prev{
+    font-size: 14px !important;
+}
+.swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled{
+    pointer-events: auto !important;
+}
+    // for second swiper
+.swiper-container-2,
+.swiper-container-4 {
+    .swiper-slide {
+        border-radius: 8px;
+        margin-right: 6px !important;
+        transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), transform .2s cubic-bezier(.4, 0, 1, 1), -webkit-box-shadow .2s cubic-bezier(.4, 0, 1, 1), -webkit-transform .2s cubic-bezier(.4, 0, 1, 1);
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px 0px;
+            transform: translateY(-2px);
+        }
+    }
+}
+// end swiper
