@@ -2,9 +2,7 @@ import { Box } from "@mui/material";
 import React from "react";
 import AppFooter from "../components/shared/AppFooter";
 import AppHeader from "../components/shared/AppHeader/AppHeader";
-import {  Route, Routes } from 'react-router-dom'
-import Index from "../pages/index/index";
-import Categories from '../pages/products/index/index'
+import Router from "../Router";
 
 const AppLayout = () => {
   return (
@@ -18,12 +16,9 @@ const AppLayout = () => {
     >
       <Box sx={{ flex: "1 0 auto" }}>
         <AppHeader></AppHeader>
-        <Routes>
-            <Route path="/" element={(<Index></Index>)} exact></Route>
-            <Route path="/Products" element={(<Categories></Categories>)} exact></Route>
-        </Routes>
+        <Router></Router>
       </Box>
-      <Box sx={{flexShrink: 0}}>
+      <Box sx={{ flexShrink: 0 }}>
         <AppFooter></AppFooter>
       </Box>
     </Box>

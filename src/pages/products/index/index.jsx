@@ -13,7 +13,7 @@ const Index = () => {
         <Grid key={key} item xs={12} md={6}>
           <Box className="category" sx={{ my: 2 }}>
             <Link
-              to={"#"}
+              to={context.allCategories[key].route}
               sx={{
                 backgroundImage:
                   "url(" + context.allCategories[key].address + ")",
