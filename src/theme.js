@@ -23,18 +23,18 @@ const theme = createTheme({
         light: { main: '#edf2f7' },
         dark: { main: '#2c3e50' },
         white: { main: '#fff' },
-        muted:{main:'#6c757d'}
+        muted: { main: '#6c757d' }
     },
     spacing: (factor) => `${0.25 * factor}rem`,
     breakpoints: {
-        keys:['xs','sm','md','lg','xl','xxl'],
+        keys: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
         values: {
             xs: 0,
             sm: 576,
             md: 768,
             lg: 992,
             xl: 1200,
-            xxl:1400
+            xxl: 1400
         },
     },
     typography: { ...typographyVariants },
@@ -66,8 +66,30 @@ const theme = createTheme({
                         maxWidth: '1320px',
                     },
                 },
+                fixed: {
+                    '&.MuiContainer-fixed': {
+                    },
+                }
             }
         },
     },
 });
+const ContainerFixed = {
+    [theme.breakpoints.up('sm')]: {
+        maxWidth: '540px',
+    },
+    [theme.breakpoints.up('md')]: {
+        maxWidth: '720px',
+    },
+    [theme.breakpoints.up('lg')]: {
+        maxWidth: '960px',
+    },
+    [theme.breakpoints.up('xl')]: {
+        maxWidth: '1140px',
+    },
+    [theme.breakpoints.up('xxl')]: {
+        maxWidth: '1320px',
+    },
+}
+theme.components.MuiContainer.styleOverrides.fixed['&.MuiContainer-fixed'] = ContainerFixed;
 export default theme;
