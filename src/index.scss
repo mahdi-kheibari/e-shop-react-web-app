@@ -79,7 +79,8 @@ body {
     background-color: $light;
     height: 100%;
     margin: 0;
-    [id="root"]{
+
+    [id="root"] {
         height: 100%;
     }
 }
@@ -87,7 +88,7 @@ body {
 *,
 *::before,
 *::after {
-  box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 a {
@@ -103,17 +104,30 @@ a {
     text-decoration: line-through;
 }
 
+.container-fluid {
+    width: 100%;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 // rounded classes
-$rounded:(
-    bottom:0.25rem,
-    top:0.25rem
-);
-@each $direction,$val in $rounded{
-    .rounded-#{$direction}{
+$rounded:(bottom:0.25rem,
+    top:0.25rem);
+
+@each $direction,
+$val in $rounded {
+    .rounded-#{$direction} {
         border-#{$direction}-left-radius: $val !important;
         border-#{$direction}-right-radius: $val !important;
     }
 }
+
+.rounded {
+    border-radius: 0.25rem !important;
+}
+
 .rounded-pill {
     border-radius: 50rem !important;
 }
@@ -124,22 +138,29 @@ $rounded:(
     border-radius: 4px !important;
 }
 
-.mt-section{
+.mt-section {
     margin-top: 2.3125rem !important;
 }
-.mt-related{
+
+.mt-related {
     margin-top: 1rem !important;
 }
+
 /* start swiper */
 
-.swiper-container-2,.swiper-container-4{
+.swiper-container-2,
+.swiper-container-4 {
     padding: 6px 4px !important;
     margin-bottom: 11px;
 }
-.swiper-container-4,.swiper-container-3,.swiper-container-2{
+
+.swiper-container-4,
+.swiper-container-3,
+.swiper-container-2 {
     position: absolute;
     overflow: hidden;
 }
+
 .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -158,22 +179,31 @@ $rounded:(
     -webkit-align-items: center;
     align-items: center;
 }
+
 .swiper-slide img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.swiper-container-2 .swiper-slide img,.swiper-container-3 .swiper-slide img,.swiper-container-4 .swiper-slide img{
+
+.swiper-container-2 .swiper-slide img,
+.swiper-container-3 .swiper-slide img,
+.swiper-container-4 .swiper-slide img {
     object-fit: contain;
 }
-.swiper-button-next,swiper-button-prev{
+
+.swiper-button-next,
+swiper-button-prev {
     font-size: 14px !important;
 }
-.swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled{
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
     pointer-events: auto !important;
 }
-    // for second swiper
+
+// for second swiper
 .swiper-container-2,
 .swiper-container-4 {
     .swiper-slide {
@@ -187,4 +217,5 @@ $rounded:(
         }
     }
 }
+
 // end swiper
