@@ -61,7 +61,6 @@ $bp-pixels in $grid-breakpoints {
 
             //only works if the screen is wider than this
             .font-#{$bp-name}-#{$pixel} {
-                //names like w-md-40
                 font-size: $rem !important;
             }
         }
@@ -104,6 +103,17 @@ a {
     text-decoration: line-through;
 }
 
+// rounded classes
+$rounded:(
+    bottom:0.25rem,
+    top:0.25rem
+);
+@each $direction,$val in $rounded{
+    .rounded-#{$direction}{
+        border-#{$direction}-left-radius: $val !important;
+        border-#{$direction}-right-radius: $val !important;
+    }
+}
 .rounded-pill {
     border-radius: 50rem !important;
 }
