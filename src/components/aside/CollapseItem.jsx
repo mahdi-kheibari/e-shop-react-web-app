@@ -1,12 +1,12 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import React from "react";
-import NavLink from "../utils/NavLink";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { NavLink } from "react-router-dom";
 
 function CollapseItem(props) {
   return (
     <Box component={"li"} sx={{ mb: 1 }}>
-      <Accordion sx={{boxShadow:"none"}}>
+      <Accordion sx={{boxShadow:"none"}} defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{"& .MuiAccordionSummary-content":{my:0}}}>
           {props.link ? (
             <NavLink
@@ -14,7 +14,6 @@ function CollapseItem(props) {
               className={`${({ isActive }) => {
                 return isActive ? "active-category" : undefined;
               }} btn-toggle rounded`}
-              sx={{ alignItems: "center" }}
             >
               {({ isActive }) => (
                 <Typography
@@ -48,7 +47,6 @@ function CollapseItem(props) {
                   className={`${({ isActive }) => {
                     return isActive ? "active-category" : undefined;
                   }} rounded`}
-                  sx={{ alignItems: "center" }}
                 >
                   {({ isActive }) => (
                     <Typography

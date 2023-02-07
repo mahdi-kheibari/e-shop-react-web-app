@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
-import NavLink from "../utils/NavLink";
+import { NavLink } from "react-router-dom";
 
 function Item(props) {
   return (
@@ -15,7 +15,6 @@ function Item(props) {
           className={`${({ isActive }) => {
             return isActive ? "active-category" : undefined;
           }} btn-toggle rounded`}
-          sx={{ alignItems: "center" }}
         >
           {({ isActive }) => (
             <Typography

@@ -11,7 +11,7 @@ const Index = () => {
     for (const key in context.allCategories) {
       Items.push(
         <Grid key={key} item xs={12} md={6}>
-          <Box className="category" sx={{ my: 2 }}>
+          <Box className="categoeies" sx={{ my: 2 }}>
             <Link
               to={context.allCategories[key].route}
               sx={{

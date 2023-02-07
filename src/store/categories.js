@@ -8,13 +8,13 @@ const categories = {
             products: {
                 mobile: {
                     titleFa: "گوشی موبایل",
-                    icon: "phone",
+                    icon: "PhoneIphoneOutlined",
                     cover: "/images/category/Digital/mobile/cover.png",
                     route: "/Products/Digital/mobile",
                 },
                 laptop: {
                     titleFa: "لپ تاپ",
-                    icon: "laptop",
+                    icon: "LaptopMacOutlined",
                     cover: "/images/category/Digital/laptop/cover.png",
                     route: "/Products/Digital/laptop",
                 }
@@ -29,13 +29,15 @@ const categories = {
             products: {
                 female: {
                     titleFa: "زنانه",
-                    iconClass: 'icon-female',
+                    // iconClass: 'icon-female',
+                    icon:'WomanOutlined',
                     cover: "/images/category/Fashion/female/cover.png",
                     route: "/Products/Fashion/female",
                 },
                 male: {
                     titleFa: "مردانه",
-                    iconClass: 'icon-tshirt',
+                    // iconClass: 'icon-tshirt',
+                    icon:'ManOutlined',
                     cover: "/images/category/Fashion/male/cover.png",
                     route: "/Products/Fashion/male",
                 }
@@ -50,13 +52,14 @@ const categories = {
             products: {
                 cleaning: {
                     titleFa: "شستشو و نظافت",
-                    iconClass: "icon-hand-sparkles",
+                    // iconClass: "icon-hand-sparkles",
+                    icon:"CleanHandsOutlined",
                     cover: "/images/category/House/cleaning/cover.png",
                     route: "/Products/House/cleaning",
                 },
                 "video-audio": {
                     titleFa: "صوتی و تصویری",
-                    icon: "tv",
+                    icon: "TvOutlined",
                     cover: "/images/category/House/video_and_audio/cover.png",
                     route: "/Products/House/video-audio",
                 }
@@ -71,13 +74,15 @@ const categories = {
             products: {
                 health: {
                     titleFa: "بهداشتی",
-                    iconClass: "icon-heartbeat",
+                    // iconClass: "icon-heartbeat",
+                    icon:"FavoriteBorderOutlined",
                     cover: "/images/category/Beauty/Health/cover.png",
                     route: "/Products/Beauty/health",
                 },
                 makeup: {
                     titleFa: "آرایشی",
-                    iconClass: "icon-paint-brush",
+                    // iconClass: "icon-paint-brush",
+                    icon:"BrushOutlined",
                     cover: "/images/category/Beauty/makeup/cover.png",
                     route: "/Products/Beauty/makeup",
                 }
