@@ -13,7 +13,13 @@ function AsideLayout({ children }) {
     <Box
       component={"aside"}
       className="category-aside"
-      sx={{ position: "sticky", flexShrink: 0, p: 3, bgcolor: "white.main" }}
+      sx={{
+        position: "sticky",
+        top: "110px",
+        flexShrink: 0,
+        p: 3,
+        bgcolor: "white.main",
+      }}
     >
       <Box
         sx={{

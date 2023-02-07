@@ -1,13 +1,17 @@
+import React from 'react';
 import { createContext } from "react";
 import state from './index'
 import categories from './categories'
-import React from 'react';
+import Digital from './Digital'
+import Fashion from './Fashion'
+import Beauty from './Beauty'
+import House from './House'
 
-export const store = createContext({ mainSliderImg: [], discountSliderImg: [], bestsellersSlider: [], SpecialBrandsSlider: [],allCategories:{} })
+export const store = createContext({ mainSliderImg: [], discountSliderImg: [], bestsellersSlider: [], SpecialBrandsSlider: [],allCategories:{},Digital:{},Fashion:{},Beauty:{},House:{} })
 
 const Context = ({ children }) => {
     return (
-        <store.Provider value={{...state,...categories}}>
+        <store.Provider value={{...state,...categories,Digital,Beauty,Fashion,House}}>
             {children}
         </store.Provider>
     );
