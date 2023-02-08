@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Index from "./pages/index/index";
 import Categories from "./pages/products/index/index";
 import Category from "./pages/products/category/Index";
@@ -19,6 +19,15 @@ import Male from "./pages/products/Fashion/childs/Male";
 import HousePage from "./pages/products/House/Index";
 import Cleaning from "./pages/products/House/childs/Cleaning";
 import VideoAudio from "./pages/products/House/childs/VideoAudio";
+import VideoAudioProduct from "./pages/product/videoAudio/Id";
+import CleaningProduct from "./pages/product/cleaning/Id";
+import FemaleProduct from "./pages/product/female/Id";
+import MaleProduct from "./pages/product/male/Id";
+import LaptopProduct from "./pages/product/laptop/Id";
+import MobileProduct from "./pages/product/mobile/Id";
+import HealthProduct from "./pages/product/health/Id";
+import MakeupProduct from "./pages/product/makeup/Id";
+import Error from './layouts/Error';
 
 const Router = () => {
     return (
@@ -63,6 +72,34 @@ const Router = () => {
                 <Route path='cleaning' element={<Cleaning></Cleaning>}></Route>
                 <Route path='video-audio' element={<VideoAudio></VideoAudio>}></Route>
             </Route>
+            <Route path='/Product'>
+                <Route path='mobile'>
+                    <Route path=':id' element={<MobileProduct></MobileProduct>}></Route>
+                </Route>
+                <Route path='laptop'>
+                    <Route path=':id' element={<LaptopProduct></LaptopProduct>}></Route>
+                </Route>
+                <Route path='male'>
+                    <Route path=':id' element={<MaleProduct></MaleProduct>}></Route>
+                </Route>
+                <Route path='female'>
+                    <Route path=':id' element={<FemaleProduct></FemaleProduct>}></Route>
+                </Route>
+                <Route path='health'>
+                    <Route path=':id' element={<HealthProduct></HealthProduct>}></Route>
+                </Route>
+                <Route path='makeup'>
+                    <Route path=':id' element={<MakeupProduct></MakeupProduct>}></Route>
+                </Route>
+                <Route path='video-audio'>
+                    <Route path=':id' element={<VideoAudioProduct></VideoAudioProduct>}></Route>
+                </Route>
+                <Route path='cleaning'>
+                    <Route path=':id' element={<CleaningProduct></CleaningProduct>}></Route>
+                </Route>
+            </Route>
+            <Route path="/404" element={<Error/>} />
+          	<Route path="*" element={<Navigate to="/404" />} />
         </Routes>
     );
 }

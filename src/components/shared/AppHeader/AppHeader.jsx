@@ -33,7 +33,7 @@ const AppHeader = () => {
   const { allCategories } = useContext(store);
   return (
     <>
-      <AppBar position="sticky" color="white" className="header" sx={{ mb: 4 }}>
+      <AppBar position="sticky" color="white" className="header" sx={{ mb: 6 }}>
         <Toolbar
           sx={{
             display: "flex",

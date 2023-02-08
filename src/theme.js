@@ -15,7 +15,7 @@ const theme = createTheme({
         primary: { main: '#61DAFB' },
         primary_light: { main: '#88ECFC' },
         secondary: { main: '#222' },
-        success: { main: '#60FBB5' },
+        success: { main: '#22C157' },
         info: { main: '#6072FB' },
         warning: { main: '#FBB560' },
         danger: { main: '#FB6072' },
