@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
 import {
@@ -8,8 +8,6 @@ import {
   Typography,
   Button,
   FormControl,
-  FormLabel,
-  FormHelperText,
   Container,
 } from "@mui/material";
 import Link from "../utils/Link";
@@ -28,7 +26,10 @@ const SingleProduct = ({
   subPath,
 }) => {
   const { windowWidth } = useWindowWidth();
-  const [currentImg, setCurrentImg] = useState(product.images[0].address);
+  const [currentImg, setCurrentImg] = useState("");
+  useEffect(() => {
+    setCurrentImg(product.images[0].address)
+  }, [product]);
   const [count, setCount] = useState(1);
   return (
     <Box
