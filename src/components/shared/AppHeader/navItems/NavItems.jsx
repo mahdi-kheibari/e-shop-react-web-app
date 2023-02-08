@@ -54,7 +54,7 @@ const NavItems = () => {
     },
     {
       name: "Discounts",
-      route: "/Products/category/Discount",
+      route: "/Products/category/Discounts",
       icon: <PercentOutlinedIcon fontSize="small"></PercentOutlinedIcon>,
     },
     {

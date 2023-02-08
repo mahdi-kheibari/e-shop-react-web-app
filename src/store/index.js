@@ -1,4 +1,5 @@
 const state = {
+    categories:["Digital","Fashion","Beauty","House"],
     mainSliderImg: [
         {
             name: "gamer",
