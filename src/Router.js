@@ -27,6 +27,9 @@ import LaptopProduct from "./pages/product/laptop/Id";
 import MobileProduct from "./pages/product/mobile/Id";
 import HealthProduct from "./pages/product/health/Id";
 import MakeupProduct from "./pages/product/makeup/Id";
+import Discounts from "./pages/products/category/childs/Discounts/Index";
+import Electronic from "./pages/products/category/childs/Electronic/Index";
+import ForGamer from "./pages/products/category/childs/ForGamer/Index";
 import Error from './layouts/Error';
 
 const Router = () => {
@@ -54,6 +57,18 @@ const Router = () => {
                 <Route
                     path="Digital"
                     element={<Digital></Digital>}
+                ></Route>
+                <Route
+                    path="forGamer"
+                    element={<ForGamer></ForGamer>}
+                ></Route>
+                <Route
+                    path="Discounts"
+                    element={<Discounts></Discounts>}
+                ></Route>
+                <Route
+                    path="Electronic"
+                    element={<Electronic></Electronic>}
                 ></Route>
             </Route>
             <Route path='/Products/Digital' element={<DigitalPage></DigitalPage>}>
