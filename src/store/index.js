@@ -16,22 +16,6 @@ const state = {
             route: "Fashion"
         },
     ],
-    discountSliderImg: [
-        {
-            name: "LC Waikiki 8SH567Z8-PINK Coat For Women",
-            address: '/images/discount-slider/discount-1.jpg',
-            price: "1,529,000 تومان",
-            withDiscount: "333,000 تومان",
-            discountPercent: "78%"
-        }
-    ],
-    bestsellersSlider: [
-        {
-            name: "Samsung P1494 Washing Machine - 9 Kg",
-            address: '/images/bestseller-slider/bestseller-1.jpg',
-            price: "27,500,000 تومان",
-        },
-    ],
     SpecialBrandsSlider: [
         {
             name: "Xiaomi",

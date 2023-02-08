@@ -28,7 +28,7 @@ const SingleProduct = ({
   const { windowWidth } = useWindowWidth();
   const [currentImg, setCurrentImg] = useState("");
   useEffect(() => {
-    setCurrentImg(product.images[0].address)
+    setCurrentImg(product.images[0].address);
   }, [product]);
   const [count, setCount] = useState(1);
   return (
@@ -214,8 +214,8 @@ const SingleProduct = ({
                   </Box>
                   <Box component={"hr"} sx={{ m: 0 }} />
                   <Box>
-                    {product.special ? (
-                      <Box>
+                    <Box sx={{ py: 2 }}>
+                      {product.special ? (
                         <Box sx={{ textAlign: "left", display: "flex" }}>
                           <Box
                             component={"span"}
@@ -241,22 +241,22 @@ const SingleProduct = ({
                             {product.realPrice}
                           </Box>
                         </Box>
-                      </Box>
-                    ) : null}
-                    <Box
-                      sx={{ textAlign: "left", fontWeight: "bold", py: 2 }}
-                      className="font-18 font-md-20"
-                    >
-                      <Box component={"span"} sx={{ fontWeight: "normal" }}>
-                        Price :
-                      </Box>
-                      {product.price}
+                      ) : null}
                       <Box
-                        component={"span"}
-                        sx={{ fontWeight: "normal" }}
-                        className="font-14 font-md-16"
+                        sx={{ textAlign: "left", fontWeight: "bold" }}
+                        className="font-18 font-md-20"
                       >
-                        toman
+                        <Box component={"span"} sx={{ fontWeight: "normal" }}>
+                          Price :
+                        </Box>
+                        {product.price}
+                        <Box
+                          component={"span"}
+                          sx={{ fontWeight: "normal" }}
+                          className="font-14 font-md-16"
+                        >
+                          toman
+                        </Box>
                       </Box>
                     </Box>
                     <Button
@@ -317,7 +317,7 @@ const SingleProduct = ({
                         to={`/Product/${subCrumbName}/${i.id}`}
                         className="bestSeller"
                       >
-                        <SecondSwiperItem i={i} similar={true} />
+                        <SecondSwiperItem i={i} />
                       </Link>
                     </SwiperSlide>
                   ))}
@@ -332,7 +332,7 @@ const SingleProduct = ({
                         to={`/Product/${subCrumbName}/${i.id}`}
                         className="swiper-slide-small"
                       >
-                        <SecondSwiperItem i={i} similar={true} />
+                        <SecondSwiperItem i={i} />
                       </Link>
                     </SwiperSlide>
                   ))}

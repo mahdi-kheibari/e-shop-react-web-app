@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 
-const SecondSwiperItem = ({ i, similar }) => {
+const SecondSwiperItem = ({ i }) => {
   const { windowWidth } = useWindowWidth();
   return (
     <Box sx={{ display: "flex", flexDirection: "column", pt: 1, pb: 3, px: 3 }}>
@@ -11,7 +11,7 @@ const SecondSwiperItem = ({ i, similar }) => {
           windowWidth >= 992 ? "bestSeller-img" : "second-card-img-small"
         }`}
       >
-        <img src={similar ? i.images[0].address : i.address} alt={i.name} />
+        <img src={i.images[0].address} alt={i.name} />
       </Box>
       <Box
         className="bestSeller-caption"
@@ -38,9 +38,45 @@ const SecondSwiperItem = ({ i, similar }) => {
         >
           {i.name}
         </Typography>
-        <Box className="font-16" sx={{ fontWeight: "bold" }}>
-          {i.price}
-        </Box>
+        {i.special ? (
+          <Box sx={{ display: "flex", mt: 3 }}>
+            <Typography
+              variant="body1"
+              component={"span"}
+              color="white.main"
+              sx={{
+                bgcolor: "danger.main",
+                px: 1,
+                py: 0.5,
+              }}
+              className="font-14 rounded-pill"
+            >
+              {i.discount}
+            </Typography>
+            <Typography
+              variant="body1"
+              color="muted.main"
+              component={"span"}
+              sx={{
+                textDecoration: "line-through",
+              }}
+              className="font-14"
+            >
+              {i.realPrice}
+            </Typography>
+          </Box>
+        ) : null}
+        <Typography
+          variant="body1"
+          color="secondary.main"
+          sx={{
+            textAlign: "left",
+            fontWeight: "bold",
+          }}
+          className="font-16"
+        >
+          {i.price} toman
+        </Typography>
       </Box>
     </Box>
   );

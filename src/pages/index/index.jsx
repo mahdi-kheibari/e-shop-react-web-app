@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import useWindowWidth from "../../hooks/useWindowWidth";
@@ -17,9 +17,63 @@ import SecondSwiper from "../../components/swiper/secondSwiper/SecondSwiper";
 import SecondSwiperItem from "../../components/swiper/secondSwiper/secondSwiperItem/SecondSwiperItem";
 import SecondSwiperSm from "../../components/swiper/secondSwiper/secondSwiperSm/SecondSwiperSm";
 
-const Index = (props) => {
+const Index = () => {
   const { windowWidth } = useWindowWidth();
   const context = useContext(store);
+  const [bestSellerSlider, setBestSellerSlider] = useState([]);
+  const [discountSlider, setDiscountSlider] = useState([]);
+  useEffect(() => {
+    const products = [];
+    const bestProducts = [];
+    function filteredProduct(Products) {
+      for (let key in Products) {
+        const filtered = Products[key]
+          .filter((item) => item.special === true)
+          .map((item) => {
+            return {
+              ...item,
+              category: key,
+            };
+          });
+        products.push(...filtered);
+
+        const best = Products[key].map((item) => {
+          return {
+            ...item,
+            category: key,
+          };
+        });
+        bestProducts.push(...best);
+      }
+    }
+    const allProducts = {
+      Digital: context.Digital.Products,
+      Fashion: context.Fashion.Products,
+      Beauty: context.Beauty.Products,
+      House: context.House.Products,
+    };
+    for (let key in allProducts) {
+      filteredProduct(allProducts[key]);
+    }
+
+    const discount = [];
+    for (let step = 0; step < 3; step++) {
+      const random = products[Math.floor(Math.random() * products.length)];
+      if (!discount.some((item) => item.id === random.id)) {
+        discount.push(random);
+      }
+    }
+    setDiscountSlider(discount);
+    const bestSeller = [];
+    for (let step = 0; step < 8; step++) {
+      const random =
+        bestProducts[Math.floor(Math.random() * bestProducts.length)];
+      if (!bestSeller.some((item) => item.id === random.id)) {
+        bestSeller.push(random);
+      }
+    }
+    setBestSellerSlider(bestSeller);
+  }, []);
   return (
     <Container
       fixed={windowWidth >= 992 ? true : false}
@@ -32,7 +86,7 @@ const Index = (props) => {
             <MainSwiper pagination={true} rootStyle="categories">
               {context.mainSliderImg.map((item) => (
                 <SwiperSlide key={item.name}>
-                  <Link to={"#"}>
+                  <Link to={`/Products/category/${item.route}`}>
                     <img src={item.address} alt={item.name} />
                   </Link>
                 </SwiperSlide>
@@ -59,10 +113,10 @@ const Index = (props) => {
                   Special discounts
                 </Typography>
                 <MainSwiper pagination={false} rootStyle="discounts-slider">
-                  {[1, 2, 3, 4].map((item) => (
-                    <SwiperSlide key={item}>
+                  {discountSlider.map((i) => (
+                    <SwiperSlide key={i.name}>
                       <Link
-                        to={"#"}
+                        to={`/Product/${i.category}/${i.id}`}
                         sx={{
                           height: "100%",
                           display: "flex",
@@ -73,8 +127,8 @@ const Index = (props) => {
                       >
                         <Box className="second-card-img" sx={{ mx: "auto" }}>
                           <img
-                            src={context.discountSliderImg[0].address}
-                            alt={context.discountSliderImg[0].name}
+                            src={i.images[0].address}
+                            alt={i.name}
                           />
                         </Box>
                         <Box
@@ -97,7 +151,7 @@ const Index = (props) => {
                             }}
                             className="caption_nameOneLine font-16"
                           >
-                            {context.discountSliderImg[0].name}
+                            {i.name}
                           </Typography>
                           <Box>
                             <Typography
@@ -111,7 +165,7 @@ const Index = (props) => {
                               }}
                               className="font-16 rounded-pill"
                             >
-                              {context.discountSliderImg[0].discountPercent}
+                              {i.discount}
                             </Typography>
                             <Typography
                               variant="body1"
@@ -122,7 +176,7 @@ const Index = (props) => {
                               }}
                               className="font-14"
                             >
-                              {context.discountSliderImg[0].price}
+                              {i.realPrice}
                             </Typography>
                             <Typography
                               variant="body1"
@@ -133,7 +187,7 @@ const Index = (props) => {
                               }}
                               className="font-18"
                             >
-                              {context.discountSliderImg[0].withDiscount}
+                              {i.price} toman
                             </Typography>
                           </Box>
                         </Box>
@@ -146,7 +200,7 @@ const Index = (props) => {
                   color="primary"
                   sx={{ mt: "auto", pb: 2, textTransform: "capitalize" }}
                   component={RouterLink}
-                  to={"#"}
+                  to={'/Products/category/Discounts'}
                 >
                   <Typography
                     variant="body1"
@@ -179,7 +233,7 @@ const Index = (props) => {
               <DiscountSwiper>
                 <SwiperSlide className="swiper-slide-small">
                   <Link
-                    to={"#"}
+                    to={'/Products/category/Discounts'}
                     sx={{
                       bgcolor: "transparent",
                       display: "flex",
@@ -215,10 +269,10 @@ const Index = (props) => {
                     </Button>
                   </Link>
                 </SwiperSlide>
-                {[1, 2, 3, 4].map((item) => (
-                  <SwiperSlide key={item} className="swiper-slide-small">
+                {discountSlider.map((i) => (
+                  <SwiperSlide key={i.name} className="swiper-slide-small">
                     <Link
-                      to={"#"}
+                      to={`/Product/${i.category}/${i.id}`}
                       sx={{
                         height: "100%",
                         bgcolor: "white.main",
@@ -233,8 +287,8 @@ const Index = (props) => {
                         sx={{ mx: "auto" }}
                       >
                         <img
-                          src={context.discountSliderImg[0].address}
-                          alt={context.discountSliderImg[0].name}
+                          src={i.images[0].address}
+                          alt={i.name}
                         />
                       </Box>
                       <Box
@@ -257,7 +311,7 @@ const Index = (props) => {
                           }}
                           className="caption_nameOneLine font-14"
                         >
-                          {context.discountSliderImg[0].name}
+                          {i.name}
                         </Typography>
                         <Box sx={{ textAlign: "left", mt: 3 }}>
                           <Typography
@@ -271,7 +325,7 @@ const Index = (props) => {
                             }}
                             className="font-14 rounded-pill"
                           >
-                            {context.discountSliderImg[0].discountPercent}
+                            {i.discount}
                           </Typography>
                           <Typography
                             variant="body1"
@@ -282,7 +336,7 @@ const Index = (props) => {
                             }}
                             className="font-12"
                           >
-                            {context.discountSliderImg[0].price}
+                            {i.realPrice}
                           </Typography>
                           <Typography
                             variant="body1"
@@ -293,7 +347,7 @@ const Index = (props) => {
                             }}
                             className="font-16"
                           >
-                            {context.discountSliderImg[0].withDiscount}
+                            {i.price} toman
                           </Typography>
                         </Box>
                       </Box>
@@ -302,7 +356,7 @@ const Index = (props) => {
                 ))}
                 <SwiperSlide className="swiper-slide-small">
                   <Link
-                    to={"#"}
+                    to={'/Products/category/Discounts'}
                     sx={{
                       bgcolor: "white.main",
                       display: "flex",
@@ -365,20 +419,20 @@ const Index = (props) => {
         </Box>
         {windowWidth >= 992 ? (
           <SecondSwiper rootStyle="bestSellers-swiper">
-            {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-              <SwiperSlide key={item}>
-                <Link to={"#"} className="bestSeller">
-                  <SecondSwiperItem i={context.bestsellersSlider[0]} />
+            {bestSellerSlider.map((i) => (
+              <SwiperSlide key={i.name}>
+                <Link to={`/Product/${i.category}/${i.id}`} className="bestSeller">
+                  <SecondSwiperItem i={i} />
                 </Link>
               </SwiperSlide>
             ))}
           </SecondSwiper>
         ) : (
           <SecondSwiperSm rootStyle="bestSellers-swiper">
-            {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-              <SwiperSlide key={item}>
-                <Link to={"#"} className="swiper-slide-small">
-                  <SecondSwiperItem i={context.bestsellersSlider[0]} />
+            {bestSellerSlider.map((i) => (
+              <SwiperSlide key={i.name}>
+                <Link to={`/Product/${i.category}/${i.id}`} className="swiper-slide-small">
+                  <SecondSwiperItem i={i} />
                 </Link>
               </SwiperSlide>
             ))}
@@ -402,15 +456,15 @@ const Index = (props) => {
             variant="h4"
             color="secondary.main"
             className="brands-title font-20"
-            sx={{ display: "inline", py: 2 ,fontWeight:"bold"}}
+            sx={{ display: "inline", py: 2, fontWeight: "bold" }}
           >
             Special brands
           </Typography>
-          <Link to={"#"} sx={{ mr: 1,width:"initial !important" }}>
+          <Link to={'/Products/category/Brands'} sx={{ mr: 1, width: "initial !important" }}>
             <Button
               variant="contained"
               color="primary"
-              sx={{ textTransform: "capitalize",color:"white.main" }}
+              sx={{ textTransform: "capitalize", color: "white.main" }}
             >
               see all
             </Button>
@@ -420,7 +474,7 @@ const Index = (props) => {
           <SecondSwiper rootStyle="brands-swiper">
             {context.SpecialBrandsSlider.map((item) => (
               <SwiperSlide key={item.name}>
-                <Link to={"#"} sx={{ mt: 1, px: 2, mr: 0 }} className="brand">
+                <Link to={`Products/category/Brands#${item.name}`} sx={{ mt: 1, px: 2, mr: 0 }} className="brand">
                   <Box className="brand-img" sx={{ mx: "auto" }}>
                     <img src={item.address} alt={item.name} />
                   </Box>
@@ -433,7 +487,7 @@ const Index = (props) => {
             {context.SpecialBrandsSlider.map((item) => (
               <SwiperSlide key={item.name}>
                 <Link
-                  to={"#"}
+                  to={`Products/category/Brands#${item.name}`}
                   sx={{ mt: 1, px: 2, mr: 0 }}
                   className="swiper-slide-small"
                 >
