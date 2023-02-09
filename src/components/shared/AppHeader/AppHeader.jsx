@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   AppBar,
@@ -9,6 +9,19 @@ import {
   OutlinedInput,
   IconButton,
   Drawer,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Paper,
+  Alert,
+  Snackbar,
 } from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -16,6 +29,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PercentOutlinedIcon from "@mui/icons-material/PercentOutlined";
 import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import {
   PersonOutlineOutlined,
   Search,
@@ -30,7 +44,60 @@ import NavItemSm from "./navItems/navItemSm/NavItemSm";
 import "./appHeader.scss";
 const AppHeader = () => {
   const [drawer, setdrawer] = useState(false);
-  const { allCategories } = useContext(store);
+  const [modal, setModal] = React.useState(false);
+  const [paidToast, setPaidToast] = React.useState(false);
+  const { allCategories, cartStateProvider } = useContext(store);
+  useEffect(() => {
+    var cartJSON = localStorage.getItem("shoppingCart");
+    cartStateProvider.dispatch({
+      type: "updateAfterRefresh",
+      info: { cartJSON },
+    });
+    if (cartJSON) {
+      cartStateProvider.dispatch({ type: "changeSumTotal" });
+    }
+  }, []);
+  function getCartItems() {
+    return cartStateProvider.state.cartItems;
+  }
+  function deleteItem(id) {
+    cartStateProvider.actions.deleteItem({
+      productId: id,
+    });
+    cartStateProvider.dispatch({ type: "changeSumTotal" });
+    cartStateProvider.actions.saveCart([
+      cartStateProvider.state,
+      cartStateProvider.dispatch,
+    ]);
+  }
+  function deleteAll() {
+    cartStateProvider.actions.deleteAll();
+    cartStateProvider.dispatch({ type: "changeSumTotal" });
+    cartStateProvider.actions.saveCart([
+      cartStateProvider.state,
+      cartStateProvider.dispatch,
+    ]);
+  }
+  function changeCount(e, id) {
+    cartStateProvider.dispatch({
+      type: "changeCount",
+      info: { value: e.target.value, id },
+    });
+    cartStateProvider.dispatch({
+      type: "changeSingleTotal",
+      info: id,
+    });
+    cartStateProvider.dispatch({ type: "changeSumTotal" });
+    cartStateProvider.actions.saveCart();
+  }
+  function checkout() {
+    cartStateProvider.actions.deleteAll();
+    cartStateProvider.actions.saveCart([
+      cartStateProvider.state,
+      cartStateProvider.dispatch,
+    ]);
+    setPaidToast(true);
+  }
   return (
     <>
       <AppBar position="sticky" color="white" className="header" sx={{ mb: 6 }}>
@@ -121,12 +188,131 @@ const AppHeader = () => {
               width: { sm: "auto" },
             }}
           >
-            <IconButton aria-label="account" size="large" sx={{ py: 0 }}>
-              <PersonOutlineOutlined />
-            </IconButton>
-            <IconButton aria-label="shopping cart" size="large" sx={{ py: 0 }}>
-              <ShoppingCartOutlined />
-            </IconButton>
+            <Button
+              variant="text"
+              color="secondary"
+              sx={{ px: 1, minWidth: "initial" }}
+            >
+              <PersonOutlineOutlined fontSize="large" />
+            </Button>
+            <Box className="shop-cart">
+              <Button
+                onClick={() => setModal(true)}
+                variant="text"
+                color="secondary"
+                sx={{
+                  px: 1,
+                  minWidth: "initial",
+                  display: "flex",
+                  lineHeight: 0,
+                }}
+                className="shop-cart-btn cart-icon"
+              >
+                <Box sx={{ position: "relative" }}>
+                  <ShoppingCartOutlined fontSize="large" />
+                  {getCartItems().length > 0 ? (
+                    <Box
+                      component={"span"}
+                      sx={{
+                        position: "absolute",
+                        color: "white.main",
+                        fontWeight: "bold",
+                        p: 0.5,
+                        bgcolor: "danger.main",
+                        top: 0,
+                        left: 0,
+                        width: "10px",
+                        height: "10px",
+                        borderRadius: "50%",
+                      }}
+                      className="cart-badge"
+                    ></Box>
+                  ) : null}
+                </Box>
+              </Button>
+              <Box
+                className="shop-cart-info"
+                sx={{ bgcolor: "white.main", p: 3 }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    pb: 1,
+                  }}
+                >
+                  <span>
+                    {getCartItems().length > 0 ? getCartItems().length : 0}{" "}
+                    Products
+                  </span>
+                  <Box
+                    component={"span"}
+                    sx={{ color: "info.main" }}
+                    onClick={() => setModal(true)}
+                  >
+                    View cart
+                  </Box>
+                </Box>
+                <Box component={"hr"} sx={{ color: "secondary.main" }} />
+                <Box component={"ul"} sx={{ listStyle: "none" }}>
+                  {getCartItems().map((item) => (
+                    <Box component={"li"} key={item.id}>
+                      <Link
+                        to={`/Product/${item.category}/${item.id}`}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          my: 1,
+                        }}
+                      >
+                        <Box
+                          className="shop-cart-info-img"
+                          sx={{ alignSelf: "center" }}
+                        >
+                          <img src={item.images[0].address} alt={item.name} />
+                        </Box>
+                        <Box className="shop-cart-info-title">
+                          <Box component={"span"} sx={{ mb: 1 }}>
+                            {item.name}
+                          </Box>
+                        </Box>
+                      </Link>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Box
+                          component={"span"}
+                          sx={{ color: "secondary.main" }}
+                        >
+                          count : {item.count}
+                        </Box>
+                        <DeleteForeverIcon
+                          color="danger"
+                          onClick={() => deleteItem(item.id)}
+                        />
+                      </Box>
+                      <Box component={"hr"} sx={{ color: "secondary.main" }} />
+                    </Box>
+                  ))}
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    my: 2,
+                  }}
+                >
+                  <span>Total </span>
+                  {getCartItems().length > 0 ? (
+                    <span>{cartStateProvider.state.sumTotal}</span>
+                  ) : null}
+                </Box>
+              </Box>
+            </Box>
           </Box>
           <Drawer anchor="left" open={drawer} onClose={() => setdrawer(false)}>
             <Box
@@ -253,6 +439,211 @@ const AppHeader = () => {
               </Box>
             </Box>
           </Drawer>
+          <Dialog
+            open={modal}
+            onClose={() => setModal(false)}
+            fullWidth={true}
+            maxWidth={"lg"}
+          >
+            <DialogTitle
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Box component={"h2"} className="modal-title">
+                Shop Cart
+              </Box>
+              <IconButton color="danger" onClick={() => setModal(false)}>
+                <CloseOutlinedIcon />
+              </IconButton>
+            </DialogTitle>
+            <DialogContent>
+              {getCartItems().length > 0 ? (
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Product Name & Details</TableCell>
+                        <TableCell align="right">Price</TableCell>
+                        <TableCell align="right">Quantity</TableCell>
+                        <TableCell align="right">Total</TableCell>
+                        <TableCell align="right">
+                          <DeleteForeverIcon
+                            color="danger"
+                            onClick={() => deleteAll()}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {getCartItems().map((item) => (
+                        <TableRow
+                          key={item.id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell sx={{ p: 4 }} align="right">
+                            <Link
+                              to={`/Product/${item.category}/${item.id}`}
+                              sx={{ display: "flex", alignItems: "center" }}
+                            >
+                              <Box
+                                component={"img"}
+                                src={item.images[0].address}
+                                className="ui-w-40 ui-bordered"
+                                sx={{ display: "block", mr: 4 }}
+                              />
+                              <Box component={"span"} sx={{ mx: "auto" }}>
+                                {item.name}
+                              </Box>
+                            </Link>
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              textAlign: "right",
+                              fontWeight: "semibold",
+                              verticalAlign: "middle",
+                              p: 4,
+                            }}
+                            align="right"
+                          >
+                            {item.price}
+                          </TableCell>
+                          <TableCell
+                            sx={{ verticalAlign: "middle", p: 4 }}
+                            align="right"
+                          >
+                            <OutlinedInput
+                              sx={{
+                                backgroundColor: "white.main",
+                                color: "secondary.main",
+                              }}
+                              type="number"
+                              value={item.count}
+                              onChange={(e) => changeCount(e, item.id)}
+                            />
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            sx={{
+                              textAlign: "right",
+                              fontWeight: "semibold",
+                              verticalAlign: "middle",
+                              p: 4,
+                            }}
+                          >
+                            {item.total}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            sx={{
+                              textAlign: "center",
+                              px: 0,
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <IconButton
+                              className="close"
+                              color="danger"
+                              onClick={deleteItem(item.id)}
+                            >
+                              <CloseOutlinedIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              ) : (
+                <Alert severity="warning">Your cart is empty!</Alert>
+              )}
+            </DialogContent>
+            <DialogActions>
+              <Box sx={{ width: "100%" }}>
+                {getCartItems().length > 0 ? (
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box sx={{ display: "flex", flexShrink: 0 }}>
+                      <Box
+                        component={"label"}
+                        sx={{ color: "muted.main", fontWeight: "bold", m: 0 }}
+                        className="font-16 font-sm-18 font-lg-20"
+                      >
+                        Total :
+                      </Box>
+                      <Box className="font-16 font-sm-18  font-lg-20">
+                        <strong> {cartStateProvider.state.sumTotal} </strong>{" "}
+                        toman
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: "flex" }}>
+                      <Button
+                        onClick={() => setModal(false)}
+                        variant="contained"
+                        color="light"
+                        sx={{ boxShadow: "none" }}
+                        className="font-12 font-sm-14 font-md-16"
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        onClick={() => checkout()}
+                        variant="contained"
+                        color="primary"
+                        sx={{ boxShadow: "none", mx: { xs: 1, sm: 2 } }}
+                        className="checkout font-12 font-sm-14 font-md-16"
+                      >
+                        Checkout
+                      </Button>
+                    </Box>
+                  </Box>
+                ) : (
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <Button
+                      onClick={() => setModal(false)}
+                      variant="contained"
+                      color="secondary"
+                      sx={{ boxShadow: "none" }}
+                      className="font-12 font-sm-14 font-md-16"
+                    >
+                      Back
+                    </Button>
+                  </Box>
+                )}
+              </Box>
+            </DialogActions>
+          </Dialog>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={paidToast}
+            autoHideDuration={3000}
+            onClose={() => setPaidToast(false)}
+          >
+            <Alert
+              onClose={() => setPaidToast(false)}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              Successfully paid
+            </Alert>
+          </Snackbar>
         </Toolbar>
         <NavItems></NavItems>
       </AppBar>

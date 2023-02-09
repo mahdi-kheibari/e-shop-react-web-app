@@ -18,7 +18,8 @@ const Context = ({ children }) => {
     const [state, dispatch] = useReducer(cartReducer, initialCartState)
 
     const actions = {
-        addItem(info) {
+        addItem(context, info) {
+            const [state, dispatch] = context;
             if (state.cartItems.some(i => i.id === info.product.id) === false || state.cartItems.length <= 0) {
                 const priceArr = info.product.price.split(",");
                 let newPrice = "";
@@ -42,7 +43,8 @@ const Context = ({ children }) => {
         deleteAll() {
             dispatch({ type: 'deleteAll' });
         },
-        saveCart() {
+        saveCart(context) {
+            const [state, dispatch] = context;
             localStorage.setItem("shoppingCart", JSON.stringify(state.cartItems));
         }
     }

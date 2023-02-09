@@ -310,3 +310,10 @@ swiper-button-prev {
 .mb-related {
     margin-bottom: 1rem !important;
 }
+
+// shop cart
+.shop-cart:hover {
+    .cart-icon {
+        @include hoverCart;
+    }
+}
