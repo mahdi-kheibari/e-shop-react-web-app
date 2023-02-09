@@ -83,6 +83,8 @@ const Index = () => {
       filtredCategory();
     }
   }, [checkedBrands]);
+
+  
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} xl={10}>
@@ -188,7 +190,7 @@ const Index = () => {
                                   setdrawer(false);
                                 }}
                                 checked={
-                                  checkedBrands.some((i) => i == item)
+                                  checkedBrands.some((i) => i === item)
                                     ? true
                                     : false
                                 }

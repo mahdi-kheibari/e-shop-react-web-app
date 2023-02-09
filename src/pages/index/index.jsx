@@ -7,6 +7,7 @@ import MainSwiper from "../../components/swiper/mainSwiper/MainSwiper";
 import { SwiperSlide } from "swiper/react";
 import { store } from "../../store/Context";
 import Link from "../../components/utils/Link";
+import HashLink from "../../components/utils/HashLink";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
@@ -126,10 +127,7 @@ const Index = () => {
                         }}
                       >
                         <Box className="second-card-img" sx={{ mx: "auto" }}>
-                          <img
-                            src={i.images[0].address}
-                            alt={i.name}
-                          />
+                          <img src={i.images[0].address} alt={i.name} />
                         </Box>
                         <Box
                           sx={{
@@ -200,7 +198,7 @@ const Index = () => {
                   color="primary"
                   sx={{ mt: "auto", pb: 2, textTransform: "capitalize" }}
                   component={RouterLink}
-                  to={'/Products/category/Discounts'}
+                  to={"/Products/category/Discounts"}
                 >
                   <Typography
                     variant="body1"
@@ -233,7 +231,7 @@ const Index = () => {
               <DiscountSwiper>
                 <SwiperSlide className="swiper-slide-small">
                   <Link
-                    to={'/Products/category/Discounts'}
+                    to={"/Products/category/Discounts"}
                     sx={{
                       bgcolor: "transparent",
                       display: "flex",
@@ -286,10 +284,7 @@ const Index = () => {
                         className="second-card-img-small"
                         sx={{ mx: "auto" }}
                       >
-                        <img
-                          src={i.images[0].address}
-                          alt={i.name}
-                        />
+                        <img src={i.images[0].address} alt={i.name} />
                       </Box>
                       <Box
                         sx={{
@@ -356,7 +351,7 @@ const Index = () => {
                 ))}
                 <SwiperSlide className="swiper-slide-small">
                   <Link
-                    to={'/Products/category/Discounts'}
+                    to={"/Products/category/Discounts"}
                     sx={{
                       bgcolor: "white.main",
                       display: "flex",
@@ -421,7 +416,10 @@ const Index = () => {
           <SecondSwiper rootStyle="bestSellers-swiper">
             {bestSellerSlider.map((i) => (
               <SwiperSlide key={i.name}>
-                <Link to={`/Product/${i.category}/${i.id}`} className="bestSeller">
+                <Link
+                  to={`/Product/${i.category}/${i.id}`}
+                  className="bestSeller"
+                >
                   <SecondSwiperItem i={i} />
                 </Link>
               </SwiperSlide>
@@ -431,7 +429,10 @@ const Index = () => {
           <SecondSwiperSm rootStyle="bestSellers-swiper">
             {bestSellerSlider.map((i) => (
               <SwiperSlide key={i.name}>
-                <Link to={`/Product/${i.category}/${i.id}`} className="swiper-slide-small">
+                <Link
+                  to={`/Product/${i.category}/${i.id}`}
+                  className="swiper-slide-small"
+                >
                   <SecondSwiperItem i={i} />
                 </Link>
               </SwiperSlide>
@@ -460,7 +461,10 @@ const Index = () => {
           >
             Special brands
           </Typography>
-          <Link to={'/Products/category/Brands'} sx={{ mr: 1, width: "initial !important" }}>
+          <Link
+            to={"/Products/category/Brands"}
+            sx={{ mr: 1, width: "initial !important" }}
+          >
             <Button
               variant="contained"
               color="primary"
@@ -474,11 +478,16 @@ const Index = () => {
           <SecondSwiper rootStyle="brands-swiper">
             {context.SpecialBrandsSlider.map((item) => (
               <SwiperSlide key={item.name}>
-                <Link to={`Products/category/Brands#${item.name}`} sx={{ mt: 1, px: 2, mr: 0 }} className="brand">
+                <HashLink
+                  smooth
+                  to={`Products/category/Brands#${item.name}`}
+                  sx={{ mt: 1, px: 2, mr: 0 }}
+                  className="brand"
+                >
                   <Box className="brand-img" sx={{ mx: "auto" }}>
                     <img src={item.address} alt={item.name} />
                   </Box>
-                </Link>
+                </HashLink>
               </SwiperSlide>
             ))}
           </SecondSwiper>
@@ -486,7 +495,8 @@ const Index = () => {
           <SecondSwiperSm rootStyle="brands-swiper">
             {context.SpecialBrandsSlider.map((item) => (
               <SwiperSlide key={item.name}>
-                <Link
+                <HashLink
+                  smooth
                   to={`Products/category/Brands#${item.name}`}
                   sx={{ mt: 1, px: 2, mr: 0 }}
                   className="swiper-slide-small"
@@ -494,7 +504,7 @@ const Index = () => {
                   <Box className="second-card-img-small" sx={{ mx: "auto" }}>
                     <img src={item.address} alt={item.name} />
                   </Box>
-                </Link>
+                </HashLink>
               </SwiperSlide>
             ))}
           </SecondSwiperSm>

@@ -8,8 +8,9 @@ const typographyVariants = {
     fontWeightRegular: 300,
     fontWeightLight: 300,
 }
-allTypographyVariants.map((item) => { typographyVariants[item] = { fontFamily: "'Vazir','Roboto', 'Helvetica', 'Arial', sans-serif" } })
-
+allTypographyVariants.forEach((item) => {
+    typographyVariants[item] = { fontFamily: "'Vazir','Roboto', 'Helvetica', 'Arial', sans-serif" }
+});
 const theme = createTheme({
     palette: {
         primary: { main: '#61DAFB' },

@@ -21,7 +21,7 @@ const Id = () => {
     }
   }, [id]);
   useEffect(() => {
-    if (validate=="notValidate") {
+    if (validate==="notValidate") {
       navigate("/404");
     } else {
       setProduct(
@@ -30,7 +30,7 @@ const Id = () => {
       setSimilarProducts(context.Beauty.Products["health"]);
     }
   }, [validate,id]);
-  return validate=="validate" ? (
+  return validate==="validate" ? (
     <SingleProduct
       product={Product}
       similarProducts={similarProducts}

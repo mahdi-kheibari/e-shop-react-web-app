@@ -195,7 +195,7 @@ const Index = () => {
                                   setdrawer(false);
                                 }}
                                 checked={
-                                  checkedCategory.some((i) => i == item)
+                                  checkedCategory.some((i) => i === item)
                                     ? true
                                     : false
                                 }
