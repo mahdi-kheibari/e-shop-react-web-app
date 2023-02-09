@@ -30,6 +30,7 @@ import MakeupProduct from "./pages/product/makeup/Id";
 import Discounts from "./pages/products/category/childs/Discounts/Index";
 import Electronic from "./pages/products/category/childs/Electronic/Index";
 import ForGamer from "./pages/products/category/childs/ForGamer/Index";
+import Brands from "./pages/products/category/childs/Brands/Index";
 import Error from './layouts/Error';
 
 const Router = () => {
@@ -69,6 +70,10 @@ const Router = () => {
                 <Route
                     path="Electronic"
                     element={<Electronic></Electronic>}
+                ></Route>
+                <Route
+                    path="Brands"
+                    element={<Brands></Brands>}
                 ></Route>
             </Route>
             <Route path='/Products/Digital' element={<DigitalPage></DigitalPage>}>

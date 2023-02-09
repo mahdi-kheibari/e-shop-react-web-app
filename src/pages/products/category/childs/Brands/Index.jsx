@@ -13,83 +13,76 @@ import Breadcrumb from "../../../../../components/breadcrumb/Breadcrumb";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { store } from "../../../../../store/Context";
-import ProductList from "../../../../../components/productList/ProductList";
 import AsideLayout from "../../../../../layouts/asideLayout/AsideLayout";
+import ProductList from "../../../../../components/productList/ProductList";
+import "./index.scss";
 
 const Index = () => {
   const context = useContext(store);
   const [drawer, setdrawer] = useState(false);
-  const [allCategories, setAllCategories] = useState([]);
-  const [Products, setProducts] = useState({});
-  const [discountProducts, setDiscountProducts] = useState({});
-  const [checkedCategory, setCheckedCategory] = useState([]);
-  const [changeProducts, setChangeProducts] = useState(false);
+  const [allBrands, setAllBrands] = useState([]);
+  const [brands, setBrands] = useState({});
+  const [specialBrands, setSpecialBrands] = useState({});
+  const [checkedBrands, setCheckedBrands] = useState([]);
+  const [changeBrands, setChangeBrands] = useState(false);
+
   useEffect(() => {
-    setAllCategories(context.categories);
-    const products = {};
-    function filteredProduct(product, category) {
-      const Products = product;
-      for (let key in Products) {
-        const filtered = Products[key]
-          .filter((item) => item.special === true)
-          .map((item) => {
-            return {
-              ...item,
-              category: category,
-            };
-          });
-        products[key] = filtered;
-      }
-    }
+    setAllBrands(context.brands);
+  }, []);
+  useEffect(() => {
     const allProducts = {
       Digital: context.Digital.Products,
       Fashion: context.Fashion.Products,
       Beauty: context.Beauty.Products,
       House: context.House.Products,
     };
-    for (let key in allProducts) {
-      filteredProduct(allProducts[key], key);
+    const brandsProducts = {};
+    for (let i of allBrands) {
+      brandsProducts[i] = {};
+      function filteredProduct(Products) {
+        for (let key in Products) {
+          const filtered = Products[key].filter((item) => item.brand === i);
+          brandsProducts[i][key] = filtered;
+        }
+      }
+      for (let key in allProducts) {
+        filteredProduct(allProducts[key]);
+      }
     }
-    setProducts(products);
-  }, [context]);
+    setBrands(brandsProducts);
+  }, [context, allBrands]);
   function setToCheckedCategory(event) {
     if (event.target.checked) {
-      const newCheckedCategory = [...checkedCategory, event.target.value];
-      setCheckedCategory(newCheckedCategory);
+      const newCheckedBrands = [...checkedBrands, event.target.value];
+      setCheckedBrands(newCheckedBrands);
     } else {
-      const newCheckedCategory = checkedCategory.map((item) => {
+      const newCheckedBrands = checkedBrands.map((item) => {
         if (item !== event.target.value) {
           return item;
         }
       });
-      setCheckedCategory(newCheckedCategory);
+      setCheckedBrands(newCheckedBrands);
     }
   }
   function filtredCategory() {
-    const filteredProducts = {};
-    if (!checkedCategory.some((i) => i !== undefined)) {
-      setChangeProducts(false);
+    if (!checkedBrands.some((i) => i !== undefined)) {
+      setChangeBrands(false);
     } else {
-      for (let category of checkedCategory) {
-        for (let i in Products) {
-          if (Products[i].some((item) => item.category === category)) {
-            filteredProducts[i] = Products[i].filter(
-              (item) => item.category === category
-            );
-          }
-        }
+      const SpecialBrands = {};
+      for (let Brand of checkedBrands) {
+        SpecialBrands[Brand] = brands[Brand];
       }
-      setDiscountProducts(filteredProducts);
-      setChangeProducts(true);
+      setSpecialBrands(SpecialBrands);
+      setChangeBrands(true);
     }
   }
   useEffect(() => {
-    if (!checkedCategory.some((i) => i !== undefined)) {
-      setChangeProducts(false);
+    if (!checkedBrands.some((i) => i !== undefined)) {
+      setChangeBrands(false);
     } else {
       filtredCategory();
     }
-  }, [checkedCategory]);
+  }, [checkedBrands]);
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} xl={10}>
@@ -101,7 +94,7 @@ const Index = () => {
             alignItems: "center",
           }}
         >
-          <Breadcrumb activeText="Special discounts" />
+          <Breadcrumb activeText={"Special brands"} />
           <Box sx={{ display: { xl: "none" }, mr: 1, flexShrink: 0 }}>
             <Button
               variant="contained"
@@ -182,7 +175,7 @@ const Index = () => {
                     }}
                     className={"nav"}
                   >
-                    {allCategories.map((item) => (
+                    {allBrands.map((item) => (
                       <Box component={"li"} className={"nav-item"} key={item}>
                         <FormGroup>
                           <FormControlLabel
@@ -195,7 +188,7 @@ const Index = () => {
                                   setdrawer(false);
                                 }}
                                 checked={
-                                  checkedCategory.some((i) => i == item)
+                                  checkedBrands.some((i) => i == item)
                                     ? true
                                     : false
                                 }
@@ -212,26 +205,66 @@ const Index = () => {
             </Drawer>
           </Box>
         </Box>
-        <ProductList items={changeProducts ? discountProducts : Products} />
+        {Object.keys(changeBrands ? specialBrands : brands).map((key) =>
+          key !== "undefined" ? (
+            <Box
+              className="brand-swiper mb-section"
+              sx={{ py: 2, bgcolor: "white.main" }}
+              key={key}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mb: 2,
+                }}
+                id={key}
+              >
+                <Box className="brand-swiper_logo">
+                  <img
+                    src={"/images/brand-slider/" + key + ".jpg"}
+                    alt={key}
+                    className="rounded"
+                  />
+                </Box>
+                <Box component={"h2"} sx={{ m: 0 }}>
+                  {key}
+                </Box>
+              </Box>
+              <Box className={"brand-swiper_product"}>
+                <ProductList
+                  items={
+                    changeBrands
+                      ? { ...specialBrands[key] }
+                      : { ...brands[key] }
+                  }
+                />
+              </Box>
+            </Box>
+          ) : null
+        )}
       </Grid>
-      <Grid item xl={2} sx={{ display: { xs: "none", xl: "block" } }}>
+      <Grid xl={2} sx={{ display: { xs: "none", xl: "block" }, pl: 3 }}>
         <AsideLayout>
           <Box key={"before"}>
-            {allCategories.map((item) => (
-              <FormGroup key={item}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value={item}
-                      onChange={(e) => {
-                        setToCheckedCategory(e);
-                        filtredCategory();
-                      }}
-                    />
-                  }
-                  label={item}
-                />
-              </FormGroup>
+            {allBrands.map((item) => (
+              <Box component={"li"} className={"nav-item"} key={item}>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value={item}
+                        onChange={(e) => {
+                          setToCheckedCategory(e);
+                          filtredCategory();
+                        }}
+                      />
+                    }
+                    label={item}
+                  />
+                </FormGroup>
+              </Box>
             ))}
           </Box>
         </AsideLayout>

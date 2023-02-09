@@ -7,7 +7,7 @@ import Fashion from './Fashion'
 import Beauty from './Beauty'
 import House from './House'
 
-export const store = createContext({ categories:[],mainSliderImg: [], discountSliderImg: [], bestsellersSlider: [], SpecialBrandsSlider: [],allCategories:{},Digital:{},Fashion:{},Beauty:{},House:{} })
+export const store = createContext({ categories:[],mainSliderImg: [], discountSliderImg: [], bestsellersSlider: [], SpecialBrandsSlider: [],allCategories:{},Digital:{},Fashion:{},Beauty:{},House:{},brands:[] })
 
 const Context = ({ children }) => {
     return (
