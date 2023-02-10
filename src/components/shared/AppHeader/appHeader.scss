@@ -90,24 +90,6 @@
     padding-right: 4px;
 }
 
-.all-categories {
-    top: 40px;
-    width: 100vw;
-    height: calc(100vh - 136px);
-
-    &_backdrop {
-        width: 100vw;
-        height: 100vh;
-        z-index: 2;
-        background-color: rgba(52, 58, 64, 0.6);
-    }
-
-    &_background {
-        width: 97.5vw;
-        z-index: 3;
-    }
-}
-
 .navbar {
     @media (max-width:576px) {
         padding-right: 8px !important;

@@ -16,6 +16,10 @@ import { SwiperSlide } from "swiper/react";
 import SecondSwiperItem from "../swiper/secondSwiper/secondSwiperItem/SecondSwiperItem";
 import SecondSwiperSm from "../swiper/secondSwiper/secondSwiperSm/SecondSwiperSm";
 import "./singleProduct.scss";
+import Toast from "../toast/Toast";
+import { useDispatch, useSelector } from "react-redux";
+import actions from "../../store/cart/actions";
+import { changeSumTotal } from "../../store/cart/slice";
 
 const SingleProduct = ({
   product,
@@ -27,10 +31,31 @@ const SingleProduct = ({
 }) => {
   const { windowWidth } = useWindowWidth();
   const [currentImg, setCurrentImg] = useState("");
+  const [count, setCount] = useState(1);
+  const [successToast, setSuccessToastToast] = useState(false);
+  const [warningToast, setWarningToast] = useState(false);
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
   useEffect(() => {
     setCurrentImg(product.images[0].address);
   }, [product]);
-  const [count, setCount] = useState(1);
+  function addToCart() {
+    const newProduct = { ...product, category: subCrumbName };
+    const result = dispatch(
+      actions.addItem(cartItems, {
+        product: newProduct,
+        count: count,
+      })
+    );
+    if (result) {
+      dispatch(changeSumTotal());
+      dispatch(actions.saveCart(cartItems));
+      setSuccessToastToast(true);
+    } else {
+      setWarningToast(true);
+    }
+  }
   return (
     <Box
       sx={{ mt: { xs: 0, md: 8 }, "& .breadcrumb": { mb: { xs: 4, md: 0 } } }}
@@ -207,6 +232,7 @@ const SingleProduct = ({
                           color: "secondary.main",
                         }}
                         type="number"
+                        min={1}
                         value={count}
                         onChange={(e) => setCount(e.target.value)}
                       />
@@ -269,6 +295,7 @@ const SingleProduct = ({
                         boxShadow: "none",
                       }}
                       fullWidth
+                      onClick={() => addToCart()}
                     >
                       Add to cart
                     </Button>
@@ -362,11 +389,24 @@ const SingleProduct = ({
               boxShadow: "none",
             }}
             fullWidth
+            onClick={() => addToCart()}
           >
             Add to cart
           </Button>
         </Box>
       </Box>
+      <Toast
+        type={"success"}
+        massege={"Successfully added to cart"}
+        state={successToast}
+        setState={(val) => setSuccessToastToast(val)}
+      />
+      <Toast
+        type={"warning"}
+        massege={"This product is in your shopping cart"}
+        state={warningToast}
+        setState={(val) => setWarningToast(val)}
+      />
     </Box>
   );
 };

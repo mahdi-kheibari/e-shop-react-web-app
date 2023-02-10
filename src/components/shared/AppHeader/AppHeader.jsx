@@ -21,7 +21,6 @@ import {
   TableBody,
   Paper,
   Alert,
-  Snackbar,
 } from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -42,62 +41,60 @@ import CollapseItem from "../../aside/CollapseItem";
 import { store } from "../../../store/Context";
 import NavItemSm from "./navItems/navItemSm/NavItemSm";
 import "./appHeader.scss";
+import Toast from "../../toast/Toast";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeCount,
+  changeSingleTotal,
+  changeSumTotal,
+  updateAfterRefresh,
+} from "../../../store/cart/slice";
+import actions from "../../../store/cart/actions";
+
 const AppHeader = () => {
   const [drawer, setdrawer] = useState(false);
-  const [modal, setModal] = React.useState(false);
-  const [paidToast, setPaidToast] = React.useState(false);
-  const { allCategories, cartStateProvider } = useContext(store);
+  const [modal, setModal] = useState(false);
+  const [paidToast, setPaidToast] = useState(false);
+  const { allCategories } = useContext(store);
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const sumTotal = useSelector((state) => state.cart.sumTotal);
   useEffect(() => {
     var cartJSON = localStorage.getItem("shoppingCart");
-    cartStateProvider.dispatch({
-      type: "updateAfterRefresh",
-      info: { cartJSON },
-    });
+    dispatch(updateAfterRefresh({ info: { cartJSON } }));
     if (cartJSON) {
-      cartStateProvider.dispatch({ type: "changeSumTotal" });
+      dispatch(changeSumTotal());
     }
-  }, []);
-  function getCartItems() {
-    return cartStateProvider.state.cartItems;
-  }
+  }, [dispatch]);
   function deleteItem(id) {
-    cartStateProvider.actions.deleteItem({
-      productId: id,
-    });
-    cartStateProvider.dispatch({ type: "changeSumTotal" });
-    cartStateProvider.actions.saveCart([
-      cartStateProvider.state,
-      cartStateProvider.dispatch,
-    ]);
+    dispatch(
+      actions.deleteItem({
+        productId: id,
+      })
+    );
+    dispatch(changeSumTotal());
+    dispatch(actions.saveCart(cartItems));
   }
   function deleteAll() {
-    cartStateProvider.actions.deleteAll();
-    cartStateProvider.dispatch({ type: "changeSumTotal" });
-    cartStateProvider.actions.saveCart([
-      cartStateProvider.state,
-      cartStateProvider.dispatch,
-    ]);
+    dispatch(actions.deleteAll());
+    dispatch(changeSumTotal());
+    dispatch(actions.saveCart(cartItems));
   }
-  function changeCount(e, id) {
-    cartStateProvider.dispatch({
-      type: "changeCount",
-      info: { value: e.target.value, id },
-    });
-    cartStateProvider.dispatch({
-      type: "changeSingleTotal",
-      info: id,
-    });
-    cartStateProvider.dispatch({ type: "changeSumTotal" });
-    cartStateProvider.actions.saveCart();
+  function changeCounter(newVal, id) {
+    dispatch(changeCount({ info: { value: newVal, id } }));
+    dispatch(changeSingleTotal({ info: id }));
+    dispatch(changeSumTotal());
+    dispatch(actions.saveCart(cartItems));
   }
   function checkout() {
-    cartStateProvider.actions.deleteAll();
-    cartStateProvider.actions.saveCart([
-      cartStateProvider.state,
-      cartStateProvider.dispatch,
-    ]);
+    dispatch(actions.deleteAll());
+    dispatch(actions.saveCart(cartItems));
+    setModal(false);
     setPaidToast(true);
   }
+  useEffect(() => {
+    dispatch(actions.saveCart(cartItems));
+  }, [cartItems]);
   return (
     <>
       <AppBar position="sticky" color="white" className="header" sx={{ mb: 6 }}>
@@ -210,7 +207,7 @@ const AppHeader = () => {
               >
                 <Box sx={{ position: "relative" }}>
                   <ShoppingCartOutlined fontSize="large" />
-                  {getCartItems().length > 0 ? (
+                  {cartItems.length > 0 ? (
                     <Box
                       component={"span"}
                       sx={{
@@ -242,20 +239,19 @@ const AppHeader = () => {
                   }}
                 >
                   <span>
-                    {getCartItems().length > 0 ? getCartItems().length : 0}{" "}
-                    Products
+                    {cartItems.length > 0 ? cartItems.length : 0} Products
                   </span>
                   <Box
                     component={"span"}
-                    sx={{ color: "info.main" }}
+                    sx={{ color: "info.main", cursor: "pointer" }}
                     onClick={() => setModal(true)}
                   >
                     View cart
                   </Box>
                 </Box>
                 <Box component={"hr"} sx={{ color: "secondary.main" }} />
-                <Box component={"ul"} sx={{ listStyle: "none" }}>
-                  {getCartItems().map((item) => (
+                <Box component={"ul"} sx={{ listStyle: "none", pl: 0 }}>
+                  {cartItems.map((item) => (
                     <Box component={"li"} key={item.id}>
                       <Link
                         to={`/Product/${item.category}/${item.id}`}
@@ -292,6 +288,7 @@ const AppHeader = () => {
                         </Box>
                         <DeleteForeverIcon
                           color="danger"
+                          sx={{ cursor: "pointer" }}
                           onClick={() => deleteItem(item.id)}
                         />
                       </Box>
@@ -307,9 +304,7 @@ const AppHeader = () => {
                   }}
                 >
                   <span>Total </span>
-                  {getCartItems().length > 0 ? (
-                    <span>{cartStateProvider.state.sumTotal}</span>
-                  ) : null}
+                  {cartItems.length > 0 ? <span>{sumTotal}</span> : null}
                 </Box>
               </Box>
             </Box>
@@ -453,17 +448,17 @@ const AppHeader = () => {
                 alignItems: "center",
               }}
             >
-              <Box component={"h2"} className="modal-title">
+              <Box className="modal-title" sx={{ my: 0 }}>
                 Shop Cart
               </Box>
-              <IconButton color="danger" onClick={() => setModal(false)}>
+              <IconButton color="secondary" onClick={() => setModal(false)}>
                 <CloseOutlinedIcon />
               </IconButton>
             </DialogTitle>
             <DialogContent>
-              {getCartItems().length > 0 ? (
+              {cartItems.length > 0 ? (
                 <TableContainer component={Paper}>
-                  <Table>
+                  <Table sx={{ minWidth: 760 }}>
                     <TableHead>
                       <TableRow>
                         <TableCell>Product Name & Details</TableCell>
@@ -472,6 +467,7 @@ const AppHeader = () => {
                         <TableCell align="right">Total</TableCell>
                         <TableCell align="right">
                           <DeleteForeverIcon
+                            sx={{ cursor: "pointer" }}
                             color="danger"
                             onClick={() => deleteAll()}
                           />
@@ -479,7 +475,7 @@ const AppHeader = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {getCartItems().map((item) => (
+                      {cartItems.map((item) => (
                         <TableRow
                           key={item.id}
                           sx={{
@@ -521,10 +517,15 @@ const AppHeader = () => {
                               sx={{
                                 backgroundColor: "white.main",
                                 color: "secondary.main",
+                                width: "40%",
+                                "& .MuiInputBase-input": { p: 1 },
                               }}
                               type="number"
+                              min={1}
                               value={item.count}
-                              onChange={(e) => changeCount(e, item.id)}
+                              onChange={(e) =>
+                                changeCounter(e.target.value, item.id)
+                              }
                             />
                           </TableCell>
                           <TableCell
@@ -549,7 +550,7 @@ const AppHeader = () => {
                             <IconButton
                               className="close"
                               color="danger"
-                              onClick={deleteItem(item.id)}
+                              onClick={() => deleteItem(item.id)}
                             >
                               <CloseOutlinedIcon />
                             </IconButton>
@@ -565,7 +566,7 @@ const AppHeader = () => {
             </DialogContent>
             <DialogActions>
               <Box sx={{ width: "100%" }}>
-                {getCartItems().length > 0 ? (
+                {cartItems.length > 0 ? (
                   <Box
                     sx={{
                       width: "100%",
@@ -583,8 +584,7 @@ const AppHeader = () => {
                         Total :
                       </Box>
                       <Box className="font-16 font-sm-18  font-lg-20">
-                        <strong> {cartStateProvider.state.sumTotal} </strong>{" "}
-                        toman
+                        <strong> {sumTotal} </strong> toman
                       </Box>
                     </Box>
                     <Box sx={{ display: "flex" }}>
@@ -592,7 +592,7 @@ const AppHeader = () => {
                         onClick={() => setModal(false)}
                         variant="contained"
                         color="light"
-                        sx={{ boxShadow: "none" }}
+                        sx={{ boxShadow: "none", textTransform: "capitalize" }}
                         className="font-12 font-sm-14 font-md-16"
                       >
                         Back
@@ -601,7 +601,11 @@ const AppHeader = () => {
                         onClick={() => checkout()}
                         variant="contained"
                         color="primary"
-                        sx={{ boxShadow: "none", mx: { xs: 1, sm: 2 } }}
+                        sx={{
+                          boxShadow: "none",
+                          mx: { xs: 1, sm: 2 },
+                          textTransform: "capitalize",
+                        }}
                         className="checkout font-12 font-sm-14 font-md-16"
                       >
                         Checkout
@@ -620,7 +624,7 @@ const AppHeader = () => {
                       onClick={() => setModal(false)}
                       variant="contained"
                       color="secondary"
-                      sx={{ boxShadow: "none" }}
+                      sx={{ boxShadow: "none", textTransform: "capitalize" }}
                       className="font-12 font-sm-14 font-md-16"
                     >
                       Back
@@ -630,20 +634,12 @@ const AppHeader = () => {
               </Box>
             </DialogActions>
           </Dialog>
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            open={paidToast}
-            autoHideDuration={3000}
-            onClose={() => setPaidToast(false)}
-          >
-            <Alert
-              onClose={() => setPaidToast(false)}
-              severity="success"
-              sx={{ width: "100%" }}
-            >
-              Successfully paid
-            </Alert>
-          </Snackbar>
+          <Toast
+            type={"success"}
+            massege={"Successfully paid"}
+            state={paidToast}
+            setState={(val) => setPaidToast(val)}
+          />
         </Toolbar>
         <NavItems></NavItems>
       </AppBar>
