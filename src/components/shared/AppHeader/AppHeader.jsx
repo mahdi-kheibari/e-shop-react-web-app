@@ -21,6 +21,7 @@ import {
   TableBody,
   Paper,
   Alert,
+  Tooltip,
 } from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -34,6 +35,7 @@ import {
   Search,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
+import PersonOffOutlinedIcon from "@mui/icons-material/PersonOffOutlined";
 import NavItems from "./navItems/NavItems";
 import Link from "../../utils/Link";
 import NavLink from "../../utils/NavLink";
@@ -50,15 +52,18 @@ import {
   updateAfterRefresh,
 } from "../../../store/cart/slice";
 import actions from "../../../store/cart/actions";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const AppHeader = () => {
   const [drawer, setdrawer] = useState(false);
   const [modal, setModal] = useState(false);
   const [paidToast, setPaidToast] = useState(false);
+  const [failPaidToast, setFailPaidToast] = useState(false);
   const { allCategories } = useContext(store);
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const sumTotal = useSelector((state) => state.cart.sumTotal);
+  const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
   useEffect(() => {
     var cartJSON = localStorage.getItem("shoppingCart");
     dispatch(updateAfterRefresh({ info: { cartJSON } }));
@@ -87,10 +92,14 @@ const AppHeader = () => {
     dispatch(actions.saveCart(cartItems));
   }
   function checkout() {
-    dispatch(actions.deleteAll());
-    dispatch(actions.saveCart(cartItems));
-    setModal(false);
-    setPaidToast(true);
+    if (isAuthenticated) {
+      dispatch(actions.deleteAll());
+      dispatch(actions.saveCart(cartItems));
+      setModal(false);
+      setPaidToast(true);
+    } else {
+      setFailPaidToast(true);
+    }
   }
   useEffect(() => {
     dispatch(actions.saveCart(cartItems));
@@ -185,13 +194,26 @@ const AppHeader = () => {
               width: { sm: "auto" },
             }}
           >
-            <Button
-              variant="text"
-              color="secondary"
-              sx={{ px: 1, minWidth: "initial" }}
-            >
-              <PersonOutlineOutlined fontSize="large" />
-            </Button>
+            <Tooltip title={isAuthenticated ? "Logout" : "Login"}>
+              <Button
+                variant="text"
+                color="secondary"
+                sx={{ px: 1, minWidth: "initial" }}
+                onClick={() =>
+                  isAuthenticated
+                    ? logout({
+                        logoutParams: { returnTo: window.location.origin },
+                      })
+                    : loginWithRedirect()
+                }
+              >
+                {isAuthenticated ? (
+                  <PersonOffOutlinedIcon fontSize="large" />
+                ) : (
+                  <PersonOutlineOutlined fontSize="large" />
+                )}
+              </Button>
+            </Tooltip>
             <Box className="shop-cart">
               <Button
                 onClick={() => setModal(true)}
@@ -632,6 +654,12 @@ const AppHeader = () => {
                   </Box>
                 )}
               </Box>
+              <Toast
+                type={"warning"}
+                massege={"Please Login first"}
+                state={failPaidToast}
+                setState={(val) => setFailPaidToast(val)}
+              />
             </DialogActions>
           </Dialog>
           <Toast
