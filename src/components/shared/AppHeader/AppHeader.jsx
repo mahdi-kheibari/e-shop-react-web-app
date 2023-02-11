@@ -50,9 +50,11 @@ import {
   changeSingleTotal,
   changeSumTotal,
   updateAfterRefresh,
-} from "../../../store/cart/slice";
-import actions from "../../../store/cart/actions";
+} from "../../../store/redux/cart/cartSlice";
+import actions from "../../../store/redux/cart/cartActions";
 import { useAuth0 } from "@auth0/auth0-react";
+import { changeSearchValue } from "../../../store/redux/search/searchSlice";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 const AppHeader = () => {
   const [drawer, setdrawer] = useState(false);
@@ -63,7 +65,9 @@ const AppHeader = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const sumTotal = useSelector((state) => state.cart.sumTotal);
+  const searchValue = useSelector((state) => state.search.searchValue);
   const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
+  const navigate = useNavigate();
   useEffect(() => {
     var cartJSON = localStorage.getItem("shoppingCart");
     dispatch(updateAfterRefresh({ info: { cartJSON } }));
@@ -100,6 +104,15 @@ const AppHeader = () => {
     } else {
       setFailPaidToast(true);
     }
+  }
+  function navigateToQuery() {
+    const params = new URLSearchParams();
+    if (searchValue) {
+      params.append("search", searchValue);
+    } else {
+      params.delete("search");
+    }
+    navigate(`Products/category/All/?${params.toString()}`);
   }
   useEffect(() => {
     dispatch(actions.saveCart(cartItems));
@@ -177,10 +190,16 @@ const AppHeader = () => {
                   backgroundColor: "light.main",
                   color: "secondary.main",
                 }}
+                value={searchValue}
+                onChange={(e) =>
+                  dispatch(changeSearchValue({ info: e.target.value }))
+                }
+                onKeyUp={(e) => (e.keyCode === 13 ? navigateToQuery() : null)}
               />
               <Button
                 size="small"
                 sx={{ height: "calc(1.5em + 0.75rem + 2px)", alignSelf: "end" }}
+                onClick={() => navigateToQuery()}
               >
                 <Search />
               </Button>

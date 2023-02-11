@@ -32,6 +32,7 @@ import Electronic from "./pages/products/category/childs/Electronic/Index";
 import ForGamer from "./pages/products/category/childs/ForGamer/Index";
 import Brands from "./pages/products/category/childs/Brands/Index";
 import Error from './layouts/Error';
+import All from './pages/products/category/childs/All/All';
 
 const Router = () => {
     return (
@@ -43,6 +44,10 @@ const Router = () => {
                 exact
             ></Route>
             <Route path="/Products/category" element={<Category></Category>}>
+                <Route
+                    path="All"
+                    element={<All></All>}
+                ></Route>
                 <Route
                     path="Beauty"
                     element={<Beauty></Beauty>}
@@ -118,8 +123,8 @@ const Router = () => {
                     <Route path=':id' element={<CleaningProduct></CleaningProduct>}></Route>
                 </Route>
             </Route>
-            <Route path="/404" element={<Error/>} />
-          	<Route path="*" element={<Navigate to="/404" />} />
+            <Route path="/404" element={<Error />} />
+            <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
     );
 }

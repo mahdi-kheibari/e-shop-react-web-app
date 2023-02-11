@@ -3,7 +3,7 @@ import theme from './theme'
 import { ThemeProvider } from '@mui/material/styles';
 import AppLayout from './layouts/AppLayout';
 import Context from './store/Context'
-import CartProvider from './store/cart/provider';
+import CartProvider from './store/redux/provider';
 import { Auth0Provider } from "@auth0/auth0-react";
 
 const App = () => {

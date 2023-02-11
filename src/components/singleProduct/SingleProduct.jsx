@@ -18,8 +18,8 @@ import SecondSwiperSm from "../swiper/secondSwiper/secondSwiperSm/SecondSwiperSm
 import "./singleProduct.scss";
 import Toast from "../toast/Toast";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../../store/cart/actions";
-import { changeSumTotal } from "../../store/cart/slice";
+import actions from "../../store/redux/cart/cartActions";
+import { changeSumTotal } from "../../store/redux/cart/cartSlice";
 
 const SingleProduct = ({
   product,

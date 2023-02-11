@@ -1,4 +1,4 @@
-import { deleteAll, deleteItem, setItem } from "./slice";
+import { deleteAll, deleteItem, setItem } from "./cartSlice";
 
 const actions = {
     addItem: (cartItems, info) => (dispatch) => {
