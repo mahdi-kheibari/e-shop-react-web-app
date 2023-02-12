@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
-import useWindowWidth from "../../hooks/useWindowWidth";
+import useWindowWidth from "../hooks/useWindowWidth";
 import NavLink from "../utils/NavLink";
 import Link from "../utils/Link";
 import Icon from "../utils/Icon";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import useWindowWidth from "../../../../hooks/useWindowWidth";
+import useWindowWidth from "../../../hooks/useWindowWidth";
 
 const SecondSwiperItem = ({ i }) => {
   const { windowWidth } = useWindowWidth();

@@ -1,5 +1,5 @@
 import React from "react";
-import useWindowWidth from "../../hooks/useWindowWidth";
+import useWindowWidth from "../hooks/useWindowWidth";
 import CategoryList from "./CategoryList";
 import CategoryListSm from "./CategoryListSm";
 import Breadcrumb from "../breadcrumb/Breadcrumb";

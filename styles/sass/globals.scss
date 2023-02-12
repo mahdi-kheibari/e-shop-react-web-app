@@ -1,0 +1,319 @@
+@import './assets/scss/variable';
+
+@font-face {
+    font-family: "Vazir";
+    src: url("./assets/fonts/vazir/Vazir-Light-UI.eot") format("embedded-opentype"),
+        url("./assets/fonts/vazir/Vazir-Light-UI.ttf") format("truetype"),
+        url("./assets/fonts/vazir/Vazir-Light-UI.woff") format("woff"),
+        url("./assets/fonts/vazir/Vazir-Light-UI.woff2") format("woff2");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Vazir";
+    src: url("./assets/fonts/vazir/Vazir-Regular-UI.eot") format("embedded-opentype"),
+        url("./assets/fonts/vazir/Vazir-Regular-UI.ttf") format("truetype"),
+        url("./assets/fonts/vazir/Vazir-Regular-UI.woff") format("woff"),
+        url("./assets/fonts/vazir/Vazir-Regular-UI.woff2") format("woff2");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Vazir";
+    src: url("./assets/fonts/vazir/Vazir-Medium-UI.eot") format("embedded-opentype"),
+        url("./assets/fonts/vazir/Vazir-Medium-UI.ttf") format("truetype"),
+        url("./assets/fonts/vazir/Vazir-Medium-UI.woff") format("woff"),
+        url("./assets/fonts/vazir/Vazir-Medium-UI.woff2") format("woff2");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Vazir";
+    src: url("./assets/fonts/vazir/Vazir-Bold-UI.eot") format("embedded-opentype"),
+        url("./assets/fonts/vazir/Vazir-Bold-UI.ttf") format("truetype"),
+        url("./assets/fonts/vazir/Vazir-Bold-UI.woff") format("woff"),
+        url("./assets/fonts/vazir/Vazir-Bold-UI.woff2") format("woff2");
+    font-weight: 700;
+}
+
+$fonts: (12: .75rem,
+    14: .875rem,
+    16: 1rem,
+    18: 1.125rem,
+    20: 1.25rem,
+    24: 1.5rem,
+    32: 2rem);
+
+@each $pixel,
+$rem in $fonts {
+    .font-#{$pixel} {
+        font-size: $rem !important;
+    }
+}
+
+@each $bp-name,
+$bp-pixels in $grid-breakpoints {
+
+    //looping through xs, sm, md, lg, xl and their pixel values
+    @each $pixel,
+    $rem in $fonts {
+        @media (min-width: $bp-pixels) {
+
+            //only works if the screen is wider than this
+            .font-#{$bp-name}-#{$pixel} {
+                font-size: $rem !important;
+            }
+        }
+    }
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden !important;
+}
+
+body {
+    font-family: 'Vazir', sans-serif !important;
+    background-color: $light;
+    height: 100%;
+    margin: 0;
+
+    [id="root"] {
+        height: 100%;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+a {
+    color: $secondary !important;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.text-decoration-line-through {
+    text-decoration: line-through;
+}
+
+.container-fluid {
+    width: 100%;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+// rounded classes
+$rounded:(bottom:0.25rem,
+    top:0.25rem);
+
+@each $direction,
+$val in $rounded {
+    .rounded-#{$direction} {
+        border-#{$direction}-left-radius: $val !important;
+        border-#{$direction}-right-radius: $val !important;
+    }
+}
+
+.rounded {
+    border-radius: 0.25rem !important;
+}
+
+.rounded-pill {
+    border-radius: 50rem !important;
+}
+
+//for category component
+.category {
+    border-radius: 8px;
+    border: 1px solid #ededed;
+    padding: 16px 24px 24px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 3%);
+
+    &-item {
+        width: calc((100% - 112px)/8);
+        border-radius: 8px;
+        padding: 16px 8px;
+        box-shadow: 0 1px 4px 0 rgb(0 0 0 / 3%);
+
+        &_img {
+            max-width: 96px;
+            height: 60px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+
+    a {
+        &:hover {
+            background-color: $light !important;
+            color: $primary !important;
+        }
+    }
+}
+
+.category-sm {
+    z-index: 1;
+    border-top: solid 1px #ccc;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+
+    &-item {
+        &_cover {
+            svg {
+                fill: $secondary;
+            }
+        }
+
+        &:hover {
+            color: $primary !important;
+
+            &_cover {
+                color: $primary !important;
+
+                svg {
+                    fill: $primary !important;
+                }
+            }
+
+            svg {
+                fill: $primary !important;
+            }
+        }
+    }
+
+    &-item.active {
+        color: $primary-light !important;
+
+        &_cover {
+            color: $primary-light !important;
+
+            svg {
+                fill: $primary-light !important;
+            }
+        }
+
+        svg {
+            fill: $primary-light !important;
+        }
+    }
+}
+
+.category-list-sm {
+    height: 4rem;
+}
+
+/* start swiper */
+
+.swiper-container-2,
+.swiper-container-4 {
+    padding: 6px 4px !important;
+    margin-bottom: 11px;
+}
+
+.swiper-container-4,
+.swiper-container-3,
+.swiper-container-2 {
+    position: absolute;
+    overflow: hidden;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-container-2 .swiper-slide img,
+.swiper-container-3 .swiper-slide img,
+.swiper-container-4 .swiper-slide img {
+    object-fit: contain;
+}
+
+.swiper-button-next,
+swiper-button-prev {
+    font-size: 14px !important;
+}
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+    pointer-events: auto !important;
+}
+
+// for second swiper
+.swiper-container-2,
+.swiper-container-4 {
+    .swiper-slide {
+        border-radius: 8px;
+        margin-right: 6px !important;
+        transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), transform .2s cubic-bezier(.4, 0, 1, 1), -webkit-box-shadow .2s cubic-bezier(.4, 0, 1, 1), -webkit-transform .2s cubic-bezier(.4, 0, 1, 1);
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px 0px;
+            transform: translateY(-2px);
+        }
+    }
+}
+
+// end swiper
+
+@mixin hoverCart {
+    color: $primary !important;
+    border: 1px solid $primary !important;
+    border-radius: 4px !important;
+}
+
+.mt-section {
+    margin-top: 2.3125rem !important;
+}
+.mb-section {
+    margin-bottom: 2.3125rem !important;
+}
+
+.mt-related {
+    margin-top: 1rem !important;
+}
+.mb-related {
+    margin-bottom: 1rem !important;
+}
+
+// shop cart
+.shop-cart:hover {
+    .cart-icon {
+        @include hoverCart;
+    }
+}

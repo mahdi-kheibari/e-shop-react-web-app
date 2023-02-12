@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
-import useWindowWidth from "../../../hooks/useWindowWidth";
+import useWindowWidth from "../../hooks/useWindowWidth";
 import Link from "../../utils/Link";
 
 const ProductItem = ({ item, keyName, subItemPath }) => {

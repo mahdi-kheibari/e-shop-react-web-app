@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useWindowWidth from "../../hooks/useWindowWidth";
+import useWindowWidth from "../hooks/useWindowWidth";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
 import {
   Box,
