@@ -152,7 +152,7 @@ const AppHeader = () => {
               }}
               className={`${style["header-brand"]}`}
             >
-              <Link to={"/"} sx={{ display: "flex" }}>
+              <Link href={"/"} sx={{ display: "flex" }}>
                 <img src="/logo192.png" height="30px" alt="logo" />
                 &nbsp;
                 <Typography
@@ -295,7 +295,7 @@ const AppHeader = () => {
                   {cartItems.map((item) => (
                     <Box component={"li"} key={item.id}>
                       <Link
-                        to={`/Product/${item.category}/${item.id}`}
+                        href={`/Product/${item.category}/${item.id}`}
                         sx={{
                           display: "flex",
                           justifyContent: "space-between",
@@ -367,7 +367,7 @@ const AppHeader = () => {
               >
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Link
-                    to={"/"}
+                    href={"/"}
                     sx={{
                       display: "flex",
                       alignItems: "center",
@@ -419,9 +419,9 @@ const AppHeader = () => {
                   <Box component={"li"} className={"nav-item"}>
                     <Button variant="text" color="secondary" sx={{ pl: 2 }}>
                       <NavLink
-                        to={"/"}
-                        className={`${({ isActive }) =>
-                          isActive ? style.active : null} ${style["nav-link"]}`}
+                        href={"/"}
+                        activeClassName={style.active}
+                        className={`${style["nav-link"]}`}
                         sx={{ display: "flex", alignItems: "center" }}
                       >
                         <HomeOutlinedIcon />
@@ -460,7 +460,7 @@ const AppHeader = () => {
                   <li>
                     <Button variant="text" color="secondary" sx={{ pl: 2 }}>
                       <Link
-                        to="/"
+                        href="/"
                         sx={{
                           display: "flex",
                           alignItems: "center",
@@ -525,7 +525,7 @@ const AppHeader = () => {
                         >
                           <TableCell sx={{ p: 4 }} align="right">
                             <Link
-                              to={`/Product/${item.category}/${item.id}`}
+                              href={`/Product/${item.category}/${item.id}`}
                               sx={{ display: "flex", alignItems: "center" }}
                             >
                               <Box

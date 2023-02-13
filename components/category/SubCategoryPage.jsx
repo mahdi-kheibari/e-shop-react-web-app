@@ -1,6 +1,6 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
-import AsideLayout from "../../layouts/asideLayout/AsideLayout";
+import AsideLayout from "../layouts/asideLayout/AsideLayout";
 import Item from "../aside/Item";
 import CollapseItem from "../aside/CollapseItem";
 import CategoryListSm from "../category/CategoryListSm";

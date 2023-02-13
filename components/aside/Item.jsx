@@ -1,8 +1,10 @@
 import { Box, Button, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import NavLink from "../utils/NavLink";
 
 function Item(props) {
+  const router = useRouter();
   return (
     <Box component={"li"} sx={{ mb: 1 }}>
       <Button
@@ -11,20 +13,17 @@ function Item(props) {
         sx={{ textTransform: "capitalize", fontSize: "1rem" }}
       >
         <NavLink
-          to={props.route}
-          className={`${({ isActive }) => {
-            return isActive ? "active-category" : undefined;
-          }} btn-toggle rounded`}
+          href={props.route}
+          activeClassName="active-category"
+          className={`btn-toggle rounded`}
         >
-          {({ isActive }) => (
-            <Typography
-              component={"span"}
-              color={isActive ? "primary" : "initial"}
-              sx={{ px: 1, fontSize: "1rem" }}
-            >
-              {props.name}
-            </Typography>
-          )}
+          <Typography
+            component={"span"}
+            color={router.pathname === props.route ? "primary" : "initial"}
+            sx={{ px: 1, fontSize: "1rem" }}
+          >
+            {props.name}
+          </Typography>
         </NavLink>
       </Button>
     </Box>

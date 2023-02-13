@@ -1,4 +1,4 @@
-import { Link as RouterLink } from "react-router-dom";
+import Link from "next/link";
 import LinkUtils from '../HOC/LinkUtils'
 
-export default LinkUtils(RouterLink);
+export default LinkUtils(Link);

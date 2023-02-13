@@ -16,7 +16,7 @@ function CategoryList({ products, products2, subRoute, subRoute2 }) {
         {Object.keys(products).map((key) => (
           <Link
             key={key}
-            to={`${subRoute}${key}`}
+            href={`${subRoute}${key}`}
             className="category-item"
             sx={{
               bgcolor: "light.main",

@@ -17,7 +17,7 @@ const ErrorLayout = ({statusCode}) => {
         <h1> page not found</h1>
         <h4>error code: {statusCode}</h4>
         <h4>
-          <Link to={"/"} sx={{ mt: 2 }}>
+          <Link href={"/"} sx={{ mt: 2 }}>
             <Button variant="outlined" color="success">
               go to Home page
             </Button>

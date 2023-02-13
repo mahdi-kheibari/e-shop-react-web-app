@@ -348,7 +348,7 @@ const SingleProduct = ({
                   .map((i) => (
                     <SwiperSlide key={i.name}>
                       <Link
-                        to={`/Product/${subCrumbName}/${i.id}`}
+                        href={`/Product/${subCrumbName}/${i.id}`}
                         className={`${style["bestSeller"]}`}
                       >
                         <SecondSwiperItem i={i} />
@@ -363,7 +363,7 @@ const SingleProduct = ({
                   .map((i) => (
                     <SwiperSlide key={i.name}>
                       <Link
-                        to={`/Product/${subCrumbName}/${i.id}`}
+                        href={`/Product/${subCrumbName}/${i.id}`}
                         className="swiper-slide-small"
                       >
                         <SecondSwiperItem i={i} />

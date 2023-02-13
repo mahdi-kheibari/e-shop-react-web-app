@@ -13,7 +13,7 @@ const Products = () => {
         <Grid key={key} item xs={12} md={6}>
           <Box className={`${style["categoeies"]}`} sx={{ my: 2 }}>
             <Link
-              to={context.allCategories[key].route}
+              href={context.allCategories[key].route}
               sx={{
                 backgroundImage:
                   "url(" + context.allCategories[key].address + ")",

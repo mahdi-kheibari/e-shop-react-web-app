@@ -7,10 +7,9 @@ import MainSwiper from "@/components/swiper/mainSwiper/MainSwiper";
 import { SwiperSlide } from "swiper/react";
 import { store } from "@/store/Context";
 import Link from "@/components/utils/Link";
-import HashLink from "@/components/utils/HashLink";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Link as RouterLink } from "react-router-dom";
+import RouterLink from "next/link";
 import DiscountSwiper from "@/components/swiper/discountSwiper/DiscountSwiper";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import SecondSwiper from "@/components/swiper/secondSwiper/SecondSwiper";
@@ -87,7 +86,7 @@ export default function Home() {
                         <MainSwiper pagination={true} rootStyle="categories">
                             {context.mainSliderImg.map((item) => (
                                 <SwiperSlide key={item.name}>
-                                    <Link to={`/Products/category/${item.route}`}>
+                                    <Link href={`/Products/category/${item.route}`}>
                                         <img src={item.address} alt={item.name} />
                                     </Link>
                                 </SwiperSlide>
@@ -117,7 +116,7 @@ export default function Home() {
                                     {discountSlider.map((i) => (
                                         <SwiperSlide key={i.name}>
                                             <Link
-                                                to={`/Product/${i.category}/${i.id}`}
+                                                href={`/Product/${i.category}/${i.id}`}
                                                 sx={{
                                                     height: "100%",
                                                     display: "flex",
@@ -198,7 +197,7 @@ export default function Home() {
                                     color="primary"
                                     sx={{ mt: "auto", pb: 2, textTransform: "capitalize" }}
                                     component={RouterLink}
-                                    to={"/Products/category/Discounts"}
+                                    href={"/Products/category/Discounts"}
                                 >
                                     <Typography
                                         variant="body1"
@@ -231,7 +230,7 @@ export default function Home() {
                             <DiscountSwiper>
                                 <SwiperSlide className={`${style["swiper-slide-small"]}`}>
                                     <Link
-                                        to={"/Products/category/Discounts"}
+                                        href={"/Products/category/Discounts"}
                                         sx={{
                                             bgcolor: "transparent",
                                             display: "flex",
@@ -270,7 +269,7 @@ export default function Home() {
                                 {discountSlider.map((i) => (
                                     <SwiperSlide key={i.name} className={`${style["swiper-slide-small"]}`}>
                                         <Link
-                                            to={`/Product/${i.category}/${i.id}`}
+                                            href={`/Product/${i.category}/${i.id}`}
                                             sx={{
                                                 height: "100%",
                                                 bgcolor: "white.main",
@@ -351,7 +350,7 @@ export default function Home() {
                                 ))}
                                 <SwiperSlide className={`${style["swiper-slide-small"]}`}>
                                     <Link
-                                        to={"/Products/category/Discounts"}
+                                        href={"/Products/category/Discounts"}
                                         sx={{
                                             bgcolor: "white.main",
                                             display: "flex",
@@ -417,7 +416,7 @@ export default function Home() {
                         {bestSellerSlider.map((i) => (
                             <SwiperSlide key={i.name}>
                                 <Link
-                                    to={`/Product/${i.category}/${i.id}`}
+                                    href={`/Product/${i.category}/${i.id}`}
                                     className={`${style["bestSeller"]}`}
                                 >
                                     <SecondSwiperItem i={i} />
@@ -430,7 +429,7 @@ export default function Home() {
                         {bestSellerSlider.map((i) => (
                             <SwiperSlide key={i.name}>
                                 <Link
-                                    to={`/Product/${i.category}/${i.id}`}
+                                    href={`/Product/${i.category}/${i.id}`}
                                     className={`${style["swiper-slide-small"]}`}
                                 >
                                     <SecondSwiperItem i={i} />
@@ -462,7 +461,7 @@ export default function Home() {
                         Special brands
                     </Typography>
                     <Link
-                        to={"/Products/category/Brands"}
+                        href={"/Products/category/Brands"}
                         sx={{ mr: 1, width: "initial !important" }}
                     >
                         <Button
@@ -478,16 +477,16 @@ export default function Home() {
                     <SecondSwiper rootStyle="brands-swiper">
                         {context.SpecialBrandsSlider.map((item) => (
                             <SwiperSlide key={item.name}>
-                                <HashLink
-                                    smooth
-                                    to={`Products/category/Brands#${item.name}`}
+                                <Link
+                                    scroll={false}
+                                    href={`Products/category/Brands#${item.name}`}
                                     sx={{ mt: 1, px: 2, mr: 0 }}
                                     className={`${style["brand"]}`}
                                 >
                                     <Box className={`${style["brand-img"]}`} sx={{ mx: "auto" }}>
                                         <img src={item.address} alt={item.name} />
                                     </Box>
-                                </HashLink>
+                                </Link>
                             </SwiperSlide>
                         ))}
                     </SecondSwiper>
@@ -495,16 +494,16 @@ export default function Home() {
                     <SecondSwiperSm rootStyle="brands-swiper">
                         {context.SpecialBrandsSlider.map((item) => (
                             <SwiperSlide key={item.name}>
-                                <HashLink
-                                    smooth
-                                    to={`Products/category/Brands#${item.name}`}
+                                <Link
+                                    scroll={false}
+                                    href={`Products/category/Brands#${item.name}`}
                                     sx={{ mt: 1, px: 2, mr: 0 }}
                                     className={`${style["swiper-slide-small"]}`}
                                 >
                                     <Box className={`${style["second-card-img-small"]}`} sx={{ mx: "auto" }}>
                                         <img src={item.address} alt={item.name} />
                                     </Box>
-                                </HashLink>
+                                </Link>
                             </SwiperSlide>
                         ))}
                     </SecondSwiperSm>

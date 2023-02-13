@@ -40,7 +40,7 @@ const ProductItem = ({ item, keyName, subItemPath }) => {
         }}
       >
         <Link
-          to={`/Product/${subPath()}/${item.id}`}
+          href={`/Product/${subPath()}/${item.id}`}
           className={"products-list_item_img"}
           sx={{ my: "auto", mx: { md: "auto" } }}
         >

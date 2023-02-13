@@ -1,18 +1,19 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import Link from "../../../utils/Link";
-import { NavLink } from "react-router-dom";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PercentOutlinedIcon from "@mui/icons-material/PercentOutlined";
 import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { store } from "../../../../store/Context";
 import style from "./NavItems.module.scss";
+import { useRouter } from "next/router";
+import NavLink from "@/components/utils/NavLink";
 
 const NavItem = ({ item, setShowMenu, lastItem }) => {
   return (
     <Box>
-      <Link to={item.route} sx={{ position: "relative", px: 1 }}>
+      <Link href={item.route} sx={{ position: "relative", px: 1 }}>
         <Button
           variant="text"
           color="gray"
@@ -46,6 +47,7 @@ const NavItem = ({ item, setShowMenu, lastItem }) => {
 const NavItems = () => {
   const { allCategories } = useContext(store);
   const [showMenu, setShowMenu] = useState(false);
+  const router = useRouter();
   const itemNames = [
     {
       name: "Categories",
@@ -143,21 +145,21 @@ const NavItems = () => {
                             }}
                           >
                             <NavLink
-                              to={allCategories[key].route}
-                              className={({ isActive }) => {
-                                return isActive ? style["active-category"] : undefined;
-                              }}
+                              href={allCategories[key].route}
+                              activeClassName={style["active-category"]}
                             >
-                              {({ isActive }) => (
-                                <Typography
-                                  component={"span"}
-                                  color={isActive ? "primary.main" : "initial"}
-                                  sx={{ px: 1 }}
-                                  className="font-14"
-                                >
-                                  {key}
-                                </Typography>
-                              )}
+                              <Typography
+                                component={"span"}
+                                color={
+                                  router.pathname === allCategories[key].route
+                                    ? "primary.main"
+                                    : "initial"
+                                }
+                                sx={{ px: 1 }}
+                                className="font-14"
+                              >
+                                {key}
+                              </Typography>
                             </NavLink>
                           </Box>
                         ))}

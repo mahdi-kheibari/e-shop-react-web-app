@@ -26,11 +26,9 @@ function CategoryListSm({ products, products2, subRoute, subRoute2 }) {
           {Object.keys(products).map((key) => (
             <NavLink
               key={key}
-              to={subRoute ? subRoute + key : products[key].route}
-              className={`${({ isActive }) =>
-                isActive
-                  ? "active"
-                  : null} category-sm-item font-16 font-sm-18`}
+              href={subRoute ? subRoute + key : products[key].route}
+              activeClassName="active"
+              className={`category-sm-item font-16 font-sm-18`}
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -54,7 +52,7 @@ function CategoryListSm({ products, products2, subRoute, subRoute2 }) {
               {Object.keys(products2).map((key) => (
                 <Link
                   key={key}
-                  to={subRoute2 + key}
+                  href={subRoute2 + key}
                   className={"category-sm-item font-16 font-sm-18"}
                   sx={{
                     display: "flex",

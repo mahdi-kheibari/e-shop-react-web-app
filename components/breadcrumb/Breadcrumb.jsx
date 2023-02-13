@@ -16,15 +16,15 @@ const Breadcrumb = ({
       sx={{ display: "flex", mb: 1, bgcolor: "light.main" }}
       className={`${style["breadcrumb"]}`}
     >
-      <Link to={"/"}>Home</Link>
+      <Link href={"/"}>Home</Link>
       <span className={`${style["breadcrumb-divider"]}`}>/</span>
-      <Link to={"/Products"}>Products</Link>
+      <Link href={"/Products"}>Products</Link>
       <span className={`${style["breadcrumb-divider"]}`}>/</span>
       {subCrumb ? (
-        <Link to={`/Products/category/${subCrumbPath}`}>{subCrumbName}</Link>
+        <Link href={`/Products/category/${subCrumbPath}`}>{subCrumbName}</Link>
       ) : null}
       {subCrumbSingle ? (
-        <Link to={`/Products/${subPath}/${subCrumbPath}`}>{subCrumbName}</Link>
+        <Link href={`/Products/${subPath}/${subCrumbPath}`}>{subCrumbName}</Link>
       ) : null}
       {subCrumb || subCrumbSingle ? (
         <span className={`${style["breadcrumb-divider"]}`}>/</span>

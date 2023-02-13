@@ -7,9 +7,8 @@ import style from "./NavItemSm.module.scss";
 const NavItemSm = ({ route, icon, title, fontScale, activeClass }) => {
   return (
     <NavLink
-      to={route}
-      className={`${({ isActive }) =>
-        isActive ? (activeClass ? style["active"] : "") : null}`}
+      href={route}
+      activeClassName={activeClass ? style["active"] : ""}
     >
       <Button
         variant="text"
