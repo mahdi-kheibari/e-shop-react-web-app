@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import {
   Box,
@@ -12,46 +12,15 @@ import {
 import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { store } from "@/store/Context";
 import ProductList from "@/components/productList/ProductList";
 import AsideLayout from "@/components/layouts/asideLayout/AsideLayout";
 
-const Discounts = () => {
-  const context = useContext(store);
+const Discounts = ({ allCategories, Products }) => {
   const [drawer, setdrawer] = useState(false);
-  const [allCategories, setAllCategories] = useState([]);
-  const [Products, setProducts] = useState({});
   const [discountProducts, setDiscountProducts] = useState({});
   const [checkedCategory, setCheckedCategory] = useState([]);
   const [changeProducts, setChangeProducts] = useState(false);
-  useEffect(() => {
-    setAllCategories(context.categories);
-    const products = {};
-    function filteredProduct(product, category) {
-      const Products = product;
-      for (let key in Products) {
-        const filtered = Products[key]
-          .filter((item) => item.special === true)
-          .map((item) => {
-            return {
-              ...item,
-              category: category,
-            };
-          });
-        products[key] = filtered;
-      }
-    }
-    const allProducts = {
-      Digital: context.Digital.Products,
-      Fashion: context.Fashion.Products,
-      Beauty: context.Beauty.Products,
-      House: context.House.Products,
-    };
-    for (let key in allProducts) {
-      filteredProduct(allProducts[key], key);
-    }
-    setProducts(products);
-  }, [context]);
+
   function setToCheckedCategory(event) {
     if (event.target.checked) {
       const newCheckedCategory = [...checkedCategory, event.target.value];
@@ -241,3 +210,85 @@ const Discounts = () => {
 };
 
 export default Discounts;
+
+import categories from "@/store/categories";
+import AsideLayout from "@/components/layouts/asideLayout/AsideLayout";
+import Item from "@/components/aside/Item";
+import CollapseItem from "@/components/aside/CollapseItem";
+Discounts.getLayout = function getLayout(page) {
+  return (
+    <Box className="container-fluid">
+      <Grid container spacing={4}>
+        <Grid item lg={3} xl={2} sx={{ display: { xs: "none", lg: "block" } }}>
+          <Box sx={{ height: "100%", display: "block" }}>
+            <AsideLayout>
+              <Box key={"before"}>
+                <Item name={"All products"} route="/Products/category/All" />
+                <CollapseItem
+                  name="Products"
+                  items={categories.allCategories}
+                />
+              </Box>
+              <Box key={"after"}>
+                <Item
+                  name={"Special discounts"}
+                  route="/Products/category/Discounts"
+                />
+                <Item
+                  name={"Electronic needs"}
+                  route="/Products/category/Electronic"
+                />
+                <Item name={"For gamers"} route="/Products/category/forGamer" />
+                <Item
+                  name={"Special brands"}
+                  route="/Products/category/Brands"
+                />
+              </Box>
+            </AsideLayout>
+          </Box>
+        </Grid>
+        <Grid item xs={12} lg={9} xl={10}>
+          {page}
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
+
+import Digital from "@/store/Digital";
+import Fashion from "@/store/Fashion";
+import Beauty from "@/store/Beauty";
+import House from "@/store/House";
+import categories from "@/store/categories";
+export const getStaticProps = async (ctx) => {
+  const products = {};
+  function filteredProduct(product, category) {
+    const Products = product;
+    for (let key in Products) {
+      const filtered = Products[key]
+        .filter((item) => item.special === true)
+        .map((item) => {
+          return {
+            ...item,
+            category: category,
+          };
+        });
+      products[key] = filtered;
+    }
+  }
+  const allProducts = {
+    Digital: Digital.Products,
+    Fashion: Fashion.Products,
+    Beauty: Beauty.Products,
+    House: House.Products,
+  };
+  for (let key in allProducts) {
+    filteredProduct(allProducts[key], key);
+  }
+  return {
+    props: {
+      allCategories: categories,
+      Products: products,
+    },
+  };
+};

@@ -1,36 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React from "react";
 import SingleProduct from "@/components/singleProduct/SingleProduct";
-import { store } from "@/store/Context";
+import { useRouter } from "next/router";
 
-const Id = () => {
-  const { id } = useParams();
-  const context = useContext(store);
-  const navigate = useNavigate();
-  const [validate, setValidate] = useState("");
-  const [Product, setProduct] = useState([]);
-  const [similarProducts, setSimilarProducts] = useState([]);
-  useEffect(() => {
-    const validation = context.House.Products["video-audio"].some(
-      (item) => item.id === id
-    );
-    if (validation) {
-      setValidate("validate");
-    } else {
-      setValidate("notValidate");
-    }
-  }, [id]);
-  useEffect(() => {
-    if (validate==="notValidate") {
-      navigate("/404");
-    } else {
-      setProduct(
-        context.House.Products["video-audio"].find((item) => item.id === id)
-      );
-      setSimilarProducts(context.House.Products["video-audio"]);
-    }
-  }, [validate,id]);
-  return validate==="validate" ? (
+const Id = ({ Product, similarProducts }) => {
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+  return (
     <SingleProduct
       product={Product}
       similarProducts={similarProducts}
@@ -39,7 +16,32 @@ const Id = () => {
       forBreadcrumbFa="صوتی و تصویری"
       subPath="House"
     />
-  ) : null;
+  );
 };
 
 export default Id;
+
+import House from "@/store/House";
+export const getStaticProps = async ({ params }) => {
+  const Product = House.Products["video-audio"].find(
+    (item) => item.id === params.id
+  );
+  return {
+    props: {
+      Product,
+      similarProducts: House.Products["video-audio"],
+    },
+  };
+};
+
+export const getStaticPaths = async (ctx) => {
+  const paths = House.Products["video-audio"].map((item) => {
+    params: {
+      id: item.id;
+    }
+  });
+  return {
+    paths,
+    fallback: "false",
+  };
+};

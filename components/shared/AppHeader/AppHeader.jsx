@@ -52,9 +52,9 @@ import {
 } from "../../../store/redux/cart/cartSlice";
 import actions from "../../../store/redux/cart/cartActions";
 import { changeSearchValue } from "../../../store/redux/search/searchSlice";
-import { useNavigate } from "react-router-dom";
 import style from "./AppHeader.module.scss";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { useRouter } from "next/router";
 
 const AppHeader = () => {
   const [drawer, setdrawer] = useState(false);
@@ -67,7 +67,7 @@ const AppHeader = () => {
   const sumTotal = useSelector((state) => state.cart.sumTotal);
   const searchValue = useSelector((state) => state.search.searchValue);
   const { user } = useUser();
-  const navigate = useNavigate();
+  const router = useRouter();
   useEffect(() => {
     var cartJSON = localStorage.getItem("shoppingCart");
     dispatch(updateAfterRefresh({ info: { cartJSON } }));
@@ -112,7 +112,7 @@ const AppHeader = () => {
     } else {
       params.delete("search");
     }
-    navigate(`Products/category/All/?${params.toString()}`);
+    router.push(`Products/category/All/?${params.toString()}`);
   }
   useEffect(() => {
     dispatch(actions.saveCart(cartItems));

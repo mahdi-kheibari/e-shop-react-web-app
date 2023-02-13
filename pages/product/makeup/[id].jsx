@@ -1,36 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React from "react";
 import SingleProduct from "@/components/singleProduct/SingleProduct";
-import { store } from "@/store/Context";
+import { useRouter } from "next/router";
 
-const Id = () => {
-  const { id } = useParams();
-  const context = useContext(store);
-  const navigate = useNavigate();
-  const [validate, setValidate] = useState("");
-  const [Product, setProduct] = useState([]);
-  const [similarProducts, setSimilarProducts] = useState([]);
-  useEffect(() => {
-    const validation = context.Beauty.Products["makeup"].some(
-      (item) => item.id === id
-    );
-    if (validation) {
-      setValidate("validate");
-    } else {
-      setValidate("notValidate");
-    }
-  }, [id]);
-  useEffect(() => {
-    if (validate==="notValidate") {
-      navigate("/404");
-    } else {
-      setProduct(
-        context.Beauty.Products["makeup"].find((item) => item.id === id)
-      );
-      setSimilarProducts(context.Beauty.Products["makeup"]);
-    }
-  }, [validate,id]);
-  return validate==="validate" ? (
+const Id = ({ Product, similarProducts }) => {
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+  return (
     <SingleProduct
       product={Product}
       similarProducts={similarProducts}
@@ -39,7 +16,32 @@ const Id = () => {
       forBreadcrumbFa="آرایشی"
       subPath="Beauty"
     />
-  ) : null;
+  );
 };
 
 export default Id;
+
+import Beauty from "@/store/Beauty";
+export const getStaticProps = async ({ params }) => {
+  const Product = Beauty.Products["makeup"].find(
+    (item) => item.id === params.id
+  );
+  return {
+    props: {
+      Product,
+      similarProducts: Beauty.Products["makeup"],
+    },
+  };
+};
+
+export const getStaticPaths = async (ctx) => {
+  const paths = Beauty.Products["makeup"].map((item) => {
+    params: {
+      id: item.id;
+    }
+  });
+  return {
+    paths,
+    fallback: "false",
+  };
+};

@@ -1,26 +1,23 @@
-import { Alert } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import { Alert, Box, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ProductList from "@/components/productList/ProductList";
 import { changeSearchValue } from "@/store/redux/search/searchSlice";
-import { store } from "@/store/Context";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 
-const All = () => {
+const All = ({ Digital, Fashion, Beauty, House }) => {
   const [Products, setProducts] = useState({});
   const [FilteredBySearch, setFilteredBySearch] = useState({});
   const [Searched, setSearched] = useState(false);
   const [query, setQuery] = useState(false);
-  const context = useContext(store);
   const dispatch = useDispatch();
-  const [searchParams] = useSearchParams();
-
+  const router = useRouter();
+  const { search } = router.query;
   useEffect(() => {
-    let searchVal = window.location.search.substring(1).split("=")[1];
-    if (searchVal) {
-      setQuery(window.location.search.substring(1).split("=")[1]);
+    if (search) {
+      setQuery(search);
     }
-  }, [searchParams]);
+  }, [search]);
   useEffect(() => {
     if (query) {
       dispatch(changeSearchValue({ info: query }));
@@ -29,10 +26,10 @@ const All = () => {
   useEffect(() => {
     const products = {};
     const allCategories = {
-      Digital: context.Digital.Products,
-      Fashion: context.Fashion.Products,
-      Beauty: context.Beauty.Products,
-      House: context.House.Products,
+      Digital: Digital.Products,
+      Fashion: Fashion.Products,
+      Beauty: Beauty.Products,
+      House: House.Products,
     };
     function pushToProducts(Product) {
       for (let key in Product) {
@@ -65,7 +62,7 @@ const All = () => {
     setProducts(products);
     setFilteredBySearch(filteredBySearch);
     setSearched(searched);
-  }, [searchParams,query]);
+  }, [search, query]);
   return (
     <div>
       <ProductList items={Searched ? FilteredBySearch : Products} />
@@ -77,3 +74,62 @@ const All = () => {
 };
 
 export default All;
+
+import Digital from "@/store/Digital";
+import Fashion from "@/store/Fashion";
+import Beauty from "@/store/Beauty";
+import House from "@/store/House";
+export const getStaticProps = async (ctx) => {
+  return {
+    props: {
+      Digital,
+      Fashion,
+      Beauty,
+      House,
+    },
+  };
+};
+
+import categories from "@/store/categories";
+import AsideLayout from "@/components/layouts/asideLayout/AsideLayout";
+import Item from "@/components/aside/Item";
+import CollapseItem from "@/components/aside/CollapseItem";
+All.getLayout = function getLayout(page) {
+  return (
+    <Box className="container-fluid">
+      <Grid container spacing={4}>
+        <Grid item lg={3} xl={2} sx={{ display: { xs: "none", lg: "block" } }}>
+          <Box sx={{ height: "100%", display: "block" }}>
+            <AsideLayout>
+              <Box key={"before"}>
+                <Item name={"All products"} route="/Products/category/All" />
+                <CollapseItem
+                  name="Products"
+                  items={categories.allCategories}
+                />
+              </Box>
+              <Box key={"after"}>
+                <Item
+                  name={"Special discounts"}
+                  route="/Products/category/Discounts"
+                />
+                <Item
+                  name={"Electronic needs"}
+                  route="/Products/category/Electronic"
+                />
+                <Item name={"For gamers"} route="/Products/category/forGamer" />
+                <Item
+                  name={"Special brands"}
+                  route="/Products/category/Brands"
+                />
+              </Box>
+            </AsideLayout>
+          </Box>
+        </Grid>
+        <Grid item xs={12} lg={9} xl={10}>
+          {page}
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};

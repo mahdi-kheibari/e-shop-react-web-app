@@ -1,22 +1,19 @@
-import React, { useContext } from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Container, Grid } from "@mui/material";
-import { store } from "../../../store/Context";
 import Link from "../../components/utils/Link";
 import style from "@/styles/sass/Products.module.scss";
-const Products = () => {
-  const context = useContext(store);
+const Products = ({ allCategories }) => {
   function categoryItems() {
     const Items = [];
-    for (const key in context.allCategories) {
+    for (const key in allCategories) {
       Items.push(
         <Grid key={key} item xs={12} md={6}>
           <Box className={`${style["categoeies"]}`} sx={{ my: 2 }}>
             <Link
-              href={context.allCategories[key].route}
+              href={allCategories[key].route}
               sx={{
-                backgroundImage:
-                  "url(" + context.allCategories[key].address + ")",
+                backgroundImage: "url(" + allCategories[key].address + ")",
               }}
             ></Link>
           </Box>
@@ -44,3 +41,12 @@ const Products = () => {
 };
 
 export default Products;
+
+import categories from "@/store/categories";
+export const getStaticProps = async (ctx) => {
+  return {
+    props: {
+      allCategories: categories.allCategories,
+    },
+  };
+};

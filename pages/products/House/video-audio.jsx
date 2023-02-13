@@ -2,26 +2,26 @@ import React, { useMemo } from "react";
 import ProductList from "@/components/productList/ProductList";
 import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 
-const Cleaning = ({ House }) => {
-  const Products = useMemo(() => House.Products["cleaning"], []);
+const VideoAudio = ({ House }) => {
+  const Products = useMemo(() => House.Products["video-audio"], []);
   return (
     <div>
       <Breadcrumb
-        activeText={"cleaning"}
+        activeText={"video-audio"}
         subCrumb={true}
         subCrumbName="House"
         subCrumbPath={"House"}
       />
-      <ProductList items={Products} subItemPath="cleaning" />
+      <ProductList items={Products} subItemPath="video-audio" />
     </div>
   );
 };
 
-export default Cleaning;
+export default VideoAudio;
 
 import SubCategoryPage from "@/components/category/SubCategoryPage";
 import categories from "@/store/categories";
-Cleaning.getLayout = function getLayout(page) {
+VideoAudio.getLayout = function getLayout(page) {
   return (
     <SubCategoryPage
       topItemName={"House"}

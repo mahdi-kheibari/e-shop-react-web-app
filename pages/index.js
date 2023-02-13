@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import useWindowWidth from "@/components/hooks/useWindowWidth";
 import { Box } from "@mui/system";
 import MainSwiper from "@/components/swiper/mainSwiper/MainSwiper";
 import { SwiperSlide } from "swiper/react";
-import { store } from "@/store/Context";
 import Link from "@/components/utils/Link";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -17,63 +16,8 @@ import SecondSwiperItem from "@/components/swiper/secondSwiper/secondSwiperItem/
 import SecondSwiperSm from "@/components/swiper/secondSwiper/secondSwiperSm/SecondSwiperSm";
 import style from '@/styles/sass/Home.module.scss';
 
-export default function Home() {
+export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, SpecialBrandsSlider }) {
     const { windowWidth } = useWindowWidth();
-    const context = useContext(store);
-    const [bestSellerSlider, setBestSellerSlider] = useState([]);
-    const [discountSlider, setDiscountSlider] = useState([]);
-    useEffect(() => {
-        const products = [];
-        const bestProducts = [];
-        function filteredProduct(Products) {
-            for (let key in Products) {
-                const filtered = Products[key]
-                    .filter((item) => item.special === true)
-                    .map((item) => {
-                        return {
-                            ...item,
-                            category: key,
-                        };
-                    });
-                products.push(...filtered);
-
-                const best = Products[key].map((item) => {
-                    return {
-                        ...item,
-                        category: key,
-                    };
-                });
-                bestProducts.push(...best);
-            }
-        }
-        const allProducts = {
-            Digital: context.Digital.Products,
-            Fashion: context.Fashion.Products,
-            Beauty: context.Beauty.Products,
-            House: context.House.Products,
-        };
-        for (let key in allProducts) {
-            filteredProduct(allProducts[key]);
-        }
-
-        const discount = [];
-        for (let step = 0; step < 3; step++) {
-            const random = products[Math.floor(Math.random() * products.length)];
-            if (!discount.some((item) => item.id === random.id)) {
-                discount.push(random);
-            }
-        }
-        setDiscountSlider(discount);
-        const bestSeller = [];
-        for (let step = 0; step < 8; step++) {
-            const random =
-                bestProducts[Math.floor(Math.random() * bestProducts.length)];
-            if (!bestSeller.some((item) => item.id === random.id)) {
-                bestSeller.push(random);
-            }
-        }
-        setBestSellerSlider(bestSeller);
-    }, []);
     return (
         <Container
             fixed={windowWidth >= 992 ? true : false}
@@ -84,7 +28,7 @@ export default function Home() {
                 <Grid container spacing={4}>
                     <Grid item xs={12} lg={8}>
                         <MainSwiper pagination={true} rootStyle="categories">
-                            {context.mainSliderImg.map((item) => (
+                            {mainSliderImg.map((item) => (
                                 <SwiperSlide key={item.name}>
                                     <Link href={`/Products/category/${item.route}`}>
                                         <img src={item.address} alt={item.name} />
@@ -475,7 +419,7 @@ export default function Home() {
                 </Box>
                 {windowWidth >= 992 ? (
                     <SecondSwiper rootStyle="brands-swiper">
-                        {context.SpecialBrandsSlider.map((item) => (
+                        {SpecialBrandsSlider.map((item) => (
                             <SwiperSlide key={item.name}>
                                 <Link
                                     scroll={false}
@@ -492,7 +436,7 @@ export default function Home() {
                     </SecondSwiper>
                 ) : (
                     <SecondSwiperSm rootStyle="brands-swiper">
-                        {context.SpecialBrandsSlider.map((item) => (
+                        {SpecialBrandsSlider.map((item) => (
                             <SwiperSlide key={item.name}>
                                 <Link
                                     scroll={false}
@@ -511,4 +455,68 @@ export default function Home() {
             </Box>
         </Container>
     );
+}
+
+import Digital from "@/store/Digital";
+import Fashion from "@/store/Fashion";
+import Beauty from "@/store/Beauty";
+import House from "@/store/House";
+import index from "@/store/index";
+export const getServerSideProps = async (ctx) => {
+    const products = [];
+    const bestProducts = [];
+    function filteredProduct(Products) {
+        for (let key in Products) {
+            const filtered = Products[key]
+                .filter((item) => item.special === true)
+                .map((item) => {
+                    return {
+                        ...item,
+                        category: key,
+                    };
+                });
+            products.push(...filtered);
+
+            const best = Products[key].map((item) => {
+                return {
+                    ...item,
+                    category: key,
+                };
+            });
+            bestProducts.push(...best);
+        }
+    }
+    const allProducts = {
+        Digital: Digital.Products,
+        Fashion: Fashion.Products,
+        Beauty: Beauty.Products,
+        House: House.Products,
+    };
+    for (let key in allProducts) {
+        filteredProduct(allProducts[key]);
+    }
+
+    const discount = [];
+    for (let step = 0; step < 3; step++) {
+        const random = products[Math.floor(Math.random() * products.length)];
+        if (!discount.some((item) => item.id === random.id)) {
+            discount.push(random);
+        }
+    }
+    const bestSeller = [];
+    for (let step = 0; step < 8; step++) {
+        const random =
+            bestProducts[Math.floor(Math.random() * bestProducts.length)];
+        if (!bestSeller.some((item) => item.id === random.id)) {
+            bestSeller.push(random);
+        }
+    }
+    return {
+        props: {
+            discountSlider: discount,
+            bestSellerSlider: bestSeller,
+            mainSliderImg: index.mainSliderImg,
+            SpecialBrandsSlider: index.SpecialBrandsSlider
+        }
+    }
 }
