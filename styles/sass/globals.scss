@@ -300,6 +300,7 @@ swiper-button-prev {
 .mt-section {
     margin-top: 2.3125rem !important;
 }
+
 .mb-section {
     margin-bottom: 2.3125rem !important;
 }
@@ -307,6 +308,7 @@ swiper-button-prev {
 .mt-related {
     margin-top: 1rem !important;
 }
+
 .mb-related {
     margin-bottom: 1rem !important;
 }
@@ -316,4 +318,20 @@ swiper-button-prev {
     .cart-icon {
         @include hoverCart;
     }
+}
+
+// caption line clamp
+@mixin line-clamp($line) {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+}
+
+.caption_nameTwoLine {
+    @include line-clamp(2);
+}
+
+.caption_nameOneLine {
+    @include line-clamp(1);
 }
