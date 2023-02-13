@@ -51,10 +51,10 @@ import {
   updateAfterRefresh,
 } from "../../../store/redux/cart/cartSlice";
 import actions from "../../../store/redux/cart/cartActions";
-import { useAuth0 } from "@auth0/auth0-react";
 import { changeSearchValue } from "../../../store/redux/search/searchSlice";
 import { useNavigate } from "react-router-dom";
 import style from "./AppHeader.module.scss";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const AppHeader = () => {
   const [drawer, setdrawer] = useState(false);
@@ -66,7 +66,7 @@ const AppHeader = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const sumTotal = useSelector((state) => state.cart.sumTotal);
   const searchValue = useSelector((state) => state.search.searchValue);
-  const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
+  const { user } = useUser();
   const navigate = useNavigate();
   useEffect(() => {
     var cartJSON = localStorage.getItem("shoppingCart");
@@ -96,7 +96,7 @@ const AppHeader = () => {
     dispatch(actions.saveCart(cartItems));
   }
   function checkout() {
-    if (isAuthenticated) {
+    if (user) {
       dispatch(actions.deleteAll());
       dispatch(actions.saveCart(cartItems));
       setModal(false);
@@ -218,25 +218,20 @@ const AppHeader = () => {
               width: { sm: "auto" },
             }}
           >
-            <Tooltip title={isAuthenticated ? "Logout" : "Login"}>
-              <Button
-                variant="text"
-                color="secondary"
-                sx={{ px: 1, minWidth: "initial" }}
-                onClick={() =>
-                  isAuthenticated
-                    ? logout({
-                        logoutParams: { returnTo: window.location.origin },
-                      })
-                    : loginWithRedirect()
-                }
-              >
-                {isAuthenticated ? (
-                  <PersonOffOutlinedIcon fontSize="large" />
-                ) : (
-                  <PersonOutlineOutlined fontSize="large" />
-                )}
-              </Button>
+            <Tooltip title={user ? "Logout" : "Login"}>
+              <a href={user ? "/api/auth/logout" : "/api/auth/login"}>
+                <Button
+                  variant="text"
+                  color="secondary"
+                  sx={{ px: 1, minWidth: "initial" }}
+                >
+                  {user ? (
+                    <PersonOffOutlinedIcon fontSize="large" />
+                  ) : (
+                    <PersonOutlineOutlined fontSize="large" />
+                  )}
+                </Button>
+              </a>
             </Tooltip>
             <Box className={`${style["shop-cart"]}`}>
               <Button
