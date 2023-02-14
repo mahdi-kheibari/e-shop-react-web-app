@@ -37,7 +37,6 @@ import {
 } from "@mui/icons-material";
 import PersonOffOutlinedIcon from "@mui/icons-material/PersonOffOutlined";
 import NavItems from "./navItems/NavItems";
-import Link from "../../utils/Link";
 import NavLink from "../../utils/NavLink";
 import CollapseItem from "../../aside/CollapseItem";
 import { store } from "../../../store/Context";
@@ -55,11 +54,13 @@ import { changeSearchValue } from "../../../store/redux/search/searchSlice";
 import style from "./AppHeader.module.scss";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useRouter } from "next/router";
+import Link from "@/components/utils/Link";
 
 const AppHeader = () => {
   const [drawer, setdrawer] = useState(false);
   const [modal, setModal] = useState(false);
   const [paidToast, setPaidToast] = useState(false);
+  const [ignoreSaveCart, setIgnoreSaveCart] = useState(true);
   const [failPaidToast, setFailPaidToast] = useState(false);
   const { allCategories } = useContext(store);
   const dispatch = useDispatch();
@@ -106,16 +107,16 @@ const AppHeader = () => {
     }
   }
   function navigateToQuery() {
-    const params = new URLSearchParams();
-    if (searchValue) {
-      params.append("search", searchValue);
-    } else {
-      params.delete("search");
-    }
-    router.push(`Products/category/All/?${params.toString()}`);
+    router.replace({
+      pathname: "/Products/category/All",
+      query: { search: searchValue },
+    });
   }
   useEffect(() => {
-    dispatch(actions.saveCart(cartItems));
+    if (!ignoreSaveCart) {
+        dispatch(actions.saveCart(cartItems));
+    }
+    setIgnoreSaveCart(false)
   }, [cartItems]);
   return (
     <>
@@ -150,7 +151,7 @@ const AppHeader = () => {
                 mt: { xs: 2.5, sm: "initial" },
                 width: { xs: "50%", sm: "auto" },
               }}
-              className={`${style["header-brand"]}`}
+              className={`header-brand`}
             >
               <Link href={"/"} sx={{ display: "flex" }}>
                 <img src="/logo192.png" height="30px" alt="logo" />
@@ -211,7 +212,7 @@ const AppHeader = () => {
             </ButtonGroup>
           </Box>
           <Box
-            className={`${style["header-other"]}`}
+            className={`header-other`}
             sx={{
               display: "flex",
               order: { xs: 2, sm: 3 },
@@ -244,7 +245,7 @@ const AppHeader = () => {
                   display: "flex",
                   lineHeight: 0,
                 }}
-                className={`${style["shop-cart-btn"]} ${style["cart-icon"]}`}
+                className={`shop-cart-btn cart-icon`}
               >
                 <Box sx={{ position: "relative" }}>
                   <ShoppingCartOutlined fontSize="large" />
@@ -263,7 +264,6 @@ const AppHeader = () => {
                         height: "10px",
                         borderRadius: "50%",
                       }}
-                      className={`${style["cart-badge"]}`}
                     ></Box>
                   ) : null}
                 </Box>
@@ -295,12 +295,15 @@ const AppHeader = () => {
                   {cartItems.map((item) => (
                     <Box component={"li"} key={item.id}>
                       <Link
-                        href={`/Product/${item.category}/${item.id}`}
                         sx={{
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "flex-start",
                           my: 1,
+                        }}
+                        href={{
+                          pathname: `/Product/${item.category}/[id]`,
+                          query: { id: item.id },
                         }}
                       >
                         <Box
@@ -365,14 +368,19 @@ const AppHeader = () => {
                   bgcolor: "light.main",
                 }}
               >
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
                   <Link
-                    href={"/"}
                     sx={{
                       display: "flex",
                       alignItems: "center",
                       fontWeight: "bold",
                     }}
+                    href={"/"}
                     className={"font-20"}
                   >
                     <Box
@@ -417,15 +425,23 @@ const AppHeader = () => {
                   className={"nav"}
                 >
                   <Box component={"li"} className={"nav-item"}>
-                    <Button variant="text" color="secondary" sx={{ pl: 2 }}>
+                    <Button
+                      variant="text"
+                      color="secondary"
+                      sx={{
+                        pl: 2,
+                        "& a": { display: "flex", alignItems: "center" },
+                      }}
+                    >
                       <NavLink
                         href={"/"}
-                        activeClassName={style.active}
+                        activeClassName={`nav-item-sm_active`}
                         className={`${style["nav-link"]}`}
-                        sx={{ display: "flex", alignItems: "center" }}
                       >
-                        <HomeOutlinedIcon />
-                        <span>Home</span>
+                        <Box className={"btn-white"}>
+                          <HomeOutlinedIcon />
+                          <span>Home</span>
+                        </Box>
                       </NavLink>
                     </Button>
                   </Box>
@@ -445,7 +461,6 @@ const AppHeader = () => {
                       route="/Products/category/Discounts"
                       icon={<PercentOutlinedIcon />}
                       activeClass={true}
-                      className="navbar-item-secondary"
                     />
                   </li>
                   <li>
@@ -454,11 +469,16 @@ const AppHeader = () => {
                       route="/Products/category/forGamer"
                       icon={<SportsEsportsOutlinedIcon />}
                       activeClass={true}
-                      className="navbar-item-secondary"
                     />
                   </li>
                   <li>
-                    <Button variant="text" color="secondary" sx={{ pl: 2 }}>
+                    <Button
+                      variant="text"
+                      color="secondary"
+                      sx={{
+                        pl: 2,
+                      }}
+                    >
                       <Link
                         href="/"
                         sx={{
@@ -523,10 +543,18 @@ const AppHeader = () => {
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
                         >
-                          <TableCell sx={{ p: 4 }} align="right">
+                          <TableCell
+                            sx={{
+                              p: 4,
+                            }}
+                            align="right"
+                          >
                             <Link
-                              href={`/Product/${item.category}/${item.id}`}
                               sx={{ display: "flex", alignItems: "center" }}
+                              href={{
+                                pathname: `/Product/${item.category}/[id]`,
+                                query: { id: item.id },
+                              }}
                             >
                               <Box
                                 component={"img"}
@@ -647,7 +675,7 @@ const AppHeader = () => {
                           mx: { xs: 1, sm: 2 },
                           textTransform: "capitalize",
                         }}
-                        className={`${style["checkout"]} font-12 font-sm-14 font-md-16`}
+                        className={`checkout font-12 font-sm-14 font-md-16`}
                       >
                         Checkout
                       </Button>

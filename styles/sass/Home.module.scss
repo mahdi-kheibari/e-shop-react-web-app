@@ -6,23 +6,6 @@
     margin: auto;
 }
 
-@mixin secondSliderItem($item) {
-    .#{$item} {
-        &-caption {
-            height: 90px;
-        }
-
-        &-img {
-            width: 100%;
-            height: 180px;
-
-            img {
-                @include sliderImg;
-            }
-        }
-    }
-}
-
 @mixin no-container {
     max-width: 100% !important;
 }
@@ -78,12 +61,6 @@
     &-slider {
         height: calc((100vw - 16px)/3 - 100px) !important;
         width: 100%;
-
-        .swiper-slide {
-            justify-content: start;
-            align-items: flex-start;
-        }
-
         &_caption {
             @media (min-width:1200px) {
                 justify-content: space-around !important;
@@ -163,13 +140,6 @@
 .bestSellers,
 .similars {
     height: 400px;
-    @include secondSliderItem(similar);
-    @include secondSliderItem(bestSeller);
-}
-
-.bestSellers-swiper {
-    width: 100%;
-    height: 330px;
 }
 
 .brands {
@@ -194,28 +164,11 @@
     height: 163px;
 }
 
-.swiper-slide-small {
-    width: 49.5vw !important;
-
-    @media (min-width:576px) {
-        width: 205px !important;
-    }
-
-    height:100% !important;
-    overflow: hidden !important;
-    border-radius: 8px !important;
-}
-
 .second-card-img {
     width: 90% !important;
     height: 67% !important;
 
-    img,
-    &-small img {
+    img {
         @include sliderImg;
-    }
-
-    &-small {
-        height: 150px !important;
     }
 }

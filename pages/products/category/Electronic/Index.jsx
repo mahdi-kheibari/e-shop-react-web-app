@@ -63,7 +63,6 @@ Electronic.getLayout = function getLayout(page) {
 
 import Digital from "@/store/Digital";
 import House from "@/store/House";
-import categories from "@/store/categories";
 export const getStaticProps = async (ctx) => {
   const products = {};
   const digitalProducts = Digital.Products;

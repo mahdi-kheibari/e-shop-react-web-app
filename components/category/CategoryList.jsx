@@ -12,7 +12,12 @@ function CategoryList({ products, products2, subRoute, subRoute2 }) {
       >
         Category
       </Typography>
-      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+        }}
+      >
         {Object.keys(products).map((key) => (
           <Link
             key={key}
@@ -38,7 +43,7 @@ function CategoryList({ products, products2, subRoute, subRoute2 }) {
             {Object.keys(products2).map((key) => (
               <Link
                 key={key}
-                to={`${subRoute2}${key}`}
+                href={`${subRoute2}${key}`}
                 className="category-item"
                 sx={{
                   bgcolor: "light.main",

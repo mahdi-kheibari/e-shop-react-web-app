@@ -5,16 +5,15 @@ import useWindowWidth from "@/components/hooks/useWindowWidth";
 import { Box } from "@mui/system";
 import MainSwiper from "@/components/swiper/mainSwiper/MainSwiper";
 import { SwiperSlide } from "swiper/react";
-import Link from "@/components/utils/Link";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import RouterLink from "next/link";
 import DiscountSwiper from "@/components/swiper/discountSwiper/DiscountSwiper";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import SecondSwiper from "@/components/swiper/secondSwiper/SecondSwiper";
 import SecondSwiperItem from "@/components/swiper/secondSwiper/secondSwiperItem/SecondSwiperItem";
 import SecondSwiperSm from "@/components/swiper/secondSwiper/secondSwiperSm/SecondSwiperSm";
 import style from '@/styles/sass/Home.module.scss';
+import Link from "@/components/utils/Link";
 
 export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, SpecialBrandsSlider }) {
     const { windowWidth } = useWindowWidth();
@@ -27,7 +26,7 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
             <Box component={"section"}>
                 <Grid container spacing={4}>
                     <Grid item xs={12} lg={8}>
-                        <MainSwiper pagination={true} rootStyle="categories">
+                        <MainSwiper pagination={true} rootStyle={`${style["categories"]}`}>
                             {mainSliderImg.map((item) => (
                                 <SwiperSlide key={item.name}>
                                     <Link href={`/Products/category/${item.route}`}>
@@ -56,105 +55,115 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                                 >
                                     Special discounts
                                 </Typography>
-                                <MainSwiper pagination={false} rootStyle="discounts-slider">
-                                    {discountSlider.map((i) => (
-                                        <SwiperSlide key={i.name}>
-                                            <Link
-                                                href={`/Product/${i.category}/${i.id}`}
-                                                sx={{
-                                                    height: "100%",
-                                                    display: "flex",
-                                                    justifyContent: "start",
-                                                    flexDirection: "column",
-                                                    pb: 2,
-                                                }}
-                                            >
-                                                <Box className={`${style["second-card-img"]}`} sx={{ mx: "auto" }}>
-                                                    <img src={i.images[0].address} alt={i.name} />
-                                                </Box>
-                                                <Box
-                                                    sx={{
-                                                        display: "flex",
-                                                        height: "100%",
-                                                        justifyContent: "space-between",
-                                                        flexDirection: "column",
-                                                        alignItems: "center",
-                                                        textAlign: "center",
-                                                    }}
-                                                    className={`${style["discounts-slider_caption"]}`}
-                                                >
-                                                    <Typography
-                                                        variant="body1"
-                                                        color="initial"
-                                                        sx={{
-                                                            mx: 2,
-                                                            mb: 0,
+                                <Box sx={{ "& .swiper-slide": { justifyContent: "flex-start", alignItems: "flex-start" } }}>
+                                    <MainSwiper pagination={false} rootStyle={`${style["discounts-slider"]}`}>
+                                        {discountSlider.map((i) => (
+                                            <SwiperSlide key={i.name}>
+                                                <Box sx={{
+                                                    height: "100%"
+                                                }}>
+                                                    <Link
+                                                        href={{
+                                                            pathname: `/Product/${i.category}/[id]`,
+                                                            query: { id: i.id },
                                                         }}
-                                                        className={`caption_nameOneLine font-16`}
+                                                        sx={{
+                                                            height: "100%",
+                                                            display: "flex",
+                                                            justifyContent: "start",
+                                                            flexDirection: "column",
+                                                            pb: 2,
+                                                        }}
                                                     >
-                                                        {i.name}
-                                                    </Typography>
-                                                    <Box>
-                                                        <Typography
-                                                            variant="body1"
-                                                            component={"span"}
-                                                            color="white.main"
+                                                        <Box className={`${style["second-card-img"]}`} sx={{ mx: "auto" }}>
+                                                            <img src={i.images[0].address} alt={i.name} />
+                                                        </Box>
+                                                        <Box
                                                             sx={{
-                                                                bgcolor: "danger.main",
-                                                                px: 1,
-                                                                py: 0.5,
+                                                                display: "flex",
+                                                                height: "100%",
+                                                                justifyContent: "space-between",
+                                                                flexDirection: "column",
+                                                                alignItems: "center",
+                                                                textAlign: "center",
                                                             }}
-                                                            className="font-16 rounded-pill"
+                                                            className={`${style["discounts-slider_caption"]}`}
                                                         >
-                                                            {i.discount}
-                                                        </Typography>
-                                                        <Typography
-                                                            variant="body1"
-                                                            color="muted.main"
-                                                            component={"span"}
-                                                            sx={{
-                                                                textDecoration: "line-through",
-                                                            }}
-                                                            className="font-14"
-                                                        >
-                                                            {i.realPrice}
-                                                        </Typography>
-                                                        <Typography
-                                                            variant="body1"
-                                                            color="secondary.main"
-                                                            sx={{
-                                                                textAlign: "left",
-                                                                fontWeight: "bold",
-                                                            }}
-                                                            className="font-18"
-                                                        >
-                                                            {i.price} toman
-                                                        </Typography>
-                                                    </Box>
+                                                            <Typography
+                                                                variant="body1"
+                                                                color="initial"
+                                                                sx={{
+                                                                    mx: 2,
+                                                                    mb: 0,
+                                                                }}
+                                                                className={`caption_nameOneLine font-16`}
+                                                            >
+                                                                {i.name}
+                                                            </Typography>
+                                                            <Box>
+                                                                <Typography
+                                                                    variant="body1"
+                                                                    component={"span"}
+                                                                    color="white.main"
+                                                                    sx={{
+                                                                        bgcolor: "danger.main",
+                                                                        px: 1,
+                                                                        py: 0.5,
+                                                                    }}
+                                                                    className="font-16 rounded-pill"
+                                                                >
+                                                                    {i.discount}
+                                                                </Typography>
+                                                                <Typography
+                                                                    variant="body1"
+                                                                    color="muted.main"
+                                                                    component={"span"}
+                                                                    sx={{
+                                                                        textDecoration: "line-through",
+                                                                    }}
+                                                                    className="font-14"
+                                                                >
+                                                                    {i.realPrice}
+                                                                </Typography>
+                                                                <Typography
+                                                                    variant="body1"
+                                                                    color="secondary.main"
+                                                                    sx={{
+                                                                        textAlign: "left",
+                                                                        fontWeight: "bold",
+                                                                    }}
+                                                                    className="font-18"
+                                                                >
+                                                                    {i.price} toman
+                                                                </Typography>
+                                                            </Box>
+                                                        </Box>
+                                                    </Link>
                                                 </Box>
-                                            </Link>
-                                        </SwiperSlide>
-                                    ))}
-                                </MainSwiper>
-                                <Button
-                                    variant="text"
-                                    color="primary"
-                                    sx={{ mt: "auto", pb: 2, textTransform: "capitalize" }}
-                                    component={RouterLink}
-                                    href={"/Products/category/Discounts"}
-                                >
-                                    <Typography
-                                        variant="body1"
-                                        color="primary.main"
-                                        component={"span"}
-                                        sx={{
-                                            mx: "auto",
-                                        }}
-                                        className="font-20"
+                                            </SwiperSlide>
+                                        ))}
+                                    </MainSwiper>
+                                </Box>
+                                <Link href={"/Products/category/Discounts"}>
+                                    <Button
+                                        variant="text"
+                                        color="primary"
+                                        sx={{ mt: "auto", pb: 2, textTransform: "capitalize" }}
+                                        fullWidth
                                     >
-                                        See all
-                                    </Typography>
-                                </Button>
+                                        <Typography
+                                            variant="body1"
+                                            color="primary.main"
+                                            component={"span"}
+                                            sx={{
+                                                mx: "auto",
+                                            }}
+                                            className="font-20"
+                                        >
+                                            See all
+                                        </Typography>
+                                    </Button>
+                                </Link>
                             </Box>
                         </Grid>
                     ) : (
@@ -172,19 +181,17 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                             className={`${style["discounts-small"]} mt-related`}
                         >
                             <DiscountSwiper>
-                                <SwiperSlide className={`${style["swiper-slide-small"]}`}>
-                                    <Link
-                                        href={"/Products/category/Discounts"}
-                                        sx={{
-                                            bgcolor: "transparent",
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            height: "100%",
-                                            justifyContent: "space-around",
-                                            alignItems: "center",
-                                            color: "white",
-                                            mt: "auto",
-                                        }}
+                                <SwiperSlide className={`swiper-slide-small`}>
+                                    <Link sx={{
+                                        bgcolor: "transparent",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        height: "100%",
+                                        justifyContent: "space-around",
+                                        alignItems: "center",
+                                        color: "white",
+                                        mt: "auto",
+                                    }} href={"/Products/category/Discounts"}
                                     >
                                         <Typography
                                             variant="h4"
@@ -211,9 +218,8 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                                     </Link>
                                 </SwiperSlide>
                                 {discountSlider.map((i) => (
-                                    <SwiperSlide key={i.name} className={`${style["swiper-slide-small"]}`}>
+                                    <SwiperSlide key={i.name} className={`swiper-slide-small`}>
                                         <Link
-                                            href={`/Product/${i.category}/${i.id}`}
                                             sx={{
                                                 height: "100%",
                                                 bgcolor: "white.main",
@@ -221,10 +227,13 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                                                 justifyContent: "start",
                                                 flexDirection: "column",
                                                 p: 2,
+                                            }} href={{
+                                                pathname: `/Product/${i.category}/[id]`,
+                                                query: { id: i.id },
                                             }}
                                         >
                                             <Box
-                                                className={`${style["second-card-img-small"]}`}
+                                                className={`second-card-img-small`}
                                                 sx={{ mx: "auto" }}
                                             >
                                                 <img src={i.images[0].address} alt={i.name} />
@@ -292,9 +301,8 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                                         </Link>
                                     </SwiperSlide>
                                 ))}
-                                <SwiperSlide className={`${style["swiper-slide-small"]}`}>
+                                <SwiperSlide className={`swiper-slide-small`}>
                                     <Link
-                                        href={"/Products/category/Discounts"}
                                         sx={{
                                             bgcolor: "white.main",
                                             display: "flex",
@@ -304,7 +312,7 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                                             alignItems: "center",
                                             color: "white",
                                             mt: "auto",
-                                        }}
+                                        }} href={"/Products/category/Discounts"}
                                     >
                                         <Box sx={{ color: "info.main" }}>
                                             <ArrowCircleRightOutlinedIcon
@@ -356,12 +364,15 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                     </Typography>
                 </Box>
                 {windowWidth >= 992 ? (
-                    <SecondSwiper rootStyle="bestSellers-swiper">
+                    <SecondSwiper rootStyle={`bestSellers-swiper`}>
                         {bestSellerSlider.map((i) => (
                             <SwiperSlide key={i.name}>
                                 <Link
-                                    href={`/Product/${i.category}/${i.id}`}
-                                    className={`${style["bestSeller"]}`}
+                                    href={{
+                                        pathname: `/Product/${i.category}/[id]`,
+                                        query: { id: i.id },
+                                    }}
+                                    className={`bestSeller`}
                                 >
                                     <SecondSwiperItem i={i} />
                                 </Link>
@@ -369,12 +380,16 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                         ))}
                     </SecondSwiper>
                 ) : (
-                    <SecondSwiperSm rootStyle="bestSellers-swiper">
+                    <SecondSwiperSm rootStyle={`bestSellers-swiper`}>
                         {bestSellerSlider.map((i) => (
                             <SwiperSlide key={i.name}>
                                 <Link
-                                    href={`/Product/${i.category}/${i.id}`}
-                                    className={`${style["swiper-slide-small"]}`}
+                                    href={{
+                                        pathname: `/Product/${i.category}/[id]`,
+                                        query: { id: i.id },
+                                    }}
+                                    className={`swiper-slide-small`}
+                                    sx={{ display: "inline-block" }}
                                 >
                                     <SecondSwiperItem i={i} />
                                 </Link>
@@ -405,8 +420,7 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                         Special brands
                     </Typography>
                     <Link
-                        href={"/Products/category/Brands"}
-                        sx={{ mr: 1, width: "initial !important" }}
+                        sx={{ mr: 1, width: "initial !important" }} href={"/Products/category/Brands"}
                     >
                         <Button
                             variant="contained"
@@ -418,13 +432,13 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                     </Link>
                 </Box>
                 {windowWidth >= 992 ? (
-                    <SecondSwiper rootStyle="brands-swiper">
+                    <SecondSwiper rootStyle={`${style["brands-swiper"]}`}>
                         {SpecialBrandsSlider.map((item) => (
                             <SwiperSlide key={item.name}>
                                 <Link
+                                    sx={{ mt: 1, px: 2, mr: 0, display: "inline-block" }}
                                     scroll={false}
                                     href={`Products/category/Brands#${item.name}`}
-                                    sx={{ mt: 1, px: 2, mr: 0 }}
                                     className={`${style["brand"]}`}
                                 >
                                     <Box className={`${style["brand-img"]}`} sx={{ mx: "auto" }}>
@@ -435,16 +449,16 @@ export default function Home({ bestSellerSlider, discountSlider, mainSliderImg, 
                         ))}
                     </SecondSwiper>
                 ) : (
-                    <SecondSwiperSm rootStyle="brands-swiper">
+                    <SecondSwiperSm rootStyle={`${style["brands-swiper"]}`}>
                         {SpecialBrandsSlider.map((item) => (
                             <SwiperSlide key={item.name}>
                                 <Link
+                                    sx={{ mt: 1, px: 2, mr: 0, display: "inline-block" }}
                                     scroll={false}
                                     href={`Products/category/Brands#${item.name}`}
-                                    sx={{ mt: 1, px: 2, mr: 0 }}
-                                    className={`${style["swiper-slide-small"]}`}
+                                    className={`swiper-slide-small`}
                                 >
-                                    <Box className={`${style["second-card-img-small"]}`} sx={{ mx: "auto" }}>
+                                    <Box className={`second-card-img-small`} sx={{ mx: "auto" }}>
                                         <img src={item.address} alt={item.name} />
                                     </Box>
                                 </Link>

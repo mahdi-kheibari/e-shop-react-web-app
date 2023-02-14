@@ -1,4 +1,3 @@
-import LinkUtils from "../HOC/LinkUtils";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import React, { Children } from "react";
@@ -23,4 +22,4 @@ const ActiveLink = ({ children, activeClassName, ...props }) => {
     </Link>
   );
 };
-export default LinkUtils(ActiveLink);
+export default ActiveLink;

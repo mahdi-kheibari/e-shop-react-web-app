@@ -1,7 +1,8 @@
+import Link from "@/components/utils/Link";
 import { Box } from "@mui/material";
 import React from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
-import Link from "../../utils/Link";
+import style from "./ProductItem.module.scss";
 
 const ProductItem = ({ item, keyName, subItemPath }) => {
   const { windowWidth } = useWindowWidth();
@@ -13,10 +14,13 @@ const ProductItem = ({ item, keyName, subItemPath }) => {
     }
   }
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", height: "100%" }}
+      className={`${style["products-list_item"]}`}
+    >
       {item.special ? (
         <Box
-          className="products-list_item_special"
+          className={`${style["products-list_item_special"]}`}
           sx={{
             color: "danger.main",
             textAlign: { xs: "left", md: "center" },
@@ -27,7 +31,7 @@ const ProductItem = ({ item, keyName, subItemPath }) => {
           special sale
         </Box>
       ) : (
-        <Box className="no-special"></Box>
+        <Box className={`${style["no-special"]}`}></Box>
       )}
       <Box
         sx={{
@@ -40,8 +44,11 @@ const ProductItem = ({ item, keyName, subItemPath }) => {
         }}
       >
         <Link
-          href={`/Product/${subPath()}/${item.id}`}
-          className={"products-list_item_img"}
+          href={{
+            pathname: `/Product/${subPath()}/[id]`,
+            query: { id: item.id },
+          }}
+          className={`${style["products-list_item_img"]}`}
           sx={{ my: "auto", mx: { md: "auto" } }}
         >
           <img src={item.images[0].address} alt={item.name} />
@@ -55,7 +62,7 @@ const ProductItem = ({ item, keyName, subItemPath }) => {
           }}
         >
           <Box
-            className="products-list_item_caption"
+            className={`${style["products-list_item_caption"]}`}
             sx={{
               my: { xs: !item.special ? 3 : 0, md: 3 },
               mx: { xs: 2, md: 0 },
@@ -67,13 +74,21 @@ const ProductItem = ({ item, keyName, subItemPath }) => {
             }}
           >
             <Link
-              to={`/Product/${subPath()}/${item.id}`}
+              href={{
+                pathname: `/Product/${subPath()}/[id]`,
+                query: { id: item.id },
+              }}
               className={`${
                 !item.special || windowWidth < 768 ? "caption_nameTwoLine" : ""
               } ${
                 item.special && windowWidth >= 768 ? "caption_nameOneLine" : ""
               } font-md-16 font-14`}
-              sx={{ textAlign: "left", px: { md: 2 }, width: "100%", mb: 0 }}
+              sx={{
+                textAlign: "left",
+                px: { md: 2 },
+                width: "100%",
+                mb: 0,
+              }}
             >
               {item.name}
             </Link>

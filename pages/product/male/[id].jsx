@@ -36,12 +36,14 @@ export const getStaticProps = async ({ params }) => {
 
 export const getStaticPaths = async (ctx) => {
   const paths = Fashion.Products["male"].map((item) => {
-    params: {
-      id: item.id;
-    }
+    return {
+      params: {
+        id: item.id,
+      },
+    };
   });
   return {
     paths,
-    fallback: "false",
+    fallback: false,
   };
 };

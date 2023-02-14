@@ -1,38 +1,38 @@
-@import './assets/scss/variable';
+@import './variable';
 
 @font-face {
     font-family: "Vazir";
-    src: url("./assets/fonts/vazir/Vazir-Light-UI.eot") format("embedded-opentype"),
-        url("./assets/fonts/vazir/Vazir-Light-UI.ttf") format("truetype"),
-        url("./assets/fonts/vazir/Vazir-Light-UI.woff") format("woff"),
-        url("./assets/fonts/vazir/Vazir-Light-UI.woff2") format("woff2");
+    src: url("../fonts/vazir/Vazir-Light-UI.eot") format("embedded-opentype"),
+        url("../fonts/vazir/Vazir-Light-UI.ttf") format("truetype"),
+        url("../fonts/vazir/Vazir-Light-UI.woff") format("woff"),
+        url("../fonts/vazir/Vazir-Light-UI.woff2") format("woff2");
     font-weight: 300;
 }
 
 @font-face {
     font-family: "Vazir";
-    src: url("./assets/fonts/vazir/Vazir-Regular-UI.eot") format("embedded-opentype"),
-        url("./assets/fonts/vazir/Vazir-Regular-UI.ttf") format("truetype"),
-        url("./assets/fonts/vazir/Vazir-Regular-UI.woff") format("woff"),
-        url("./assets/fonts/vazir/Vazir-Regular-UI.woff2") format("woff2");
+    src: url("../fonts/vazir/Vazir-Regular-UI.eot") format("embedded-opentype"),
+        url("../fonts/vazir/Vazir-Regular-UI.ttf") format("truetype"),
+        url("../fonts/vazir/Vazir-Regular-UI.woff") format("woff"),
+        url("../fonts/vazir/Vazir-Regular-UI.woff2") format("woff2");
     font-weight: 400;
 }
 
 @font-face {
     font-family: "Vazir";
-    src: url("./assets/fonts/vazir/Vazir-Medium-UI.eot") format("embedded-opentype"),
-        url("./assets/fonts/vazir/Vazir-Medium-UI.ttf") format("truetype"),
-        url("./assets/fonts/vazir/Vazir-Medium-UI.woff") format("woff"),
-        url("./assets/fonts/vazir/Vazir-Medium-UI.woff2") format("woff2");
+    src: url("../fonts/vazir/Vazir-Medium-UI.eot") format("embedded-opentype"),
+        url("../fonts/vazir/Vazir-Medium-UI.ttf") format("truetype"),
+        url("../fonts/vazir/Vazir-Medium-UI.woff") format("woff"),
+        url("../fonts/vazir/Vazir-Medium-UI.woff2") format("woff2");
     font-weight: 500;
 }
 
 @font-face {
     font-family: "Vazir";
-    src: url("./assets/fonts/vazir/Vazir-Bold-UI.eot") format("embedded-opentype"),
-        url("./assets/fonts/vazir/Vazir-Bold-UI.ttf") format("truetype"),
-        url("./assets/fonts/vazir/Vazir-Bold-UI.woff") format("woff"),
-        url("./assets/fonts/vazir/Vazir-Bold-UI.woff2") format("woff2");
+    src: url("../fonts/vazir/Vazir-Bold-UI.eot") format("embedded-opentype"),
+        url("../fonts/vazir/Vazir-Bold-UI.ttf") format("truetype"),
+        url("../fonts/vazir/Vazir-Bold-UI.woff") format("woff"),
+        url("../fonts/vazir/Vazir-Bold-UI.woff2") format("woff2");
     font-weight: 700;
 }
 
@@ -289,7 +289,132 @@ swiper-button-prev {
     }
 }
 
+.swiper-container-1 {
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+        -webkit-justify-content: center !important;
+        justify-content: center !important;
+        -webkit-box-align: center !important;
+        -ms-flex-align: center !important;
+        -webkit-align-items: center !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        color: #222;
+        font-size: 14px !important;
+    }
+
+    .swiper-button-prev.swiper-button-disabled,
+    .swiper-button-next.swiper-button-disabled {
+        pointer-events: auto !important;
+    }
+}
+
+.swiper-container-3 {
+    padding-left: 0 !important;
+
+    .swiper-wrapper {
+        height: 286px !important;
+
+        .swiper-slide:first-child {
+            background-color: transparent !important;
+        }
+    }
+}
+
+.swiper-container-2 {
+    .swiper-wrapper {
+        padding: 0 0.5rem;
+    }
+}
+
+.swiper-container-2 .swiper-button-prev,
+.swiper-container-2 .swiper-button-next {
+    color: #222;
+}
+
+.swiper-container-4 {
+    .swiper-wrapper {
+        padding: 0 0.5rem;
+
+        .swiper-slide {
+            width: auto;
+        }
+    }
+}
+
+.swiper-slide-small {
+    width: 49.5vw !important;
+
+    @media (min-width:576px) {
+        width: 205px !important;
+    }
+
+    height:100% !important;
+    overflow: hidden !important;
+    border-radius: 8px !important;
+}
+
+.bestSellers-swiper {
+    width: 100%;
+    height: 330px;
+}
+
 // end swiper
+
+@mixin sliderImg {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center;
+    margin: auto;
+}
+
+@mixin secondSliderItem($item) {
+    .#{$item}-caption {
+        height: 90px;
+    }
+
+    .#{$item}-img {
+        width: 100%;
+        height: 180px;
+
+        img {
+            @include sliderImg;
+        }
+    }
+}
+
+@include secondSliderItem(similar);
+@include secondSliderItem(bestSeller);
+
+.second-card-img-small {
+    & img {
+        @include sliderImg;
+    }
+
+    height: 150px !important;
+}
+
 
 @mixin hoverCart {
     color: $primary !important;
@@ -334,4 +459,111 @@ swiper-button-prev {
 
 .caption_nameOneLine {
     @include line-clamp(1);
+}
+
+// for breadcrumb
+.breadcrumb {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: scroll !important;
+    scrollbar-color: #ccc transparent;
+    scrollbar-width: thin;
+    padding-bottom: 4px !important;
+
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #ccc !important;
+        border-radius: 8px;
+    }
+
+    @media (max-width:767px) {
+        padding-top: 0 !important;
+        padding-bottom: 8px !important;
+    }
+}
+
+// for category aside
+.active-category {
+    background-color: rgb(240, 255, 244) !important;
+}
+
+.btn-toggle {
+    display: flex;
+    align-items: center;
+    padding: .25rem .5rem;
+    background-color: transparent;
+    border: 0;
+}
+
+.btn-toggle[aria-expanded="true"] {
+    color: rgba(0, 0, 0, .85);
+}
+
+.sub-category {
+    margin-left: 1.75rem !important;
+}
+
+// for second navbar
+@mixin activeNavItem {
+    &_text {
+        color: $primary !important;
+    }
+
+    svg {
+        color: $primary !important;
+    }
+
+    border-bottom: 1px solid $primary;
+}
+
+.second-navbar {
+    &_btn {
+        border: none;
+        border-radius: 0 !important;
+        border-bottom: 1px solid $white;
+
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: $white !important;
+            box-shadow: none;
+        }
+
+        &:hover {
+            @include activeNavItem;
+        }
+    }
+}
+
+.active-navbar-item {
+    &_btn {
+        @include activeNavItem;
+    }
+}
+
+//for nav items
+.nav-item-sm_active {
+    .btn-white {
+        width: 100%;
+        background-color: #61DAFB !important;
+        color: white !important;
+
+        .b-icon {
+            color: white !important;
+        }
+    }
+}
+
+.btn-toggle-nav a {
+    display: inline-flex;
+    padding: .1875rem .5rem;
+    margin-top: .125rem;
+    margin-left: 1.25rem;
 }

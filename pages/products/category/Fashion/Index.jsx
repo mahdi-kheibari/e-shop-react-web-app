@@ -65,7 +65,6 @@ Fashion.getLayout = function getLayout(page) {
 };
 
 import FashionProduct from "@/store/Fashion";
-import categories from "@/store/categories";
 export const getStaticProps = async (ctx) => {
   return {
     props: {

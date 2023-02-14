@@ -24,35 +24,44 @@ function CategoryListSm({ products, products2, subRoute, subRoute2 }) {
           }}
         >
           {Object.keys(products).map((key) => (
-            <NavLink
+            <Box
               key={key}
-              href={subRoute ? subRoute + key : products[key].route}
-              activeClassName="active"
-              className={`category-sm-item font-16 font-sm-18`}
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                p: 1,
-                p: { sm: 3 },
+                "& .category-sm-item": {
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  p: 1,
+                  p: { sm: 3 },
+                },
               }}
             >
-              <Box className="category-sm-item_cover">
-                {products[key].icon ? (
-                  <Icon iconName={products[key].icon} />
-                ) : (
-                  <span className={`'icon' ${products[key].iconClass}`}></span>
-                )}
-              </Box>
-              <Box sx={{ fontWeight: "bold" }}>{key}</Box>
-            </NavLink>
+              <NavLink
+                href={subRoute ? subRoute + key : products[key].route}
+                activeClassName="active"
+                className={`font-16 font-sm-18`}
+              >
+                <Box className={"category-sm-item"}>
+                  <Box className="category-sm-item_cover">
+                    {products[key].icon ? (
+                      <Icon iconName={products[key].icon} />
+                    ) : (
+                      <span
+                        className={`'icon' ${products[key].iconClass}`}
+                      ></span>
+                    )}
+                  </Box>
+                  <Box sx={{ fontWeight: "bold" }}>{key}</Box>
+                </Box>
+              </NavLink>
+            </Box>
           ))}
           {products2 ? (
             <>
               {Object.keys(products2).map((key) => (
                 <Link
                   key={key}
-                  href={subRoute2 + key}
+                  href={`${subRoute2 + key}`}
                   className={"category-sm-item font-16 font-sm-18"}
                   sx={{
                     display: "flex",

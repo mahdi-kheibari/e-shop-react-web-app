@@ -2,18 +2,11 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { Box, CircularProgress } from "@mui/material";
 import React from "react";
 import { useState } from "react";
-import AppFooter from "../components/shared/AppFooter";
-import AppHeader from "../components/shared/AppHeader/AppHeader";
+import AppFooter from "@/components/shared/AppFooter";
+import AppHeader from "@/components/shared/AppHeader/AppHeader";
 
 const AppLayout = ({ children }) => {
   const { error, isLoading } = useUser();
-//   let loading = false;
-//   const [ignoreLoading, setIgnoreLoading] = useState(loading);
-//   setTimeout(() => {
-//     if (isLoading) {
-//       setIgnoreLoading(true);
-//     }
-//   }, 5000);
   return (
     <Box
       sx={{

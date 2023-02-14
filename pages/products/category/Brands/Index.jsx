@@ -120,7 +120,6 @@ const Brands = ({ allBrands, brands }) => {
                     }}
                   >
                     <Box
-                      to={"/"}
                       sx={{
                         display: "flex",
                         alignItems: "center",
@@ -247,7 +246,6 @@ const Brands = ({ allBrands, brands }) => {
 export default Brands;
 
 import categories from "@/store/categories";
-import AsideLayout from "@/components/layouts/asideLayout/AsideLayout";
 import Item from "@/components/aside/Item";
 import CollapseItem from "@/components/aside/CollapseItem";
 Brands.getLayout = function getLayout(page) {
@@ -294,7 +292,6 @@ import Digital from "@/store/Digital";
 import Fashion from "@/store/Fashion";
 import Beauty from "@/store/Beauty";
 import House from "@/store/House";
-import categories from "@/store/categories";
 export const getStaticProps = async (ctx) => {
   const allProducts = {
     Digital: Digital.Products,
@@ -303,7 +300,7 @@ export const getStaticProps = async (ctx) => {
     House: House.Products,
   };
   const brandsProducts = {};
-  for (let i of allBrands) {
+  for (let i of categories.brands) {
     brandsProducts[i] = {};
     function filteredProduct(Products) {
       for (let key in Products) {

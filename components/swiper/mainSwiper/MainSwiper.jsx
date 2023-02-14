@@ -6,7 +6,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
-import style from './MainSwiper.module.scss'
 const MainSwiper = (props) => {
   return (
     <Swiper
@@ -16,7 +15,7 @@ const MainSwiper = (props) => {
       effect={"fade"}
       autoplay={{delay:3500,disableOnInteraction:false}}
       loop
-      className={`${style['swiper-container-1']} ${props.rootStyle}`}
+      className={`swiper-container-1 ${props.rootStyle}`}
     >
       {props.children}
     </Swiper>

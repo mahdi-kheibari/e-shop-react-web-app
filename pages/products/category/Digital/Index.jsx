@@ -65,7 +65,6 @@ Digital.getLayout = function getLayout(page) {
 };
 
 import DigitalProduct from "@/store/Digital";
-import categories from "@/store/categories";
 
 export const getStaticProps = async (ctx) => {
   return {

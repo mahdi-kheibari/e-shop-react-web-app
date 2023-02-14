@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
+import Link from "next/link";
 import React from "react";
-import Link from "../utils/Link";
 import style from "./Breadcrumb.module.scss";
 
 const Breadcrumb = ({
@@ -14,7 +14,7 @@ const Breadcrumb = ({
   return (
     <Box
       sx={{ display: "flex", mb: 1, bgcolor: "light.main" }}
-      className={`${style["breadcrumb"]}`}
+      className={`breadcrumb`}
     >
       <Link href={"/"}>Home</Link>
       <span className={`${style["breadcrumb-divider"]}`}>/</span>

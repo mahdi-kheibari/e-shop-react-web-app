@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
-import Link from "../../../utils/Link";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PercentOutlinedIcon from "@mui/icons-material/PercentOutlined";
 import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
@@ -11,9 +10,10 @@ import { useRouter } from "next/router";
 import NavLink from "@/components/utils/NavLink";
 
 const NavItem = ({ item, setShowMenu, lastItem }) => {
+  const router = useRouter();
   return (
-    <Box>
-      <Link href={item.route} sx={{ position: "relative", px: 1 }}>
+    <Box sx={{ "& a": { position: "relative", px: 1 } }}>
+      <NavLink href={`${item.route}`} activeClassName="active-navbar-item">
         <Button
           variant="text"
           color="gray"
@@ -25,6 +25,11 @@ const NavItem = ({ item, setShowMenu, lastItem }) => {
             pr: 4,
             textTransform: "capitalize",
           }}
+          className={
+            router.pathname === item.route && item.name !== "About Us"
+              ? "active-navbar-item_btn"
+              : null
+          }
         >
           {item.icon}
           <Typography
@@ -32,10 +37,18 @@ const NavItem = ({ item, setShowMenu, lastItem }) => {
             color="secondary.main"
             sx={{ fontSize: "14.5px !important" }}
           >
-            {item.name}
+            <span
+              className={`second-navbar_btn_text ${
+                router.pathname === item.route && item.name !== "About Us"
+                  ? "active-navbar-item_btn_text"
+                  : null
+              }`}
+            >
+              {item.name}
+            </span>
           </Typography>
         </Button>
-      </Link>
+      </NavLink>
       {!lastItem ? (
         <Box component={"span"} sx={{ color: "gray.main", px: 1, pb: 1 }}>
           |
@@ -89,13 +102,13 @@ const NavItems = () => {
         <Box
           component={"nav"}
           sx={{ width: "100%", py: 0, pt: 1, px: 1, display: "flex" }}
-          className={`${style["second-navbar"]}`}
+          className={`second-navbar`}
         >
           {itemNames.map((item) =>
             item.name === "Categories" ? (
               <Box
                 key={item.name}
-                className={`${style["navbar-item-all"]}`}
+                className={`navbar-item-all second-navbar_btn`}
                 onMouseEnter={() => setShowMenu(true)}
                 onMouseLeave={() => setShowMenu(false)}
               >
@@ -131,7 +144,7 @@ const NavItems = () => {
                     >
                       <Box
                         component={"ul"}
-                        className={`${style["btn-toggle-nav"]}`}
+                        className={`btn-toggle-nav`}
                         sx={{ listStyle: "none", display: "flex", p: 0 }}
                       >
                         {Object.keys(allCategories).map((key) => (
@@ -169,7 +182,7 @@ const NavItems = () => {
                 </Box>
               </Box>
             ) : (
-              <Box key={item.name}>
+              <Box key={item.name} className={"second-navbar_btn"}>
                 <NavItem
                   item={item}
                   lastItem={

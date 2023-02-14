@@ -2,14 +2,14 @@ import { Box, Container, Button } from "@mui/material";
 import React from "react";
 import Link from "@/components/utils/Link";
 
-const ErrorLayout = ({statusCode}) => {
+const ErrorLayout = ({ statusCode }) => {
   return (
     <Container fixed>
       <Box
         sx={{
           height: "calc(100vh - 173px)",
           display: "flex",
-          flexDirection:"column",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
         }}

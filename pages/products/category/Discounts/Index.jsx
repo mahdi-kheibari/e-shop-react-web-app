@@ -125,7 +125,6 @@ const Discounts = ({ allCategories, Products }) => {
                     }}
                   >
                     <Box
-                      to={"/"}
                       sx={{
                         display: "flex",
                         alignItems: "center",
@@ -212,7 +211,6 @@ const Discounts = ({ allCategories, Products }) => {
 export default Discounts;
 
 import categories from "@/store/categories";
-import AsideLayout from "@/components/layouts/asideLayout/AsideLayout";
 import Item from "@/components/aside/Item";
 import CollapseItem from "@/components/aside/CollapseItem";
 Discounts.getLayout = function getLayout(page) {
@@ -259,7 +257,7 @@ import Digital from "@/store/Digital";
 import Fashion from "@/store/Fashion";
 import Beauty from "@/store/Beauty";
 import House from "@/store/House";
-import categories from "@/store/categories";
+import index from "@/store/index";
 export const getStaticProps = async (ctx) => {
   const products = {};
   function filteredProduct(product, category) {
@@ -287,7 +285,7 @@ export const getStaticProps = async (ctx) => {
   }
   return {
     props: {
-      allCategories: categories,
+      allCategories: index.categories,
       Products: products,
     },
   };

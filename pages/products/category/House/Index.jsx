@@ -65,7 +65,6 @@ House.getLayout = function getLayout(page) {
 };
 
 import HouseProduct from "@/store/House";
-import categories from "@/store/categories";
 export const getStaticProps = async (ctx) => {
   return {
     props: {

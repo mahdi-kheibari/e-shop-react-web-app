@@ -10,7 +10,6 @@ import {
   FormControl,
   Container,
 } from "@mui/material";
-import Link from "../utils/Link";
 import SecondSwiper from "../swiper/secondSwiper/SecondSwiper";
 import { SwiperSlide } from "swiper/react";
 import SecondSwiperItem from "../swiper/secondSwiper/secondSwiperItem/SecondSwiperItem";
@@ -20,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import actions from "../../store/redux/cart/cartActions";
 import { changeSumTotal } from "../../store/redux/cart/cartSlice";
 import style from "./SingleProduct.module.scss";
+import Link from "next/link";
 
 const SingleProduct = ({
   product,
@@ -227,7 +227,7 @@ const SingleProduct = ({
                       Quantity :
                     </Box>
                     <FormControl
-                      className={`${style["product-information_input search_box"]} rounded`}
+                      className={`${style["product-information_input"]} ${style["search_box"]} rounded`}
                       sx={{ width: "70%" }}
                     >
                       <OutlinedInput
@@ -348,8 +348,11 @@ const SingleProduct = ({
                   .map((i) => (
                     <SwiperSlide key={i.name}>
                       <Link
-                        href={`/Product/${subCrumbName}/${i.id}`}
-                        className={`${style["bestSeller"]}`}
+                        href={{
+                          pathname: `/Product/${subCrumbName}/[id]`,
+                          query: { id: i.id },
+                        }}
+                        className={`bestSeller`}
                       >
                         <SecondSwiperItem i={i} />
                       </Link>
@@ -363,7 +366,10 @@ const SingleProduct = ({
                   .map((i) => (
                     <SwiperSlide key={i.name}>
                       <Link
-                        href={`/Product/${subCrumbName}/${i.id}`}
+                        href={{
+                          pathname: `/Product/${subCrumbName}/[id]`,
+                          query: { id: i.id },
+                        }}
                         className="swiper-slide-small"
                       >
                         <SecondSwiperItem i={i} />
