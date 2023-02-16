@@ -1,6 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# e-shop
+
+## For test Authentication in development mode
+
+> For Next.js version
+
+1-Create an account at Auth0 (https://auth0.com) and create new application with some settings below.
+* Allowed Callback URLs: http://localhost:3000/api/auth/callback
+* Allowed Logout URLs: http://localhost:3000
+
+2-Rename file `.env.example` as `.env.local`
+
+3-Add your Auth0 information to `.env.local` file
+
+>For React version
+ 
+You don't need to do anything
+
 
 ## Getting Started
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 First, run the development server:
 
