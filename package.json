@@ -2,6 +2,7 @@
   "name": "e-shop-react-web-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://mahdi-kheibari.github.io/e-shop-react-web-app",
   "dependencies": {
     "@auth0/auth0-react": "^2.0.0",
     "@emotion/react": "^11.10.5",
@@ -12,6 +13,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -25,6 +27,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy" : "yarn build",
+    "deploy" : "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

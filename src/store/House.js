@@ -1,3 +1,9 @@
+import P1494 from './../assets/images/category/House/cleaning/P1494.jpg';
+import c1C from './../assets/images/category/House/cleaning/1C.jpg';
+import GDW_J552S from './../assets/images/category/House/cleaning/GDW-J552S.jpg';
+import GTV_50LU722S from './../assets/images/category/House/video_and_audio/GTV-50LU722S.jpg';
+import Playstation_5 from './../assets/images/category/House/video_and_audio/Playstation_5.jpg';
+import PLUS_3D from './../assets/images/category/House/video_and_audio/PLUS_3D.jpg';
 const House = {
     Products: {
         cleaning: [
@@ -7,7 +13,7 @@ const House = {
                 id: "P1494",
                 images: [
                     {
-                        address: "/images/category/House/cleaning/P1494.jpg",
+                        address: P1494,
                     }
                 ],
                 price: "27,500,000",
@@ -22,7 +28,7 @@ const House = {
                 id: "1C",
                 images: [
                     {
-                        address: "/images/category/House/cleaning/1C.jpg",
+                        address: c1C,
                     }
                 ],
                 price: "6,500,000",
@@ -37,7 +43,7 @@ const House = {
                 id: "GDW-J552S",
                 images: [
                     {
-                        address: "/images/category/House/cleaning/GDW-J552S.jpg",
+                        address: GDW_J552S,
                     }
                 ],
                 price: "14,575,000",
@@ -54,7 +60,7 @@ const House = {
                 id: "GTV-50LU722S",
                 images: [
                     {
-                        address: "/images/category/House/video_and_audio/GTV-50LU722S.jpg",
+                        address: GTV_50LU722S,
                     }
                 ],
                 price: "9,950,000",
@@ -69,7 +75,7 @@ const House = {
                 id: "Playstation_5",
                 images: [
                     {
-                        address: "/images/category/House/video_and_audio/Playstation_5.jpg",
+                        address: Playstation_5,
                     }
                 ],
                 price: "27,895,000",
@@ -84,7 +90,7 @@ const House = {
                 id: "PLUS_3D",
                 images: [
                     {
-                        address: "/images/category/House/video_and_audio/PLUS_3D.jpg",
+                        address: PLUS_3D,
                     }
                 ],
                 price: "3,295,000",

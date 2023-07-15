@@ -1,3 +1,9 @@
+import f909001 from './../assets/images/category/Fashion/female/909001.jpg';
+import Code_3 from './../assets/images/category/Fashion/female/Code_3.jpg';
+import f8SH567Z8_PINK from './../assets/images/category/Fashion/female/8SH567Z8-PINK.jpg';
+import Formal_Jacket from './../assets/images/category/Fashion/male/Formal_Jacket.jpg';
+import EG0711 from './../assets/images/category/Fashion/male/EG0711.jpg';
+import GG1015 from './../assets/images/category/Fashion/male/GG1015.jpg';
 const Fashion = {
     Products: {
         female: [
@@ -7,7 +13,7 @@ const Fashion = {
                 id: "909001",
                 images: [
                     {
-                        address: "/images/category/Fashion/female/909001.jpg",
+                        address: f909001,
                     }
                 ],
                 price: "1,530,000",
@@ -22,7 +28,7 @@ const Fashion = {
                 id: "Code_3",
                 images: [
                     {
-                        address: "/images/category/Fashion/female/Code_3.jpg",
+                        address: Code_3,
                     }
                 ],
                 price: "292,000",
@@ -37,7 +43,7 @@ const Fashion = {
                 id: "8SH567Z8-PINK",
                 images: [
                     {
-                        address: "/images/category/Fashion/female/8SH567Z8-PINK.jpg",
+                        address: f8SH567Z8_PINK,
                     }
                 ],
                 price: "333,000",
@@ -54,7 +60,7 @@ const Fashion = {
                 id: "Formal_Jacket",
                 images: [
                     {
-                        address: "/images/category/Fashion/male/Formal_Jacket.jpg",
+                        address: Formal_Jacket,
                     }
                 ],
                 price: "1,197,000",
@@ -69,7 +75,7 @@ const Fashion = {
                 id: "EG0711",
                 images: [
                     {
-                        address: "/images/category/Fashion/male/EG0711.jpg",
+                        address: EG0711,
                     }
                 ],
                 price: "4,950,000",
@@ -84,7 +90,7 @@ const Fashion = {
                 id: "GG1015",
                 images: [
                     {
-                        address: "/images/category/Fashion/male/GG1015.jpg",
+                        address: GG1015,
                     }
                 ],
                 price: "650,000",

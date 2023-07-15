@@ -84,7 +84,6 @@ const Index = () => {
     }
   }, [checkedBrands]);
 
-  
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} xl={10}>
@@ -225,7 +224,11 @@ const Index = () => {
               >
                 <Box className="brand-swiper_logo">
                   <img
-                    src={"/images/brand-slider/" + key + ".jpg"}
+                    src={
+                      context.SpecialBrandsSlider.find(
+                        (item) => item.name === key
+                      ).address
+                    }
                     alt={key}
                     className="rounded"
                   />

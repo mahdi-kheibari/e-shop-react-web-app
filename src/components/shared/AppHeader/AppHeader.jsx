@@ -55,6 +55,7 @@ import actions from "../../../store/redux/cart/cartActions";
 import { useAuth0 } from "@auth0/auth0-react";
 import { changeSearchValue } from "../../../store/redux/search/searchSlice";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import logo192 from './../../../assets/logo192.png';
 
 const AppHeader = () => {
   const [drawer, setdrawer] = useState(false);
@@ -148,7 +149,7 @@ const AppHeader = () => {
               className="header-brand"
             >
               <Link to={"/"} sx={{ display: "flex" }}>
-                <img src="/logo192.png" height="30px" alt="logo" />
+                <img src={logo192} height="30px" alt="logo" />
                 &nbsp;
                 <Typography
                   variant="body1"
@@ -382,7 +383,7 @@ const AppHeader = () => {
                         alignSelf: "center",
                       }}
                     >
-                      <img src="/logo192.png" height="30px" alt="logo" />
+                      <img src={logo192} height="30px" alt="logo" />
                       &nbsp;
                       <Typography
                         variant="body1"

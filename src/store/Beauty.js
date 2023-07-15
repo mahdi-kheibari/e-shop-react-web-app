@@ -1,3 +1,9 @@
+import FOAM_150 from './../assets/images/category/Beauty/Health/FOAM_150.jpg';
+import Soap_100g from './../assets/images/category/Beauty/Health/Soap_100g.jpg';
+import Pain_100gr from './../assets/images/category/Beauty/Health/Pain_100gr.jpg';
+import Essence from './../assets/images/category/Beauty/makeup/Essence.jpg';
+import Callista from './../assets/images/category/Beauty/makeup/Callista.jpg';
+import Callista_Extend from './../assets/images/category/Beauty/makeup/Callista_Extend.jpg';
 const Beauty = {
     Products: {
         health: [
@@ -7,7 +13,7 @@ const Beauty = {
                 id: "FOAM_150",
                 images: [
                     {
-                        address: "/images/category/Beauty/health/FOAM_150.jpg",
+                        address: FOAM_150,
                     }
                 ],
                 price: "51,800",
@@ -22,7 +28,7 @@ const Beauty = {
                 id: "Soap_100g",
                 images: [
                     {
-                        address: "/images/category/Beauty/health/Soap_100g.jpg",
+                        address: Soap_100g,
                     }
                 ],
                 price: "50,100",
@@ -37,7 +43,7 @@ const Beauty = {
                 id: "Pain_100gr",
                 images: [
                     {
-                        address: "/images/category/Beauty/health/Pain_100gr.jpg",
+                        address: Pain_100gr,
                     }
                 ],
                 price: "55,300",
@@ -54,7 +60,7 @@ const Beauty = {
                 id: "Essence",
                 images: [
                     {
-                        address: "/images/category/Beauty/makeup/Essence.jpg",
+                        address:Essence ,
                     }
                 ],
                 price: "79,000",
@@ -69,7 +75,7 @@ const Beauty = {
                 id: "Callista",
                 images: [
                     {
-                        address: "/images/category/Beauty/makeup/Callista.jpg",
+                        address:Callista ,
                     }
                 ],
                 price: "46,100",
@@ -84,7 +90,7 @@ const Beauty = {
                 id: "Callista_Extend",
                 images: [
                     {
-                        address: "/images/category/Beauty/makeup/Callista_Extend.jpg",
+                        address: Callista_Extend,
                     }
                 ],
                 price: "70,000",

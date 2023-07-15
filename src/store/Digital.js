@@ -1,3 +1,10 @@
+import poco_x3 from './../assets/images/category/Digital/mobile/poco_x3.jpg';
+import other_1 from './../assets/images/category/Digital/mobile/poco_x3/other-1.jpg';
+import galaxy_a32 from './../assets/images/category/Digital/mobile/galaxy_a32.jpg';
+import redmi_9a from './../assets/images/category/Digital/mobile/redmi_9a.jpg';
+import MateBook_X_Pro from './../assets/images/category/Digital/laptop/MateBook_X_Pro.jpg';
+import l15ef1013dx from './../assets/images/category/Digital/laptop/15ef1013dx.jpg';
+import Ideapad_330 from './../assets/images/category/Digital/laptop/Ideapad_330.jpg';
 const Digital = {
     Products: {
         mobile: [
@@ -7,10 +14,10 @@ const Digital = {
                 id: "poco_x3",
                 images: [
                     {
-                        address: "/images/category/Digital/mobile/poco_x3.jpg",
+                        address: poco_x3,
                     },
                     {
-                        address: '/images/category/Digital/mobile/poco_x3/other-1.jpg',
+                        address: other_1,
                     }
                 ],
                 price: "6,895,000",
@@ -25,7 +32,7 @@ const Digital = {
                 id: "galaxy_a32",
                 images: [
                     {
-                        address: "/images/category/Digital/mobile/galaxy_a32.jpg",
+                        address: galaxy_a32,
                     }
                 ],
                 price: "6,199,000",
@@ -40,7 +47,7 @@ const Digital = {
                 id: "redmi_9a",
                 images: [
                     {
-                        address: "/images/category/Digital/mobile/redmi_9a.jpg",
+                        address: redmi_9a,
                     }
                 ],
                 price: "2,525,000",
@@ -57,7 +64,7 @@ const Digital = {
                 id: "MateBook_X_Pro",
                 images: [
                     {
-                        address: "/images/category/Digital/laptop/MateBook_X_Pro.jpg",
+                        address: MateBook_X_Pro,
                     }
                 ],
                 price: "36,399,000",
@@ -72,7 +79,7 @@ const Digital = {
                 id: "15ef1013dx",
                 images: [
                     {
-                        address: "/images/category/Digital/laptop/15ef1013dx.jpg",
+                        address: l15ef1013dx,
                     }
                 ],
                 price: "25,608,000",
@@ -87,7 +94,7 @@ const Digital = {
                 id: "Ideapad_330",
                 images: [
                     {
-                        address: "/images/category/Digital/laptop/Ideapad_330.jpg",
+                        address: Ideapad_330,
                     }
                 ],
                 price: "8,650,000",
